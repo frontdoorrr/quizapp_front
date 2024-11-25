@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import BackgroundVideo from "./components/BackgroundVideo";
+import ScrollText from "./components/ScrollText";
+import EmailSubscribe from "./components/EmailSubscribe";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BackgroundVideo />
+      <ScrollText />
+      <EmailSubscribe /> {/* ScrollText 바로 아래에 배치 */}
     </div>
   );
 }
