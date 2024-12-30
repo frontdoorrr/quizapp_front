@@ -1,5 +1,12 @@
+@font-face {
+  font-family: 'CGF Locust Resistance';
+  src: url('./assets/fonts/cgf-locust-resistance/CGF Locust Resistance.ttf') format('truetype');
+}
+
 :root {
-  --font-primary: 'Roboto', sans-serif;
+  --font-primary: 'CGF Locust Resistance', sans-serif;
+  --font-english: 'CGF Locust Resistance', sans-serif;
+  --nav-height: 64px;
 }
 
 body {
@@ -7,6 +14,43 @@ body {
   font-family: var(--font-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.content {
+  padding-top: var(--nav-height);
+}
+
+.about-container,
+.ranking-container,
+.profile-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 code {

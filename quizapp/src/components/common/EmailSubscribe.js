@@ -1,37 +1,70 @@
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { subscribeEmail } from '../../services/api';
 import '../../styles/EmailSubscribe.css';
 
 function EmailSubscribe() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [ref, inView] = useInView({
+  const [emailValue, setEmailValue] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [ref, isVisible] = useInView({
     threshold: 0.2,
     triggerOnce: true,
   });
 
-  const handleSubscribe = () => {
-    if (!email.includes("@")) {
-      setMessage("Please enter a valid email address.");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = emailValue.trim();
+
+    if (!email) {
+      setStatusMessage('이메일을 입력해주세요.');
       return;
     }
-    setMessage("Thank you for subscribing!");
-    setEmail(""); // 입력 필드 초기화
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setStatusMessage('유효한 이메일 주소를 입력해주세요.');
+      return;
+    }
+
+    setIsLoading(true);
+    setStatusMessage('');
+
+    try {
+      await subscribeEmail(email);
+      setStatusMessage('구독이 완료되었습니다!');
+      setEmailValue('');
+    } catch (error) {
+      setStatusMessage('구독 중 오류가 발생했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div ref={ref} className={`subscribe-container ${inView ? "visible" : "hidden"}`}>
-      <h2>Join Our Newsletter</h2>
-      <div className="subscribe-form">
+      <div ref={ref} className={`subscribe-container ${isVisible ? "visible" : "hidden"}`}>
+      <form onSubmit={handleSubmit} className="email-form subscribe-form">
         <input
           type="email"
+          value={emailValue}
+          onChange={(e) => setEmailValue(e.target.value)}
           placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoading}
+          className="email-input"
         />
-        <button onClick={handleSubscribe}>Subscribe</button>
-      </div>
-      {message && <p className="subscribe-message">{message}</p>}
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="subscribe-button"
+        >
+          {isLoading ? 'Subscribing...' : 'Subscribe'}
+        </button>
+      </form>
+      {statusMessage && (
+        <div className="status-message">
+          {statusMessage}
+        </div>
+      )}
     </div>
   );
 }

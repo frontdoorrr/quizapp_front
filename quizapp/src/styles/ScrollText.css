@@ -5,17 +5,34 @@
 }
 
 .scroll-text {
-  font-size: 3rem;
-  font-weight: bold;
-  color: white;
-  transition: transform 1s ease, opacity 1s ease;
+  text-align: center;
+  padding: 2rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+  margin-top: 4rem;  /* 상단 여백 추가 */
 }
 
 .scroll-text.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.scroll-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  font-family: var(--font-english);
+}
+
+.scroll-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: var(--font-english);
 }
 
 .scroll-text + .subscribe-container {

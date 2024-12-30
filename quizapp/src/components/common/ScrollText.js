@@ -11,7 +11,7 @@ function ScrollText({ children }) {
   return (
     <div className="scroll-text-wrapper">
           <div ref={ref} className={`scroll-text ${inView ? "visible" : "hidden"}`}>
-        <h6>당신의 실력을 증명하세요. 곧 제 1게임이 시작됩니다.</h6>
+        {/* <h6>당신의 실력을 증명하세요. 곧 제 1게임이 시작됩니다.</h6> */}
         <h1>GENIUS GAME</h1>
       </div>
       {children} {/* 자식 요소를 여기에 렌더링 */}
