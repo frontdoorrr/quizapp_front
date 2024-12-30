@@ -1,19 +1,20 @@
 import React from 'react';
+import '../styles/Profile.css';
 
 function Profile() {
   return (
-    <div className="profile-container">
-      <h1>My Profile</h1>
-      <div className="profile-content">
+    <div className="page-container">
+      <h1 className="page-title">PROFILE</h1>
+      <div className="content-container profile-content">
         <div className="profile-info">
-          <h2>User Information</h2>
-          <p>Username: John Doe</p>
-          <p>Email: john@example.com</p>
+          <h2>USER INFORMATION</h2>
+          <p>USERNAME: JOHN DOE</p>
+          <p>EMAIL: JOHN@EXAMPLE.COM</p>
         </div>
         <div className="quiz-history">
-          <h2>Quiz History</h2>
-          <p>Total Quizzes Taken: 10</p>
-          <p>Average Score: 85%</p>
+          <h2>QUIZ HISTORY</h2>
+          <p>TOTAL QUIZZES TAKEN: 10</p>
+          <p>AVERAGE SCORE: 85.5</p>
         </div>
       </div>
     </div>

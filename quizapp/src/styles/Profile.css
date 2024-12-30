@@ -1,0 +1,14 @@
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.profile-info, .quiz-history {
+  padding: 1rem;
+}
+
+.profile-info h2, .quiz-history h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}

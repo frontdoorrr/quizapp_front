@@ -1,10 +1,18 @@
 import React from 'react';
+import '../styles/About.css';
 
 function About() {
   return (
-    <div className="about-container">
-      <h1>About Quiz App</h1>
-      <p>Welcome to our Quiz App! Test your knowledge and challenge yourself.</p>
+    <div className="page-container">
+      <h1 className="page-title">About GENIUS GAME</h1>
+      <div className="content-container">
+        <h3>Overview</h3>
+        <h6>Welcome to our GENIUS GAME! Test your knowledge and challenge yourself.</h6>
+        <h3>ABOUT GAME</h3>
+        <h6>Welcome to our GENIUS GAME! Test your knowledge and challenge yourself.</h6>
+        <h3>Coin AND Point</h3>
+        <h6>Welcome to our GENIUS GAME! Test your knowledge and challenge yourself.</h6>
+      </div>
     </div>
   );
 }

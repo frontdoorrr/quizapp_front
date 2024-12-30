@@ -5,31 +5,79 @@
 
 :root {
   --font-primary: 'CGF Locust Resistance', sans-serif;
-  --font-english: 'CGF Locust Resistance', sans-serif;
   --nav-height: 64px;
+  --bg-color: #1c1616;
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: var(--font-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: #ffffff;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: var(--bg-color);
 }
 
 .app {
   min-height: 100vh;
+  background-color: var(--bg-color);
 }
 
 .content {
   padding-top: var(--nav-height);
+  background-color: var(--bg-color);
+  min-height: calc(100vh - var(--nav-height));
 }
 
-.about-container,
+/* 공통 페이지 컨테이너 스타일 */
+.page-container {
+  background-color: var(--bg-color);
+  color: #ffffff;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding-top: 4rem;
+  line-height: 2.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+/* 공통 페이지 제목 스타일 */
+.page-title {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-top: 2rem;
+  width: 100%;
+}
+
+/* 공통 컨텐츠 컨테이너 스타일 */
+.content-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
 .ranking-container,
 .profile-container {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
+  line-height: 2.6;
 }
 
 h1 {
@@ -42,7 +90,7 @@ h1 {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   padding: 1rem;
-  background-color: #fff;
+  background-color: #333;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

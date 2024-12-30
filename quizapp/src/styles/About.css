@@ -1,0 +1,23 @@
+.about-container {
+  background-color: #1c1616;
+  color: #ffffff;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 4rem 2rem 2rem 2rem;
+  line-height: 2.6;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.about-container h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-top: 2rem;
+}
