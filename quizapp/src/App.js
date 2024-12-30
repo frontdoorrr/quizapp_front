@@ -1,7 +1,7 @@
 import React from "react";
-import BackgroundVideo from "./components/BackgroundVideo";
-import ScrollText from "./components/ScrollText";
-import EmailSubscribe from "./components/EmailSubscribe";
+import BackgroundVideo from "./components/layout/BackgroundVideo";
+import ScrollText from "./components/common/ScrollText";
+import EmailSubscribe from "./components/common/EmailSubscribe";
 
 function App() {
   return (
