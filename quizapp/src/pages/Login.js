@@ -1,29 +1,35 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { authService } from '../api';
-import { useAPI } from '../hooks/useAPI';
+import { authService } from '../api/services/authService';
 import '../styles/Auth.css';
 
 function Login() {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  const { loading, error, execute: loginExecute } = useAPI(authService.login);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials(prev => ({ ...prev, [name]: value }));
-  };
+  const from = location.state?.from || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginExecute(credentials.email, credentials.password);
-      // 이전 페이지가 있으면 그곳으로, 없으면 프로필 페이지로 이동
-      const from = location.state?.from?.pathname || '/profile';
-      navigate(from, { replace: true });
+      const response = await authService.login(email, password);
+      localStorage.setItem('token', response.access_token);
+      // 로그인 성공 후 이전 페이지로 리다이렉트
+      navigate(from);
     } catch (err) {
-      // 에러는 useAPI에서 처리됨
+      setError('로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+      console.error('Login error:', err);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
     }
   };
 
@@ -36,7 +42,7 @@ function Login() {
             type="email"
             name="email"
             placeholder="EMAIL"
-            value={credentials.email}
+            value={email}
             onChange={handleChange}
             required
           />
@@ -44,14 +50,14 @@ function Login() {
             type="password"
             name="password"
             placeholder="PASSWORD"
-            value={credentials.password}
+            value={password}
             onChange={handleChange}
             required
           />
-          <button type="submit" className="auth-submit" disabled={loading}>
-            {loading ? 'LOGGING IN...' : 'LOGIN'}
+          <button type="submit" className="auth-submit">
+            LOGIN
           </button>
-          {error && <p className="auth-error">{error.message}</p>}
+          {error && <p className="auth-error">{error}</p>}
         </form>
       </div>
     </div>

@@ -1,0 +1,183 @@
+.main-container {
+  min-height: 100vh;
+  background-color: #1c1616;
+  color: #ffffff;
+}
+
+.section {
+  padding: 6rem 2rem;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 공통 스타일 */
+.section h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #ffd700;
+}
+
+/* 기업 소개 섹션 */
+.company-content {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.company-text {
+  flex: 1;
+}
+
+.company-text h3 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.company-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.company-values {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.value-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.value-item h4 {
+  color: #ffd700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 서비스 소개 섹션 */
+.service-section {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card h3 {
+  color: #ffd700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* 연락처 섹션 */
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.contact-info {
+  display: grid;
+  gap: 2rem;
+}
+
+.contact-item h4 {
+  color: #ffd700;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-form {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.contact-form h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.contact-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.contact-form button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #ffd700;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #ffed4a;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .company-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 4rem 1rem;
+  }
+}

@@ -10,12 +10,12 @@
   --color-text-dark: #000000;
 
   /* Background Colors */
-  --color-bg-primary: #1c1616;
-  --color-bg-secondary: rgba(255, 255, 255, 0.1);
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #000000;
   --color-bg-hover: rgba(255, 255, 255, 0.2);
 
   /* Border Colors */
-  --color-border: rgba(255, 255, 255, 0.2);
+  --color-border: #000000;
 
   /* Fonts */
   --font-korean: 'TENADA', sans-serif;

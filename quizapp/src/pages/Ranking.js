@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { rankingService } from '../api/services/rankingService';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Ranking.css';
 
 function Ranking() {
@@ -7,12 +8,19 @@ function Ranking() {
   const [rankings, setRankings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login', { state: { from: '/ranking' } });
+      return;
+    }
+
     // 페이지 진입 시 스크롤을 맨 위로
     window.scrollTo(0, 0);
     fetchRankings();
-  }, [activeTab]); // activeTab이 변경될 때마다 다시 fetch
+  }, [activeTab, navigate]);
 
   const fetchRankings = async () => {
     try {
@@ -34,7 +42,13 @@ function Ranking() {
       setRankings(rankingsArray);
     } catch (err) {
       console.error('Fetch rankings error:', err);
-      setError(err.message || '랭킹을 불러오는데 실패했습니다.');
+      if (err.response && err.response.status === 401) {
+        // 토큰이 만료되었거나 유효하지 않은 경우
+        localStorage.removeItem('token');
+        navigate('/login', { state: { from: '/ranking' } });
+      } else {
+        setError(err.message || '랭킹을 불러오는데 실패했습니다.');
+      }
     } finally {
       setLoading(false);
     }

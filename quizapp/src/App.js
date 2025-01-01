@@ -12,6 +12,7 @@ import ScrollText from "./components/common/ScrollText";
 import EmailSubscribe from "./components/common/EmailSubscribe";
 import AuthButtons from "./components/auth/AuthButtons";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Main from './pages/Main';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             } />
             <Route path="/login" element={<Login  />} />
             <Route path="/register" element={<Register  />} />
+            <Route path="/main" element={<Main />} />
           </Routes>
         </div>
       </div>

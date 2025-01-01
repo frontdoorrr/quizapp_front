@@ -14,8 +14,9 @@ export const userService = {
   updateProfile: async (userData) => {
     try {
       console.log('Updating profile with data:', userData);
-      // PUT 대신 PATCH 메서드 사용 (부분 업데이트)
-      const response = await api.patch(API_ENDPOINTS.UPDATE_PROFILE, userData);
+      const response = await api.patch(API_ENDPOINTS.UPDATE_PROFILE, {
+        nickname: userData.nickname
+      });
       console.log('Update profile response:', response);
       return response.data;
     } catch (error) {
