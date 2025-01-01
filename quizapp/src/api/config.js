@@ -26,14 +26,14 @@ export const API_ENDPOINTS = {
 
   // User
   GET_PROFILE: '/user/me',
-  UPDATE_PROFILE: '/user',
+  UPDATE_PROFILE: '/user/me',
 
   // Quiz
   GET_QUIZZES: '/quizzes',
-  GET_QUIZ: '/quiz',
-  SUBMIT_QUIZ: '/quiz/submit',
+  SUBMIT_QUIZ: '/quizzes/submit',
 
   // Ranking
+  GET_RANKINGS: '/user',
   GET_TOTAL_RANKINGS: '/user',
   GET_GAME_RANKING: '/answer',
 };

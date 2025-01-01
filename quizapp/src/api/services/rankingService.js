@@ -2,12 +2,18 @@ import api from '../interceptors';
 import { API_ENDPOINTS } from '../config';
 
 export const rankingService = {
-  getRankingList: async () => {
-    return await api.get(API_ENDPOINTS.RANKING_LIST);
-  },
-
-  getUserRanking: async (userId) => {
-    const url = API_ENDPOINTS.USER_RANKING.replace(':id', userId);
-    return await api.get(url);
-  },
+  getRankings: async (params = { order_by: 'point', order: 'desc' }) => {
+    try {
+      const queryString = new URLSearchParams(params).toString();
+      const url = `${API_ENDPOINTS.GET_RANKINGS}?${queryString}`;
+      console.log('Requesting rankings:', url);
+      console.log('Token:', localStorage.getItem('token')); // 토큰 확인
+      
+      const response = await api.get(url);
+      return response.data;
+    } catch (error) {
+      console.error('Get rankings error:', error.response || error);
+      throw error;
+    }
+  }
 };

@@ -47,29 +47,40 @@
 }
 
 .ranking-container {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  max-width: 800px;
+  margin: 2rem auto;
   padding: 2rem;
-  animation: fadeIn 0.3s ease-in-out;
+  background-color: var(--color-bg-secondary);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .ranking-container h1 {
-  color: #ffffff;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+  color: var(--color-text-primary);
   text-align: center;
-  padding-top: 2rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-english);
 }
 
-.ranking-list {
+.ranking-table {
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ranking-header {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  font-weight: 600;
 }
 
 .ranking-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
   align-items: center;
   padding: 1rem 2rem;
   margin-bottom: 1rem;
@@ -83,33 +94,105 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Top 3 스타일 */
+.ranking-item.top-1 {
+  background-color: rgba(255, 215, 0, 0.2); /* 금색 */
+}
+
+.ranking-item.top-2 {
+  background-color: rgba(192, 192, 192, 0.2); /* 은색 */
+}
+
+.ranking-item.top-3 {
+  background-color: rgba(205, 127, 50, 0.2); /* 동색 */
+}
+
 .rank {
   font-size: 1.5rem;
   font-weight: bold;
   min-width: 40px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-right: 2rem;
+}
+
+.crown {
+  position: absolute;
+  right: 0;
+  font-size: 1.2rem;
+  animation: floating 2s ease-in-out infinite;
+}
+
+/* 왕관 색상 */
+.crown.rank-1 {
+  color: #FFD700; /* 금색 */
+  filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
+}
+
+.crown.rank-2 {
+  color: #C0C0C0; /* 은색 */
+  filter: drop-shadow(0 0 2px rgba(192, 192, 192, 0.5));
+}
+
+.crown.rank-3 {
+  color: #CD7F32; /* 동색 */
+  filter: drop-shadow(0 0 2px rgba(205, 127, 50, 0.5));
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
 }
 
 .username {
-  flex: 1;
-  text-align: left;
-  padding: 0 2rem;
+  text-align: center;
   font-size: 1.2rem;
+  padding: 0 1rem;
 }
 
 .score {
   font-size: 1.2rem;
   font-weight: bold;
   color: #ffd700;
+  text-align: right;
+}
+
+/* Top 3 점수 색상 */
+.top-1 .score {
+  color: #FFD700; /* 금색 */
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.top-2 .score {
+  color: #C0C0C0; /* 은색 */
+}
+
+.top-3 .score {
+  color: #CD7F32; /* 동색 */
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-secondary);
+}
+
+.error {
+  color: #ff6b6b;
+  text-align: center;
+  padding: 2rem;
 }
 
 .loading, .error, .no-rankings {
   text-align: center;
   padding: 2rem;
   font-size: 1.2rem;
-}
-
-.error {
-  color: #ff6b6b;
 }
 
 .loading {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL, DEFAULT_HEADERS, createAuthHeaders } from './config';
+import { API_BASE_URL, DEFAULT_HEADERS } from './config';
 
 // axios 인스턴스 생성
 const api = axios.create({
@@ -19,10 +19,10 @@ api.interceptors.request.use(
     // 그 외 요청에 대해 토큰이 있으면 Authorization 헤더 추가
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers = {
-        ...config.headers,
-        ...createAuthHeaders(token),
-      };
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log('Request headers:', config.headers);  // 헤더 확인
+    } else {
+      console.warn('No token found for request:', config.url);
     }
     return config;
   },
@@ -38,10 +38,16 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
+      console.error('Response error:', {
+        status: error.response.status,
+        data: error.response.data,
+        headers: error.response.headers,
+      });
+
       // 401 Unauthorized 에러 처리
       if (error.response.status === 401) {
         localStorage.removeItem('token');
-        // 로그인 페이지로 리다이렉트 (필요한 경우)
+        // 로그인 페이지로 리다이렉트
         window.location.href = '/login';
       }
       return Promise.reject(error.response.data);

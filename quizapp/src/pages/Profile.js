@@ -17,9 +17,11 @@ function Profile() {
     try {
       setLoading(true);
       const data = await userService.getProfile();
+      console.log('Fetched profile:', data);
       setProfile(data);
       setEditedProfile(data);
     } catch (err) {
+      console.error('Fetch profile error:', err);
       setError(err.message || '프로필을 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);
@@ -47,17 +49,32 @@ function Profile() {
     e.preventDefault();
     try {
       setLoading(true);
-      const updatedProfile = await userService.updateProfile(editedProfile);
+      setError(null);
+
+      // 변경된 필드만 전송
+      const updatedFields = {};
+      if (editedProfile.nickname !== profile.nickname) {
+        updatedFields.nickname = editedProfile.nickname;
+      }
+
+      console.log('Sending update with fields:', updatedFields);
+
+      const updatedProfile = await userService.updateProfile(updatedFields);
+      console.log('Profile updated:', updatedProfile);
+
       setProfile(updatedProfile);
       setIsEditing(false);
     } catch (err) {
+        console.error('Update profile error:', err);
+        const token = localStorage.getItem('token');
+        console.log('Token:', token);
       setError(err.message || '프로필 업데이트에 실패했습니다.');
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) {
+  if (loading && !profile) {
     return <div className="profile-container">Loading...</div>;
   }
 
@@ -80,7 +97,6 @@ function Profile() {
               type="email"
               name="email"
               value={editedProfile.email}
-              onChange={handleChange}
               disabled
             />
           </div>
@@ -89,19 +105,20 @@ function Profile() {
             <input
               type="text"
               name="nickname"
-              value={editedProfile.nickname}
+              value={editedProfile.nickname || ''}
               onChange={handleChange}
               required
             />
           </div>
           <div className="profile-buttons">
             <button type="submit" disabled={loading}>
-              저장
+              {loading ? '저장 중...' : '저장'}
             </button>
-            <button type="button" onClick={handleCancel}>
+            <button type="button" onClick={handleCancel} disabled={loading}>
               취소
             </button>
           </div>
+          {error && <p className="profile-error">{error}</p>}
         </form>
       ) : (
         <div className="profile-info">
@@ -111,7 +128,7 @@ function Profile() {
           </div>
           <div className="profile-field">
             <label>닉네임:</label>
-            <span>{profile.nickname}</span>
+            <span>{profile.nickname || '-'}</span>
           </div>
           <div className="profile-field">
             <label>총 점수:</label>

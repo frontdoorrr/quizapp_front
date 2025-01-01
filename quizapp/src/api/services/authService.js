@@ -12,12 +12,19 @@ export const authService = {
         headers: LOGIN_HEADERS,
       });
 
-      if (response.data?.access_token) {
-        localStorage.setItem('token', response.data.access_token);
+      console.log('Login response:', response);  // 응답 확인
+
+      // 토큰이 access_token 또는 token으로 올 수 있음
+      const token = response.data?.access_token || response.data?.token;
+      if (token) {
+        localStorage.setItem('token', token);
+      } else {
+        console.error('No token found in response:', response.data);
       }
 
       return response.data;
     } catch (error) {
+      console.error('Login error:', error.response || error);
       throw error;
     }
   },
