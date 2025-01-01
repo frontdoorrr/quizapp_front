@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { authService } from '../api';
 import { useAPI } from '../hooks/useAPI';
 import '../styles/Auth.css';
@@ -7,7 +7,8 @@ import '../styles/Auth.css';
 function Login() {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const navigate = useNavigate();
-  const { loading, error, execute: login } = useAPI(authService.login);
+  const location = useLocation();
+  const { loading, error, execute: loginExecute } = useAPI(authService.login);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,9 +18,10 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login(credentials);
-      localStorage.setItem('token', response.token);
-      navigate('/profile');
+      await loginExecute(credentials.email, credentials.password);
+      // 이전 페이지가 있으면 그곳으로, 없으면 프로필 페이지로 이동
+      const from = location.state?.from?.pathname || '/profile';
+      navigate(from, { replace: true });
     } catch (err) {
       // 에러는 useAPI에서 처리됨
     }
@@ -49,7 +51,7 @@ function Login() {
           <button type="submit" className="auth-submit" disabled={loading}>
             {loading ? 'LOGGING IN...' : 'LOGIN'}
           </button>
-          {error && <div className="auth-error">{error.message}</div>}
+          {error && <p className="auth-error">{error.message}</p>}
         </form>
       </div>
     </div>

@@ -1,12 +1,16 @@
 .navbar {
-  background-color: transparent;
+  background-color: var(--color-bg-primary);
   backdrop-filter: blur(8px);
   position: fixed;
-  top: 2.5rem;  /* auth 버튼 크기가 작아져서 간격도 줄임 */
+  top: var(--auth-buttons-height);
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 900;  
   padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
 }
 
 .nav-container {
@@ -15,10 +19,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 2rem;
 }
 
 .nav-logo a {
-  color: #ffffff;
+  color: var(--color-text-primary);
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
@@ -32,7 +37,7 @@
 }
 
 .nav-links a {
-  color: #ffffff;
+  color: var(--color-text-primary);
   text-decoration: none;
   font-size: 1.1rem;
   padding: 0.5rem 1rem;
@@ -42,19 +47,19 @@
 }
 
 .nav-links a:hover {
-  color: #ffd700;
+  color: var(--color-primary);
 }
 
 .nav-links a.active {
-  color: #ffd700;
-  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-primary);
+  background-color: var(--color-bg-secondary);
   border-radius: 4px;
 }
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .navbar {
-    top: 2.2rem;  /* 모바일에서는 더 작게 */
+    top: 2.2rem;  
   }
 
   .nav-container {

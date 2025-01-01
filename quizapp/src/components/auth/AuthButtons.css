@@ -1,51 +1,51 @@
 .auth-buttons {
   position: fixed;
-  top: 0.7rem;  /* 위치도 약간 위로 */
+  top: 0.7rem;
   right: 2rem;
   display: flex;
-  gap: 0.7rem;  /* 버튼 간격 줄임 */
-  z-index: 1000;
+  gap: 0.7rem;
+  z-index: 1000;  /* navbar보다 높은 z-index */
+  background-color: transparent;
 }
 
 .auth-button {
-  padding: 0.3rem 0.8rem;  /* 패딩 줄임 */
+  padding: 0.3rem 0.8rem;
   border: none;
-  border-radius: 3px;  /* 둥글기도 약간 줄임 */
-  font-family: var(--font-primary);
-  font-size: 0.8rem;  /* 폰트 크기 줄임 */
+  border-radius: 3px;
+  font-family: var(--font-english);
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .login-button {
   background-color: transparent;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-text-primary);
 }
 
 .login-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--color-bg-hover);
 }
 
 .register-button {
-  background-color: #ffd700;
-  color: #000000;
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
 }
 
 .register-button:hover {
-  background-color: #ffc800;
-  transform: translateY(-1px);  /* 호버 효과도 약간 줄임 */
+  background-color: var(--color-primary-light);
 }
 
 @media (max-width: 768px) {
   .auth-buttons {
     top: 0.5rem;
     right: 1rem;
-    gap: 0.5rem;  /* 모바일에서 간격 더 줄임 */
+    gap: 0.5rem;
   }
 
   .auth-button {
-    padding: 0.25rem 0.6rem;  /* 모바일에서 패딩 더 줄임 */
-    font-size: 0.75rem;  /* 모바일에서 폰트 더 줄임 */
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
   }
 }

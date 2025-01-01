@@ -1,7 +1,37 @@
+:root {
+  /* Primary Colors */
+  --color-primary: #ffd700;
+  --color-primary-light: #ffed4a;
+  --color-primary-dark: #e6c200;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-dark: #000000;
+
+  /* Background Colors */
+  --color-bg-primary: #1c1616;
+  --color-bg-secondary: rgba(255, 255, 255, 0.1);
+  --color-bg-hover: rgba(255, 255, 255, 0.2);
+
+  /* Border Colors */
+  --color-border: rgba(255, 255, 255, 0.2);
+
+  /* Fonts */
+  --font-korean: 'TENADA', sans-serif;
+  --font-english: 'Montserrat', sans-serif;
+
+  /* Layout */
+  --navbar-height: 4.5rem;  /* Navbar 높이 */
+  --auth-buttons-height: 2.5rem;  /* Auth 버튼 영역 높이 */
+}
+
 .App {
   text-align: center;
   margin-top: 50px;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-english);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 h1 {
@@ -10,4 +40,48 @@ h1 {
 
 p {
   color: #333;
+}
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding-top: calc(var(--navbar-height) + var(--auth-buttons-height));  /* Navbar와 Auth 버튼 높이만큼 패딩 */
+  position: relative;
+  z-index: 1;  /* Navbar보다 낮은 z-index */
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-bg-hover);
 }

@@ -1,25 +1,39 @@
-export const API_BASE_URL = 'http://localhost:8080/api';
+export const API_BASE_URL = 'http://localhost:8000';
+
+// 기본 헤더 설정
+export const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+};
+
+// 로그인 전용 헤더
+export const LOGIN_HEADERS = {
+  'Content-Type': 'application/x-www-form-urlencoded',
+  'Accept': 'application/json',
+};
+
+// 인증 헤더 생성 함수
+export const createAuthHeaders = (accessToken) => ({
+  ...DEFAULT_HEADERS,
+  'Authorization': `Bearer ${accessToken}`,
+});
 
 export const API_ENDPOINTS = {
   // Auth
-  LOGIN: '/auth/login',
-  REGISTER: '/auth/register',
+  LOGIN: '/user/login',
+  REGISTER: '/user/register',
   LOGOUT: '/auth/logout',
 
   // User
-  USER_PROFILE: '/user/profile',
-  USER_UPDATE: '/user/update',
+  GET_PROFILE: '/user/profile',
+  UPDATE_PROFILE: '/user/profile',
 
   // Quiz
-  QUIZ_LIST: '/quiz/list',
-  QUIZ_DETAIL: '/quiz/:id',
-  QUIZ_SUBMIT: '/quiz/submit',
+  GET_QUIZZES: '/quizzes',
+  GET_QUIZ: '/quiz',
+  SUBMIT_QUIZ: '/quiz/submit',
 
   // Ranking
-  RANKING_LIST: '/ranking/list',
-  USER_RANKING: '/ranking/user/:id',
-};
-
-export const DEFAULT_HEADERS = {
-  'Content-Type': 'application/json',
+  GET_RANKINGS: '/rankings',
+  GET_USER_RANKING: '/ranking/user',
 };

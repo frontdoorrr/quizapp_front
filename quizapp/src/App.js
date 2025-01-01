@@ -11,6 +11,7 @@ import BackgroundVideo from "./components/layout/BackgroundVideo";
 import ScrollText from "./components/common/ScrollText";
 import EmailSubscribe from "./components/common/EmailSubscribe";
 import AuthButtons from "./components/auth/AuthButtons";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
@@ -27,11 +28,15 @@ function App() {
                 <EmailSubscribe />
               </div>
             } />
-            <Route path="/about" element={<About />} />
-            <Route path="/ranking" element={<Ranking />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About  />} />
+            <Route path="/ranking" element={<Ranking  />} />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/login" element={<Login  />} />
+            <Route path="/register" element={<Register  />} />
           </Routes>
         </div>
       </div>
