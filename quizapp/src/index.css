@@ -30,9 +30,15 @@ body {
 }
 
 .content {
-  padding-top: var(--nav-height);
+  padding-top: calc(var(--nav-height) + 2.5rem); /* navbar 높이 + 작아진 auth 버튼 영역 */
   background-color: var(--bg-color);
   min-height: calc(100vh - var(--nav-height));
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding-top: calc(var(--nav-height) + 2.2rem); /* 모바일에서는 간격 더 좁게 */
+  }
 }
 
 /* 공통 페이지 컨테이너 스타일 */
@@ -50,6 +56,7 @@ body {
   right: 0;
   bottom: 0;
   overflow-y: auto;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 /* 공통 페이지 제목 스타일 */
@@ -104,4 +111,16 @@ h1 {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* 페이지 전환 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

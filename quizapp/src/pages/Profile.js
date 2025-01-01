@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/Profile.css';
 
 function Profile() {
+  useEffect(() => {
+    // 페이지 진입 시 스크롤을 맨 위로
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="page-container">
       <h1 className="page-title">PROFILE</h1>

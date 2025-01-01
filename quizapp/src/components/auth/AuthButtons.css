@@ -1,0 +1,51 @@
+.auth-buttons {
+  position: fixed;
+  top: 0.7rem;  /* 위치도 약간 위로 */
+  right: 2rem;
+  display: flex;
+  gap: 0.7rem;  /* 버튼 간격 줄임 */
+  z-index: 1000;
+}
+
+.auth-button {
+  padding: 0.3rem 0.8rem;  /* 패딩 줄임 */
+  border: none;
+  border-radius: 3px;  /* 둥글기도 약간 줄임 */
+  font-family: var(--font-primary);
+  font-size: 0.8rem;  /* 폰트 크기 줄임 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.login-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.register-button {
+  background-color: #ffd700;
+  color: #000000;
+}
+
+.register-button:hover {
+  background-color: #ffc800;
+  transform: translateY(-1px);  /* 호버 효과도 약간 줄임 */
+}
+
+@media (max-width: 768px) {
+  .auth-buttons {
+    top: 0.5rem;
+    right: 1rem;
+    gap: 0.5rem;  /* 모바일에서 간격 더 줄임 */
+  }
+
+  .auth-button {
+    padding: 0.25rem 0.6rem;  /* 모바일에서 패딩 더 줄임 */
+    font-size: 0.75rem;  /* 모바일에서 폰트 더 줄임 */
+  }
+}

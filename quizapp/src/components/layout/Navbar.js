@@ -9,18 +9,10 @@ function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
         <div className="nav-links">
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
-            HOME
-          </Link>
-          <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>
-            ABOUT
-          </Link>
-          <Link to="/ranking" className={location.pathname === '/ranking' ? 'active' : ''}>
-            RANKING
-          </Link>
-          <Link to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
-            PROFILE
-          </Link>
+          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>HOME</Link>
+          <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>ABOUT</Link>
+          <Link to="/ranking" className={location.pathname === '/ranking' ? 'active' : ''}>RANKING</Link>
+          <Link to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>PROFILE</Link>
         </div>
       </div>
     </nav>

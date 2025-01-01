@@ -1,17 +1,56 @@
-.ranking-container {
-  background-color: #1c1616;
-  color: #ffffff;
+.page-container {
   min-height: 100vh;
-  width: 100%;
-  margin: 0;
-  padding: 4rem 2rem 2rem 2rem;
-  line-height: 2.6;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;
+  padding: 2rem;
+  background-color: var(--bg-color);
+}
+
+.page-title {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-english);
+}
+
+.ranking-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.ranking-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tab-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: var(--font-english);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tab-button.active {
+  background-color: #ffd700;
+  color: #000000;
+}
+
+.ranking-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .ranking-container h1 {
@@ -20,12 +59,6 @@
   margin-bottom: 2rem;
   text-align: center;
   padding-top: 2rem;
-}
-
-.ranking-content {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .ranking-list {
@@ -67,4 +100,58 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #ffd700;
+}
+
+.loading, .error, .no-rankings {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+.loading {
+  color: #4dabf7;
+}
+
+.no-rankings {
+  color: #868e96;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .ranking-content {
+    padding: 1rem;
+  }
+
+  .ranking-tabs {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .tab-button {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .ranking-container {
+    padding: 1rem;
+  }
 }
