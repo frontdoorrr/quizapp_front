@@ -25,8 +25,8 @@ export const API_ENDPOINTS = {
   LOGOUT: '/auth/logout',
 
   // User
-  GET_PROFILE: '/user/profile',
-  UPDATE_PROFILE: '/user/profile',
+  GET_PROFILE: '/user/me',
+  UPDATE_PROFILE: '/user',
 
   // Quiz
   GET_QUIZZES: '/quizzes',
@@ -34,6 +34,6 @@ export const API_ENDPOINTS = {
   SUBMIT_QUIZ: '/quiz/submit',
 
   // Ranking
-  GET_RANKINGS: '/rankings',
-  GET_USER_RANKING: '/ranking/user',
+  GET_TOTAL_RANKINGS: '/user',
+  GET_GAME_RANKING: '/answer',
 };

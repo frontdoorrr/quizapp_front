@@ -3,10 +3,20 @@ import { API_ENDPOINTS } from '../config';
 
 export const userService = {
   getProfile: async () => {
-    return await api.get(API_ENDPOINTS.USER_PROFILE);
+    try {
+      const response = await api.get(API_ENDPOINTS.GET_PROFILE);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   },
 
   updateProfile: async (userData) => {
-    return await api.put(API_ENDPOINTS.USER_UPDATE, userData);
+    try {
+      const response = await api.put(API_ENDPOINTS.UPDATE_PROFILE, userData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   },
 };
