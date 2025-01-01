@@ -166,6 +166,30 @@
   background-color: #ffed4a;
 }
 
+/* 상태 메시지 스타일 */
+.status-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.status-message.pending {
+  background-color: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+}
+
+.status-message.success {
+  background-color: rgba(81, 207, 102, 0.2);
+  color: #51cf66;
+}
+
+.status-message.error {
+  background-color: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .company-content {

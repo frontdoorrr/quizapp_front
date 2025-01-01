@@ -36,4 +36,7 @@ export const API_ENDPOINTS = {
   GET_RANKINGS: '/user',
   GET_TOTAL_RANKINGS: '/user',
   GET_GAME_RANKING: '/answer',
+
+  // Contact
+  SUBMIT_INQUIRY: '/inquiry',
 };
