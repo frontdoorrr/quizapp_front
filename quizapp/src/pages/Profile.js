@@ -88,7 +88,7 @@ function Profile() {
 
   return (
     <div className="profile-container">
-      <h1>프로필</h1>
+      <h1>My Profile</h1>
       {isEditing ? (
         <form onSubmit={handleSubmit} className="profile-form">
           <div className="profile-field">

@@ -18,7 +18,7 @@
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 3rem;
-  color: #ffd700;
+  color: #d8c27c;
 }
 
 /* 기업 소개 섹션 */
@@ -59,7 +59,7 @@
 }
 
 .value-item h4 {
-  color: #ffd700;
+  color: #d8c27c;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -88,7 +88,7 @@
 }
 
 .service-card h3 {
-  color: #ffd700;
+  color: #d8c27c;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -111,7 +111,7 @@
 }
 
 .contact-item h4 {
-  color: #ffd700;
+  color: #d8c27c;
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
@@ -154,7 +154,7 @@
   padding: 1rem 2rem;
   border: none;
   border-radius: 4px;
-  background-color: #ffd700;
+  background-color: #d8c27c;
   color: #000000;
   font-size: 1rem;
   font-weight: bold;
@@ -163,7 +163,21 @@
 }
 
 .contact-form button:hover {
-  background-color: #ffed4a;
+  background-color: #c4af6e;
+}
+
+.subscribe-button {
+  padding: 0.5rem 1rem;
+  background-color: #d8c27c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.subscribe-button:hover {
+  background-color: #c4af6e;
 }
 
 /* 상태 메시지 스타일 */
@@ -176,8 +190,8 @@
 }
 
 .status-message.pending {
-  background-color: rgba(255, 215, 0, 0.2);
-  color: #ffd700;
+  background-color: rgba(216, 194, 124, 0.2);
+  color: #d8c27c;
 }
 
 .status-message.success {

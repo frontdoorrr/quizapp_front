@@ -10,20 +10,22 @@
   --color-text-dark: #000000;
 
   /* Background Colors */
-  --color-bg-primary: #000000;
+  --color-bg-primary: #1c1616;
   --color-bg-secondary: #000000;
   --color-bg-hover: rgba(255, 255, 255, 0.2);
 
   /* Border Colors */
   --color-border: #000000;
 
-  /* Fonts */
+  /* Font Families */
+  --font-primary: 'MaruBuri', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-english: 'MaruBuri', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-logo: 'CGF Locust Resistance', sans-serif;
   --font-korean: 'TENADA', sans-serif;
-  --font-english: 'Montserrat', sans-serif;
-
-  /* Layout */
-  --navbar-height: 4.5rem;  /* Navbar 높이 */
-  --auth-buttons-height: 2.5rem;  /* Auth 버튼 영역 높이 */
 }
 
 .App {
@@ -53,6 +55,7 @@ body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   min-height: 100vh;
+  font-family: var(--font-english);
 }
 
 .app {

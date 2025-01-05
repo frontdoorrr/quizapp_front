@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080'; // 백엔드 서버 URL을 여기에 설정
+const API_BASE_URL = 'http://localhost:8000'; // 백엔드 서버 URL을 여기에 설정
 
 export const subscribeEmail = async (email) => {
   try {

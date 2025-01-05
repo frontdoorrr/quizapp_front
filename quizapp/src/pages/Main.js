@@ -65,12 +65,16 @@ function Main() {
                 <p>도전적인 게임과 퀴즈를 통해 자신만의 한계를 시험하고 성취감을 느낄 수 있습니다.</p>
               </div>
               <div className="value-item">
-                <h4>Strategy</h4>
+                <h4>Creativity </h4>
                 <p>플레이어들이 창의적인 전략을 통해 문제를 해결하며, 사고력을 키우는 경험을 제공합니다.</p>
               </div>
               <div className="value-item">
                 <h4>Collaboration</h4>
-                <p>협력과 경쟁의 묘미를 동시에 경험하며, 새로운 네트워킹 기회를 제공합니다.</p>
+                <p>다른 사용자들과의 협력을 통해 새로운 네트워킹 기회를 제공합니다.</p>
+              </div>
+              <div className="value-item">
+                <h4>Competence</h4>
+                <p>경쟁의 묘미를 경험하며, 자신의 능력을 입증하고 성장할 수 있는 기회를 제공합니다.</p>
               </div>
             </div>
           </div>
@@ -114,11 +118,9 @@ function Main() {
               </div>
               <div className="contact-item">
                 <h4>Email</h4>
-                <p>contact@geniusgame.com</p>
+                <p>geniusgamekorea@gmail.com</p>
               </div>
               <div className="contact-item">
-                <h4>Phone</h4>
-                <p>02-123-4567</p>
               </div>
             </div>
             <div className="contact-form">
@@ -141,9 +143,9 @@ function Main() {
                   required
                 />
                 <textarea
-                  name="message"
+                  name="content"
                   placeholder="문의사항을 입력해주세요"
-                  value={formData.message}
+                  value={formData.content}
                   onChange={handleChange}
                   required
                 ></textarea>

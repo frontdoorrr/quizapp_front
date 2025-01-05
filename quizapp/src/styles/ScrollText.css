@@ -1,23 +1,27 @@
 .scroll-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
   text-align: center;
-  margin: 0 auto;
-  padding: 100px 20px;
 }
 
 .scroll-text {
-  text-align: center;
-  padding: 2rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.8s ease-out;
-  margin-top: 4rem;  /* 상단 여백 추가 */
+  transition: all 1s ease-out;
 }
 
 .scroll-text.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.scroll-text.hidden {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .scroll-text h1 {
@@ -37,4 +41,22 @@
 
 .scroll-text + .subscribe-container {
   margin-top: 20px; /* ScrollText와 EmailSubscribe 사이 간격 */
+}
+
+.main-logo {
+  max-width: 800px;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .main-logo {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-logo {
+    max-width: 500px;
+  }
 }

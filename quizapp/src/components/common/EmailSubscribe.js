@@ -56,7 +56,7 @@ function EmailSubscribe() {
           type="submit"
           disabled={isLoading}
           className="subscribe-button"
-          style={{ backgroundColor: '#ffd700', color: '#000000' }}
+          style={{ backgroundColor: '#d8c27c', color: '#000000' }}
         >
           {isLoading ? 'Subscribing...' : 'Subscribe'}
         </button>

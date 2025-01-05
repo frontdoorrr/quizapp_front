@@ -7,7 +7,11 @@ export const contactService = {
       const response = await api.post(API_ENDPOINTS.SUBMIT_INQUIRY, inquiryData);
       return response.data;
     } catch (error) {
-      console.error('Submit inquiry error:', error);
+      console.error('Submit inquiry error:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
+      });
       throw error;
     }
   },

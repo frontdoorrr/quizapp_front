@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
+import noneMainLogo from '../../assets/logos/none_main_logo.png';
 import '../../styles/ScrollText.css';
 
 function ScrollText({ children }) {
   const [ref, inView] = useInView({
-    threshold: 0.1, // 스크롤 감지 임계치
+    threshold: 0.1,
     triggerOnce: true,
   });
 
   return (
     <div className="scroll-text-wrapper">
-          <div ref={ref} className={`scroll-text ${inView ? "visible" : "hidden"}`}>
-        {/* <h6>당신의 실력을 증명하세요. 곧 제 1게임이 시작됩니다.</h6> */}
-        <h1>GENIUS GAME</h1>
+      <div ref={ref} className={`scroll-text ${inView ? "visible" : "hidden"}`}>
+        <img src={noneMainLogo} alt="GENIUS GAME" className="main-logo" />
       </div>
-      {children} {/* 자식 요소를 여기에 렌더링 */}
+      {children}
     </div>
   );
 }

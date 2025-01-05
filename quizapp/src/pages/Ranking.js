@@ -29,7 +29,7 @@ function Ranking() {
         order_by: 'point',
         order: 'desc'
       };
-      
+
       const response = await rankingService.getRankings(params);
       console.log('Fetched rankings response:', response);
 
@@ -58,7 +58,7 @@ function Ranking() {
     switch(rank) {
       case 1: return '👑'; // 금관
       case 2: return '👑'; // 은관
-      case 3: return '👑'; // 동관
+      case 3: return '👑';  // 동관
       default: return null;
     }
   };
