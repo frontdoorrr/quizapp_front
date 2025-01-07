@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# Genius Game Korea - Quiz Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 소개
+이 프로젝트는 React를 사용하여 구축된 퀴즈 애플리케이션입니다. 사용자들이 다양한 퀴즈를 풀고 진행 상황을 추적할 수 있습니다.
 
-## Available Scripts
+## 주요 기능
+- 사용자 인증 (로그인/회원가입)
+- 퀴즈 플레이
+- 랭킹 시스템
+- 프로필 관리
+- 이메일 구독
+- 반응형 디자인
 
-In the project directory, you can run:
+## 기술 스택
+- Frontend: React.js
+- Styling: CSS
+- 상태 관리: React Context API
+- 라우팅: React Router
+- API 통신: Fetch API
+- 아이콘: React Icons
 
-### `npm start`
+## 프로젝트 구조
+```
+quizapp/
+├── public/
+│   └── index.html
+├── src/
+│   ├── api/
+│   │   ├── config.js
+│   │   └── services/
+│   ├── components/
+│   │   ├── auth/
+│   │   ├── common/
+│   │   ├── layout/
+│   │   └── ranking/
+│   ├── pages/
+│   │   ├── Home.js
+│   │   ├── About.js
+│   │   ├── Login.js
+│   │   ├── Profile.js
+│   │   └── Ranking.js
+│   ├── styles/
+│   │   └── *.css
+│   └── App.js
+├── .env
+└── package.json
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 설치 및 실행 방법
+1. 저장소 클론
+```bash
+git clone [repository-url]
+cd quizapp
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. 의존성 설치
+```bash
+npm install
+```
 
-### `npm test`
+3. 환경 변수 설정
+`.env` 파일을 생성하고 다음 변수들을 설정:
+```
+REACT_APP_API_BASE_URL=http://localhost:8000
+REACT_APP_COMPANY_NAME=Genius Game Korea
+REACT_APP_COMPANY_EMAIL=geniusgamekorea@gmail.com
+REACT_APP_INSTAGRAM_HANDLE=genius_game_korea
+REACT_APP_YOUTUBE_HANDLE=GeniusGame-korea
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. 개발 서버 실행
+```bash
+npm start
+```
 
-### `npm run build`
+## 배포 방법
+1. 프로덕션 빌드 생성
+```bash
+npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. 빌드된 파일 배포
+- `build` 폴더의 내용을 웹 서버에 업로드
+- Netlify, Vercel 등의 플랫폼 사용 가능
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 환경 설정
+- 개발 환경: `.env.development`
+- 프로덕션 환경: `.env.production`
+- 테스트 환경: `.env.test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 컴포넌트 구조
+- `Layout`: 전체 레이아웃 구조 (Navbar, Footer)
+- `Auth`: 인증 관련 컴포넌트
+- `Common`: 재사용 가능한 공통 컴포넌트
+- `Ranking`: 랭킹 시스템 관련 컴포넌트
 
-### `npm run eject`
+## 스타일 가이드
+- BEM 명명 규칙 사용
+- 반응형 디자인 (768px, 480px 브레이크포인트)
+- CSS 변수 활용 (테마 색상, 폰트 등)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 기여 방법
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 라이센스
+ 2025 Genius Game Korea. All rights reserved.
