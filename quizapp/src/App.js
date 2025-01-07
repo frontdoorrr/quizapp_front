@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Ranking from "./pages/Ranking";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import BackgroundVideo from "./components/layout/BackgroundVideo";
 import ScrollText from "./components/common/ScrollText";
 import EmailSubscribe from "./components/common/EmailSubscribe";
 import AuthButtons from "./components/auth/AuthButtons";
@@ -24,7 +24,6 @@ function App() {
           <Routes>
             <Route path="/" element={
               <div>
-                <BackgroundVideo />
                 <ScrollText />
                 <EmailSubscribe />
               </div>
@@ -41,6 +40,7 @@ function App() {
             <Route path="/main" element={<Main />} />
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   );

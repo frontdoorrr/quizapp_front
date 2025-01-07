@@ -14,6 +14,7 @@
 
 .ranking-content {
   max-width: 800px;
+  width: 90%;
   margin: 0 auto;
   padding: 2rem;
 }
@@ -23,6 +24,7 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .tab-button {
@@ -50,6 +52,7 @@
 
 .ranking-container {
   max-width: 800px;
+  width: 90%;
   margin: 2rem auto;
   padding: 2rem;
   background-color: var(--color-bg-secondary);
@@ -221,22 +224,88 @@
     padding: 1rem;
   }
 
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
   .ranking-content {
+    width: 85%;
     padding: 1rem;
-  }
-
-  .ranking-tabs {
-    flex-direction: row;
-    gap: 0.5rem;
-  }
-
-  .tab-button {
-    flex: 1;
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
   }
 
   .ranking-container {
+    width: 85%;
     padding: 1rem;
+  }
+
+  .ranking-item {
+    padding: 1rem;
+    grid-template-columns: 80px 1fr 80px;
+    gap: 0.5rem;
+  }
+
+  .rank {
+    font-size: 1.2rem;
+    padding-right: 1.5rem;
+  }
+
+  .username {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .score {
+    font-size: 1rem;
+  }
+
+  .crown {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 0.8rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .ranking-content {
+    width: 85%;
+    padding: 0.8rem;
+  }
+
+  .ranking-container {
+    width: 85%;
+    padding: 0.8rem;
+  }
+
+  .ranking-item {
+    padding: 0.8rem;
+    grid-template-columns: 50px 1fr 60px;
+    gap: 0.3rem;
+  }
+
+  .rank {
+    font-size: 1.1rem;
+    padding-right: 1rem;
+  }
+
+  .username {
+    font-size: 0.9rem;
+    padding: 0 0.3rem;
+  }
+
+  .score {
+    font-size: 0.9rem;
+  }
+
+  .tab-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
   }
 }

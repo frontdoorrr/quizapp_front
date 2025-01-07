@@ -45,8 +45,10 @@
 
 .main-logo {
   max-width: 800px;
+  width: calc(100% - 20px);
   height: auto;
   margin-bottom: 2rem;
+  padding: 0 10px;
 }
 
 @media (max-width: 768px) {

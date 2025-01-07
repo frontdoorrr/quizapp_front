@@ -17,6 +17,8 @@
   --font-korean: 'MaruBuri';
   --nav-height: 64px;
   --bg-color: #1c1616;
+  --min-width: 432px;
+  --min-height: 847px;
 }
 
 body {
@@ -27,15 +29,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-color);
   color: #ffffff;
+  min-width: var(--min-width);
+  min-height: var(--min-height);
+  overflow-x: auto;
 }
 
 #root {
-  min-height: 100vh;
+  min-height: var(--min-height);
+  min-width: var(--min-width);
   background-color: var(--bg-color);
 }
 
 .app {
-  min-height: 100vh;
+  min-height: var(--min-height);
+  min-width: var(--min-width);
   background-color: var(--bg-color);
 }
 
