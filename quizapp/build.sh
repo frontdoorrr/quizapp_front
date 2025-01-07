@@ -26,15 +26,8 @@ npm run build
 
 if [ $? -eq 0 ]; then
     echo "✅ Build completed successfully!"
-
-    # serve 패키지 전역 설치 확인
-    if ! command -v serve &> /dev/null; then
-        echo "📦 Installing serve package globally..."
-        npm install -g serve
-    fi
-
-    echo "🌐 To start the production server, run:"
-    echo "serve -s build"
+    echo "🌐 To start the development server, run:"
+    echo "npm start"
 else
     echo "❌ Build failed!"
     exit 1
