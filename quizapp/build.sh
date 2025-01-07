@@ -20,14 +20,21 @@ if [ -d "build" ]; then
     rm -rf build
 fi
 
-
-
 # 빌드 실행
 echo "🚀 Building the application..."
 npm run build
 
 if [ $? -eq 0 ]; then
     echo "✅ Build completed successfully!"
+
+    # serve 패키지 전역 설치 확인
+    if ! command -v serve &> /dev/null; then
+        echo "📦 Installing serve package globally..."
+        npm install -g serve
+    fi
+
+    echo "🌐 To start the production server, run:"
+    echo "serve -s build"
 else
     echo "❌ Build failed!"
     exit 1

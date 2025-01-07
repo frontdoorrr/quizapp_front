@@ -74,14 +74,20 @@ npm start
 ```
 
 ## 배포 방법
-1. 프로덕션 빌드 생성
+1. 빌드 스크립트 실행
 ```bash
-npm run build
+./build.sh
 ```
 
-2. 빌드된 파일 배포
-- `build` 폴더의 내용을 웹 서버에 업로드
-- Netlify, Vercel 등의 플랫폼 사용 가능
+2. 프로덕션 서버 시작
+```bash
+serve -s build
+```
+
+기본적으로 3000번 포트에서 실행되며, 다른 포트를 사용하려면:
+```bash
+serve -s build -l 포트번호
+```
 
 ## 환경 설정
 - 개발 환경: `.env.development`
