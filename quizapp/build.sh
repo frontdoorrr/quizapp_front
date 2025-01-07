@@ -20,16 +20,7 @@ if [ -d "build" ]; then
     rm -rf build
 fi
 
-# 환경변수 파일 확인
-if [ ! -f ".env" ]; then
-    echo "⚠️  Warning: .env file not found. Creating from example.env..."
-    if [ -f "example.env" ]; then
-        cp example.env .env
-    else
-        echo "❌ Error: example.env not found. Please create .env file manually."
-        exit 1
-    fi
-fi
+
 
 # 빌드 실행
 echo "🚀 Building the application..."
