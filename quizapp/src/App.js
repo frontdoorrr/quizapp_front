@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <AuthButtons />
+        {/* <AuthButtons /> */}
         <Navbar />
         <div className="content">
           <Routes>

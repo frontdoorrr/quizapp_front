@@ -28,12 +28,12 @@ function Navbar() {
           <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>
             ABOUT
           </Link>
-          <Link to="/ranking" className={location.pathname === '/ranking' ? 'active' : ''}>
+          {/* <Link to="/ranking" className={location.pathname === '/ranking' ? 'active' : ''}>
             RANKING
-          </Link>
-          <Link to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
+          </Link> */}
+          {/* <Link to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
             PROFILE
-          </Link>
+          </Link> */}
         </div>
         <div className="menu-icon" onClick={toggleMenu}>
           <span></span>
