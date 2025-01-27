@@ -61,7 +61,7 @@ npm install
 3. 환경 변수 설정
 `.env` 파일을 생성하고 다음 변수들을 설정:
 ```
-REACT_APP_API_BASE_URL=http://localhost:8000
+REACT_APP_API_BASE_URL=http://localhost:80
 REACT_APP_COMPANY_NAME=Genius Game Korea
 REACT_APP_COMPANY_EMAIL=geniusgamekorea@gmail.com
 REACT_APP_INSTAGRAM_HANDLE=genius_game_korea
