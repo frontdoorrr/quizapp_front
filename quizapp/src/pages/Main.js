@@ -123,7 +123,7 @@ function Main() {
               <div className="contact-item">
               </div>
             </div>
-            {/* <div className="contact-form">
+            <div className="contact-form">
               <h3>문의하기</h3>
               <form onSubmit={handleSubmit}>
                 <input
@@ -156,7 +156,7 @@ function Main() {
                   </div>
                 )}
               </form>
-            </div> */}
+            </div>
           </div>
         </div>
       </section>

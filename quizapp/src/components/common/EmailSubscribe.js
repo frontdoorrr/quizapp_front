@@ -31,10 +31,9 @@ function EmailSubscribe() {
     setStatusMessage('');
     try {
       await subscribeEmail(email);
-      setStatusMessage('알림 신청이 완료되었습니다!');
+      setStatusMessage('구독이 완료되었습니다!');
     } catch (error) {
-    //   setStatusMessage('구독 중 오류가 발생했습니다. 다시 시도해주세요.');
-      setStatusMessage('알림 기능은 추후 오픈 예정입니다');
+      setStatusMessage('구독 중 오류가 발생했습니다. 다시 시도해주세요.');
     } finally {
       setIsLoading(false);
     }
