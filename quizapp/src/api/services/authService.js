@@ -38,6 +38,15 @@ export const authService = {
     }
   },
 
+  checkNickname: async (nickname) => {
+    try {
+      const response = await api.get(`${API_ENDPOINTS.CHECK_NICKNAME}/${encodeURIComponent(nickname)}`);
+      return !response.data.exists; // exists가 true면 사용 불가, false면 사용 가능
+    } catch (error) {
+      throw error;
+    }
+  },
+
   logout: () => {
     localStorage.removeItem('token');
   },
@@ -49,24 +58,13 @@ export const authService = {
     try {
       // JWT 토큰 디코딩
       const payload = JSON.parse(atob(token.split('.')[1]));
-
-      // 토큰 만료 확인
-      if (payload.exp && payload.exp * 1000 < Date.now()) {
-        localStorage.removeItem('token');
-        return false;
-      }
-
-      return true;
-    } catch (error) {
-      localStorage.removeItem('token');
+      return payload.exp * 1000 > Date.now();
+    } catch {
       return false;
     }
   },
 
   getToken: () => {
-    if (authService.isAuthenticated()) {
-      return localStorage.getItem('token');
-    }
-    return null;
+    return localStorage.getItem('token');
   }
 };

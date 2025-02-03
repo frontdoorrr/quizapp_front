@@ -1,4 +1,4 @@
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:80';
 
 // 기본 헤더 설정
 export const DEFAULT_HEADERS = {
@@ -20,8 +20,10 @@ export const createAuthHeaders = (accessToken) => ({
 
 export const API_ENDPOINTS = {
   // Auth
-  LOGIN: '/user/login',
-  REGISTER: '/user/register',
+  LOGIN: `${API_BASE_URL}/auth/login`,
+  REGISTER: `${API_BASE_URL}/user`,
+  CHECK_NICKNAME: `${API_BASE_URL}/user/check-nickname`,
+  VERIFY_EMAIL: `${API_BASE_URL}/user/verify-email`,
   LOGOUT: '/auth/logout',
 
   // User

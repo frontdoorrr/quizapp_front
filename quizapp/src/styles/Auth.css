@@ -21,6 +21,36 @@
   gap: 1rem;
 }
 
+.auth-form .input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.auth-form .input-group input {
+  flex: 1;
+}
+
+.auth-form .check-button {
+  padding: 0.8rem 1.2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.auth-form .check-button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.auth-form .check-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .auth-form input {
   padding: 0.8rem;
   border: none;
@@ -29,6 +59,41 @@
   color: #ffffff;
   font-family: var(--font-primary);
   font-size: 1rem;
+}
+
+/* 달력 아이콘 스타일링 */
+.auth-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.auth-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 0.8;
+}
+
+/* 달력 팝업 스타일링 */
+.auth-form input[type="date"]::-webkit-datetime-edit {
+  color: #ffffff;
+}
+
+.auth-form input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  color: #ffffff;
+}
+
+.auth-form input[type="date"]::-webkit-datetime-edit-text {
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0 0.3em;
+}
+
+.auth-form input[type="date"]::-webkit-datetime-edit-month-field,
+.auth-form input[type="date"]::-webkit-datetime-edit-day-field,
+.auth-form input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #ffffff;
+}
+
+.auth-form input[type="date"]::-webkit-inner-spin-button {
+  display: none;
 }
 
 .auth-form input::placeholder {
@@ -52,8 +117,13 @@
   margin-top: 20px;
 }
 
-.auth-submit:hover {
+.auth-submit:hover:not(:disabled) {
   background-color: #c4af6e;
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .auth-error {
@@ -75,7 +145,8 @@
     margin-bottom: 1.5rem;
   }
 
-  .auth-form input {
+  .auth-form input,
+  .auth-form .check-button {
     padding: 0.7rem;
     font-size: 0.95rem;
   }
@@ -99,11 +170,8 @@
     margin-bottom: 1.2rem;
   }
 
-  .auth-form {
-    gap: 0.8rem;
-  }
-
-  .auth-form input {
+  .auth-form input,
+  .auth-form .check-button {
     padding: 0.6rem;
     font-size: 0.9rem;
   }
