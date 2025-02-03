@@ -70,12 +70,12 @@ function Home() {
   const handleSubmitAnswer = async (answer) => {
     setIsSubmitting(true);
     setFeedback(null);
-    
+
     try {
       const result = await submitAnswer(currentGame.id, answer);
       setFeedback({
         type: result.is_correct ? 'success' : 'error',
-        message: result.is_correct 
+        message: result.is_correct
           ? `정답입니다! ${result.point}포인트를 획득하셨습니다.`
           : '틀렸습니다. 다시 시도해보세요.',
       });

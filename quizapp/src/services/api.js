@@ -15,8 +15,10 @@ const handleResponse = async (response) => {
 export const getCurrentGame = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/game`, {
+      method: 'GET',
       headers: {
         'Authorization': `Bearer ${getAuthToken()}`,
+        'Content-Type': 'application/json',
       },
     });
     return handleResponse(response);
