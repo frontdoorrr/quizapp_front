@@ -39,4 +39,7 @@ export const API_ENDPOINTS = {
 
   // Contact
   SUBMIT_INQUIRY: '/inquiry',
+  CONTACT_URL: '/contact',
+  RANKING_URL: '/ranking',
+  GAME_URL: '/game/current/',
 };

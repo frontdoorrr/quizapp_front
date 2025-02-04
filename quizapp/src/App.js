@@ -13,6 +13,7 @@ import EmailSubscribe from "./components/common/EmailSubscribe";
 import AuthButtons from "./components/auth/AuthButtons";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Main from './pages/Main';
+import Game from './pages/Game';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             } />
             <Route path="/about" element={<About  />} />
             <Route path="/ranking" element={<Ranking  />} />
+            <Route path="/game" element={<Game />} />
             <Route path="/profile" element={
               <ProtectedRoute>
                 <Profile />
