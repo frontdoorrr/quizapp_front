@@ -14,6 +14,7 @@ import AuthButtons from "./components/auth/AuthButtons";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Main from './pages/Main';
 import Game from './pages/Game';
+import CorrectAnswer from './pages/CorrectAnswer';
 
 function App() {
   return (
@@ -23,15 +24,11 @@ function App() {
         <Navbar />
         <div className="content">
           <Routes>
-            <Route path="/" element={
-              <div>
-                <ScrollText />
-                <EmailSubscribe />
-              </div>
-            } />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About  />} />
-            <Route path="/ranking" element={<Ranking  />} />
             <Route path="/game" element={<Game />} />
+            <Route path="/correct" element={<CorrectAnswer />} />
+            <Route path="/ranking" element={<Ranking  />} />
             <Route path="/profile" element={
               <ProtectedRoute>
                 <Profile />
