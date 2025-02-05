@@ -36,7 +36,7 @@ function VideoPlayer({ videoUrl }) {
   };
 
   const videoId = getYouTubeId(videoUrl);
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+  const embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0`;
 
   return (
     <VideoContainer>
