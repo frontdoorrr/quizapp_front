@@ -8,7 +8,6 @@ const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
 `;
 
 function Home() {
