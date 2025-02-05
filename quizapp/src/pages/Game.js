@@ -181,7 +181,7 @@ function Game() {
         // 이미 맞춘 문제면 입력 비활성화
         if (answerData && answerData.is_correct) {
           setFeedback({
-            message: `이미 맞춘 문제입니다. (획득 포인트: ${answerData.point})`,
+            message: `이미 문제를 맞추셨습니다. 다음 게임을 기다려주세요.`,
             isCorrect: true
           });
         }
