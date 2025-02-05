@@ -202,13 +202,11 @@ function Game() {
 
     try {
       const response = await submitAnswer(game.id, answer.trim());
-      
+
       if (response.is_correct) {
         setEarnedPoints(response.point);
         setShowCorrectScreen(true);
         setPreviousAnswer(response);
-        // 3초 후 자동으로 다음 게임 불러오기
-        setTimeout(loadNextGame, 3000);
       } else {
         setFeedback({
           message: '틀렸습니다. 다시 시도해주세요.',
@@ -218,35 +216,12 @@ function Game() {
       }
     } catch (error) {
       setFeedback({
-        message: error.message || '오류가 발생했습니다. 다시 시도해주세요.',
-        isCorrect: false
+        type: 'error',
+        message: error.message || '오류가 발생했습니다. 다시 시도해주세요.'
       });
+      console.error('Error submitting answer:', error);
+    } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const loadNextGame = async () => {
-    try {
-      const newGame = await getCurrentGame();
-      setGame(newGame);
-      setAnswer('');
-      setFeedback({ message: '', isCorrect: null });
-      setShowCorrectScreen(false);
-      setEarnedPoints(0);
-      setPreviousAnswer(null);
-      
-      // 새 게임의 이전 답변 확인
-      const answerData = await getAnswerByGame(newGame.id);
-      setPreviousAnswer(answerData);
-      
-      if (answerData && answerData.is_correct) {
-        setFeedback({
-          message: `이미 맞춘 문제입니다. (획득 포인트: ${answerData.point})`,
-          isCorrect: true
-        });
-      }
-    } catch (error) {
-      console.error('Error loading next game:', error);
     }
   };
 
@@ -280,9 +255,9 @@ function Game() {
 
       {showCorrectScreen && (
         <CorrectAnswerOverlay>
-          <CorrectTitle>정답입니다! 🎉</CorrectTitle>
-          <CorrectMessage>축하합니다!</CorrectMessage>
-          <Points>+{earnedPoints} 포인트</Points>
+          <CorrectTitle>정답입니다.</CorrectTitle>
+          <CorrectMessage>축하합니다</CorrectMessage>
+          <Points> 포인트는 게임이 모두 종료된 후 지급됩니다. </Points>
         </CorrectAnswerOverlay>
       )}
     </div>

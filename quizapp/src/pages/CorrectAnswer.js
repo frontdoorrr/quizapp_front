@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -55,25 +55,11 @@ function CorrectAnswer() {
   const location = useLocation();
   const { points } = location.state || { points: 0 };
 
-  useEffect(() => {
-    // 3초 후 자동으로 다음 게임으로 이동
-    const timer = setTimeout(() => {
-      handleNextGame();
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleNextGame = () => {
-    navigate('/game');
-  };
-
   return (
     <Container>
-      <Title>정답입니다! 🎉</Title>
-      <Message>축하합니다!</Message>
-      <Points>+{points} 포인트</Points>
-
+      <Title>정답입니다.</Title>
+      <Message>축하합니다.</Message>
+      <Points> 포인트는 게임이 모두 종료된 후 지급됩니다. </Points>
     </Container>
   );
 }
