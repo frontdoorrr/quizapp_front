@@ -60,15 +60,15 @@ export const submitAnswer = async (gameId, answer) => {
       detail: error.detail,
       detailType: typeof error.detail
     });
-    
+
     if (error.response?.status === 404) {
       throw new Error('게임을 찾을 수 없습니다.');
     }
-    
+
     if (error.detail === "Insufficient coins to submit answer") {
       throw new Error('코인이 부족합니다.');
     }
-    
+
     throw new Error('오류가 발생했습니다. 다시 시도해주세요.');
   }
 };

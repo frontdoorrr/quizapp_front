@@ -31,9 +31,41 @@ export const authService = {
 
   register: async (userData) => {
     try {
-      const response = await api.post(API_ENDPOINTS.REGISTER, userData);
+      // 요청 데이터 구조화
+      const registerData = {
+        username: userData.username,
+        nickname: userData.nickname,
+        email: userData.email,
+        phone_number: userData.phoneNumber,  // 백엔드 네이밍 컨벤션에 맞춤
+        password: userData.password
+      };
+
+      const response = await api.post(API_ENDPOINTS.REGISTER, registerData);
+      
+      if (response.data?.message) {
+        console.log('Registration success:', response.data.message);
+      }
+      
       return response.data;
     } catch (error) {
+      console.error('Registration error:', error.response?.data || error);
+      
+      // 에러 메시지 한글화
+      if (error.response?.status === 400) {
+        if (error.response.data?.detail?.includes('username')) {
+          throw new Error('이미 사용 중인 아이디입니다.');
+        }
+        if (error.response.data?.detail?.includes('email')) {
+          throw new Error('이미 사용 중인 이메일입니다.');
+        }
+        if (error.response.data?.detail?.includes('nickname')) {
+          throw new Error('이미 사용 중인 닉네임입니다.');
+        }
+        if (error.response.data?.detail?.includes('phone_number')) {
+          throw new Error('이미 등록된 전화번호입니다.');
+        }
+      }
+      
       throw error;
     }
   },

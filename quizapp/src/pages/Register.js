@@ -7,7 +7,9 @@ import '../styles/Auth.css';
 function Register() {
   const [userData, setUserData] = useState({
     username: '',
+    nickname: '',
     email: '',
+    phoneNumber: '',
     password: '',
     confirmPassword: ''
   });
@@ -19,46 +21,104 @@ function Register() {
     setUserData(prev => ({ ...prev, [name]: value }));
   };
 
+  const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    return phoneRegex.test(phone);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // 유효성 검사
     if (userData.password !== userData.confirmPassword) {
-      alert('Passwords do not match!');
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    if (!validatePhoneNumber(userData.phoneNumber)) {
+      alert('올바른 전화번호 형식이 아닙니다. (예: 010-1234-5678)');
+      return;
+    }
+
+    if (userData.nickname.length < 2 || userData.nickname.length > 10) {
+      alert('닉네임은 2-10자 사이여야 합니다.');
       return;
     }
 
     try {
-      await register(userData);
+      // 전화번호에서 하이픈 제거
+      const formData = {
+        ...userData,
+        phoneNumber: userData.phoneNumber.replace(/-/g, '')
+      };
+      delete formData.confirmPassword;
+      
+      await register(formData);
       navigate('/login');
     } catch (err) {
       // 에러는 useAPI에서 처리됨
     }
   };
 
+  const formatPhoneNumber = (value) => {
+    // 숫자만 추출
+    const numbers = value.replace(/[^\d]/g, '');
+    
+    // 숫자를 그룹으로 나누고 하이픈 추가
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
+
+  const handlePhoneChange = (e) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setUserData(prev => ({ ...prev, phoneNumber: formatted }));
+  };
+
   return (
     <div className="page-container">
       <div className="auth-container">
-        <h1 className="auth-title">REGISTER</h1>
+        <h1 className="auth-title">회원가입</h1>
         <form className="auth-form" onSubmit={handleSubmit}>
           <input
             type="text"
             name="username"
-            placeholder="USERNAME"
+            placeholder="아이디"
             value={userData.username}
             onChange={handleChange}
             required
           />
           <input
+            type="text"
+            name="nickname"
+            placeholder="닉네임 (2-10자)"
+            value={userData.nickname}
+            onChange={handleChange}
+            minLength="2"
+            maxLength="10"
+            required
+          />
+          <input
             type="email"
             name="email"
-            placeholder="EMAIL"
+            placeholder="이메일"
             value={userData.email}
             onChange={handleChange}
             required
           />
           <input
+            type="tel"
+            name="phoneNumber"
+            placeholder="전화번호 (예: 010-1234-5678)"
+            value={userData.phoneNumber}
+            onChange={handlePhoneChange}
+            pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
+            required
+          />
+          <input
             type="password"
             name="password"
-            placeholder="PASSWORD"
+            placeholder="비밀번호"
             value={userData.password}
             onChange={handleChange}
             required
@@ -66,13 +126,13 @@ function Register() {
           <input
             type="password"
             name="confirmPassword"
-            placeholder="CONFIRM PASSWORD"
+            placeholder="비밀번호 확인"
             value={userData.confirmPassword}
             onChange={handleChange}
             required
           />
           <button type="submit" className="auth-submit" disabled={loading}>
-            {loading ? 'REGISTERING...' : 'REGISTER'}
+            {loading ? '가입 중...' : '가입하기'}
           </button>
           {error && <div className="auth-error">{error.message}</div>}
         </form>
