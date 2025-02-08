@@ -98,5 +98,37 @@ export const authService = {
       return localStorage.getItem('token');
     }
     return null;
-  }
+  },
+
+  checkNickname: async (nickname) => {
+    try {
+      const response = await api.get(`${API_ENDPOINTS.CHECK_NICKNAME}/${nickname}`);
+      return response.data.exists;
+    } catch (error) {
+      console.error('Nickname check error:', error);
+      throw error;
+    }
+  },
+
+  verifyEmail: async (email) => {
+    try {
+      const response = await api.get(`${API_ENDPOINTS.VERIFY_EMAIL}/${encodeURIComponent(email)}`);
+      return !response.data.exists; // exists가 false면 사용 가능
+    } catch (error) {
+      console.error('Email check error:', error);
+      throw error;
+    }
+  },
+
+  sendVerificationEmail: async () => {
+    try {
+      const response = await api.post(API_ENDPOINTS.SEND_VERIFICATION_EMAIL);
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 400) {
+        throw new Error('이미 인증된 이메일입니다.');
+      }
+      throw error;
+    }
+  },
 };

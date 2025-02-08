@@ -27,6 +27,10 @@ export const API_ENDPOINTS = {
   // User
   GET_PROFILE: '/user/me',
   UPDATE_PROFILE: '/user/me',
+  GET_USER_COINS: '/user/coins',
+  CHECK_NICKNAME: '/user/check-nickname',
+  VERIFY_EMAIL: '/user/check-email',
+  SEND_VERIFICATION_EMAIL: '/user/send-verification-email',
 
   // Quiz
   GET_QUIZZES: '/quizzes',

@@ -40,6 +40,57 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+.input-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-group input {
+  flex: 1;
+  margin: 0;
+}
+
+.verify-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.verify-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.verify-button:disabled:hover {
+  background-color: #cccccc;
+}
+
+.checking {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.available {
+  color: #4CAF50;
+  font-size: 0.9em;
+}
+
+.taken {
+  color: #f44336;
+  font-size: 0.9em;
+}
+
+input.verified {
+  border-color: #4CAF50;
+}
+
 .auth-submit {
   width: 100%;
   padding: 10px;
