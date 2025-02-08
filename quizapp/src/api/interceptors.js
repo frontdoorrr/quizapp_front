@@ -6,6 +6,7 @@ const api = axios.create({
   baseURL: API_BASE_URL,
   headers: DEFAULT_HEADERS,
   timeout: 5000,
+  withCredentials: true,  // CORS 설정
 });
 
 // 요청 인터셉터
