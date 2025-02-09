@@ -17,6 +17,9 @@ export const getCurrentGame = async () => {
     const response = await api.get(API_ENDPOINTS.GAME_URL);
     return response.data;
   } catch (error) {
+    if (error.response?.status === 404) {
+      throw new Error('NO_ACTIVE_GAME');
+    }
     console.error('Error getting current game:', error);
     throw error;
   }

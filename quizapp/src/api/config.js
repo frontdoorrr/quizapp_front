@@ -33,8 +33,6 @@ export const API_ENDPOINTS = {
   SEND_VERIFICATION_EMAIL: '/user/send-verification-email',
 
   // Quiz
-  GET_QUIZZES: '/quizzes',
-  SUBMIT_QUIZ: '/quizzes/submit',
   SUBMIT_ANSWER: '/answer', // 정답 제출 엔드포인트 추가
 
   // Ranking

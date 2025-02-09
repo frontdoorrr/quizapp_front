@@ -167,10 +167,14 @@ function Game() {
   const [showCorrectScreen, setShowCorrectScreen] = useState(false);
   const [earnedPoints, setEarnedPoints] = useState(0);
   const [previousAnswer, setPreviousAnswer] = useState(null);
+  const [error, setError] = useState(null);
+  const [isNoActiveGame, setIsNoActiveGame] = useState(false);
 
   useEffect(() => {
     const fetchGameAndAnswer = async () => {
       try {
+        setIsNoActiveGame(false);
+        setError(null);
         const gameData = await getCurrentGame();
         setGame(gameData);
 
@@ -186,7 +190,12 @@ function Game() {
           });
         }
       } catch (error) {
-        console.error('Error fetching game:', error);
+        if (error.message === 'NO_ACTIVE_GAME') {
+          setIsNoActiveGame(true);
+          setGame(null);
+        } else {
+          setError('게임을 불러오는데 실패했습니다.');
+        }
       }
     };
 
@@ -225,34 +234,41 @@ function Game() {
     }
   };
 
-  const isAnswerDisabled = isSubmitting || (previousAnswer && previousAnswer.is_correct);
+  const isAnswerDisabled = isSubmitting || (previousAnswer && previousAnswer.is_correct) || isNoActiveGame;
 
   return (
     <div className="game-container">
-      {game && <VideoPlayer videoUrl={game.question_link} />}
-      <AnswerSection>
-        <AnswerForm onSubmit={handleSubmit}>
-          <AnswerInput
-            type="text"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            placeholder="Enter your answer"
-            disabled={isAnswerDisabled}
-          />
-          <SubmitButton
-            type="submit"
-            disabled={isAnswerDisabled || !answer.trim()}
-          >
-            {isSubmitting ? '제출 중...' : 'Submit'}
-          </SubmitButton>
-        </AnswerForm>
-        {feedback.message && (
-          <FeedbackMessage isCorrect={feedback.isCorrect}>
-            {feedback.message}
-          </FeedbackMessage>
-        )}
-      </AnswerSection>
-
+      {error ? (
+        <div className="error-message">{error}</div>
+      ) : isNoActiveGame ? (
+        <div className="no-game-message">다음 게임을 기다려주세요</div>
+      ) : game ? (
+        <>
+          <VideoPlayer videoUrl={game.question_link} />
+          <AnswerSection>
+            <AnswerForm onSubmit={handleSubmit}>
+              <AnswerInput
+                type="text"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                placeholder="Enter your answer"
+                disabled={isAnswerDisabled}
+              />
+              <SubmitButton
+                type="submit"
+                disabled={isAnswerDisabled || !answer.trim()}
+              >
+                {isSubmitting ? '제출 중...' : 'Submit'}
+              </SubmitButton>
+            </AnswerForm>
+            {feedback.message && (
+              <FeedbackMessage isCorrect={feedback.isCorrect}>
+                {feedback.message}
+              </FeedbackMessage>
+            )}
+          </AnswerSection>
+        </>
+      ) : null}
       {showCorrectScreen && (
         <CorrectAnswerOverlay>
           <CorrectTitle>정답입니다.</CorrectTitle>

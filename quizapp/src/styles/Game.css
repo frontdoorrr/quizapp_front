@@ -34,3 +34,18 @@
   margin-bottom: 2rem;
   font-size: 2.5rem;
 }
+
+.error-message {
+  color: #f44336;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2em;
+}
+
+.no-game-message {
+  color: #666;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2em;
+  font-weight: 500;
+}
