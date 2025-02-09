@@ -14,7 +14,7 @@ function Home() {
   return (
     <HomeContainer>
       <ScrollText />
-      <EmailSubscribe />
+      {/* <EmailSubscribe /> */}
     </HomeContainer>
   );
 }
