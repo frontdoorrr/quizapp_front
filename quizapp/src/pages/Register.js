@@ -24,12 +24,12 @@ function Register() {
   const { loading, error, execute: register } = useAPI(authService.register);
 
   const commonEmailDomains = [
-    '@gmail.com',
-    '@naver.com',
-    '@daum.net',
-    '@hanmail.net',
-    '@nate.com',
-    '@kakao.com'
+    'gmail.com',
+    'naver.com',
+    'daum.net',
+    'hanmail.net',
+    'nate.com',
+    'kakao.com'
   ];
 
   const handleChange = (e) => {
@@ -39,17 +39,26 @@ function Register() {
     // 이메일 입력 시 도메인 추천
     if (name === 'email') {
       const [localPart, domain] = value.split('@');
-      if (domain) {
-        // 도메인이 입력되었을 때 필터링된 추천 목록 표시
-        const filteredDomains = commonEmailDomains.filter(d =>
-          d.toLowerCase().startsWith('@' + domain.toLowerCase())
-        );
-        setEmailSuggestions(filteredDomains);
-        setShowSuggestions(filteredDomains.length > 0);
+
+      // 입력값이 있을 때만 처리
+      if (value) {
+        if (domain !== undefined) {
+          // @ 이후에는 도메인 필터링하되 localPart는 유지
+          const filteredSuggestions = commonEmailDomains
+            .filter(d => d.toLowerCase().startsWith(domain.toLowerCase()))
+            .map(d => `${localPart}@${d}`);
+          setEmailSuggestions(filteredSuggestions);
+          setShowSuggestions(filteredSuggestions.length > 0);
+        } else {
+          // @ 이전에는 실시간 업데이트
+          const suggestions = commonEmailDomains.map(d =>
+            value + '@' + d
+          );
+          setEmailSuggestions(suggestions);
+          setShowSuggestions(true);
+        }
       } else {
-        // 도메인이 없을 때 전체 목록 표시
-        setEmailSuggestions(commonEmailDomains);
-        setShowSuggestions(true);
+        setShowSuggestions(false);
       }
     }
 
@@ -65,10 +74,8 @@ function Register() {
     }
   };
 
-  const handleSuggestionClick = (domain) => {
-    const [localPart] = userData.email.split('@');
-    const newEmail = `${localPart}@${domain}`;
-    setUserData(prev => ({ ...prev, email: newEmail }));
+  const handleSuggestionClick = (suggestion) => {
+    setUserData(prev => ({ ...prev, email: suggestion }));
     setShowSuggestions(false);
   };
 
@@ -271,13 +278,13 @@ function Register() {
               />
               {showSuggestions && (
                 <div className="email-suggestions">
-                  {emailSuggestions.map((domain, index) => (
+                  {emailSuggestions.map((suggestion, index) => (
                     <div
                       key={index}
                       className="suggestion-item"
-                      onClick={() => handleSuggestionClick(domain)}
+                      onClick={() => handleSuggestionClick(suggestion)}
                     >
-                      {domain}
+                      {suggestion}
                     </div>
                   ))}
                 </div>
