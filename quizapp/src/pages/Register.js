@@ -17,12 +17,24 @@ function Register() {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const [nicknameValidation, setNicknameValidation] = useState({ isValid: false, message: '' });
   const navigate = useNavigate();
   const { loading, error, execute: register } = useAPI(authService.register);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData(prev => ({ ...prev, [name]: value }));
+    
+    // 닉네임 입력 시 실시간 유효성 검사
+    if (name === 'nickname') {
+      setIsNicknameAvailable(false); // 닉네임이 변경되면 중복확인 초기화
+      if (value) {
+        const validation = validateNickname(value);
+        setNicknameValidation(validation);
+      } else {
+        setNicknameValidation({ isValid: false, message: '' });
+      }
+    }
   };
 
   const handleEmailVerification = async () => {
@@ -266,20 +278,29 @@ function Register() {
             required
           />
           <div className="input-group">
-            <input
-              type="text"
-              name="nickname"
-              placeholder="닉네임 (한글 3-8자 / 영어 3-15자 / 혼합 3-15자)"
-              value={userData.nickname}
-              onChange={handleChange}
-              maxLength="15"
-              required
-              className={isNicknameAvailable ? 'verified' : ''}
-            />
+            <div className="input-wrapper">
+              <input
+                type="text"
+                name="nickname"
+                placeholder="닉네임 (한글 3-8자 / 영어 3-15자 / 혼합 3-15자)"
+                value={userData.nickname}
+                onChange={handleChange}
+                maxLength="15"
+                required
+                className={`${isNicknameAvailable ? 'verified' : ''} ${
+                  userData.nickname && !nicknameValidation.isValid ? 'invalid' : ''
+                }`}
+              />
+              {userData.nickname && (
+                <div className={`validation-message ${nicknameValidation.isValid ? 'valid' : 'invalid'}`}>
+                  {nicknameValidation.message}
+                </div>
+              )}
+            </div>
             <button
               type="button"
               onClick={handleNicknameCheck}
-              disabled={!userData.nickname || isNicknameAvailable}
+              disabled={!userData.nickname || !nicknameValidation.isValid || isNicknameAvailable}
               className="verify-button"
             >
               {isNicknameAvailable ? '✓ 사용가능' : '중복확인'}

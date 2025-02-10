@@ -53,6 +53,31 @@
   margin: 0;
 }
 
+.input-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.validation-message {
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.validation-message.valid {
+  color: #4caf50;
+}
+
+.validation-message.invalid {
+  color: #f44336;
+}
+
+input.invalid {
+  border-color: #f44336;
+}
+
 .verify-button {
   padding: 8px 16px;
   border: none;
