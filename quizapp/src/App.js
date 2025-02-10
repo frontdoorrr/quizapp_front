@@ -26,7 +26,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About  />} />
-            <Route path="/game" element={<Game />} />
+            <Route path="/game" element={
+              <ProtectedRoute>
+                <Game />
+              </ProtectedRoute>
+            } />
             <Route path="/correct" element={<CorrectAnswer />} />
             <Route path="/ranking" element={<Ranking  />} />
             <Route path="/profile" element={
