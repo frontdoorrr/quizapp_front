@@ -24,12 +24,12 @@ function Register() {
   const { loading, error, execute: register } = useAPI(authService.register);
 
   const commonEmailDomains = [
-    'gmail.com',
-    'naver.com',
-    'daum.net',
-    'hanmail.net',
-    'nate.com',
-    'kakao.com'
+    '@gmail.com',
+    '@naver.com',
+    '@daum.net',
+    '@hanmail.net',
+    '@nate.com',
+    '@kakao.com'
   ];
 
   const handleChange = (e) => {
@@ -39,27 +39,23 @@ function Register() {
     // 이메일 입력 시 도메인 추천
     if (name === 'email') {
       const [localPart, domain] = value.split('@');
-      if (value.includes('@')) {
-        if (domain) {
-          // 도메인이 입력되었을 때 필터링된 추천 목록 표시
-          const filteredDomains = commonEmailDomains.filter(d => 
-            d.toLowerCase().startsWith(domain.toLowerCase())
-          );
-          setEmailSuggestions(filteredDomains);
-          setShowSuggestions(filteredDomains.length > 0);
-        } else {
-          // @ 입력 후 도메인이 없을 때 전체 목록 표시
-          setEmailSuggestions(commonEmailDomains);
-          setShowSuggestions(true);
-        }
+      if (domain) {
+        // 도메인이 입력되었을 때 필터링된 추천 목록 표시
+        const filteredDomains = commonEmailDomains.filter(d =>
+          d.toLowerCase().startsWith('@' + domain.toLowerCase())
+        );
+        setEmailSuggestions(filteredDomains);
+        setShowSuggestions(filteredDomains.length > 0);
       } else {
-        setShowSuggestions(false);
+        // 도메인이 없을 때 전체 목록 표시
+        setEmailSuggestions(commonEmailDomains);
+        setShowSuggestions(true);
       }
     }
 
     // 닉네임 입력 시 실시간 유효성 검사
     if (name === 'nickname') {
-      setIsNicknameAvailable(false); // 닉네임이 변경되면 중복확인 초기화
+      setIsNicknameAvailable(false);
       if (value) {
         const validation = validateNickname(value);
         setNicknameValidation(validation);
@@ -335,7 +331,7 @@ function Register() {
             <input
               type="text"
               name="nickname"
-              placeholder="닉네임 (한글 3-8자 / 영어 3-15자 / 혼합 3-15자)"
+              placeholder="닉네임 (한글 3-8자/영어 3-15자)"
               value={userData.nickname}
               onChange={handleChange}
               maxLength="15"
