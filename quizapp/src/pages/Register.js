@@ -21,6 +21,7 @@ function Register() {
   const [emailSuggestions, setEmailSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [passwordMatch, setPasswordMatch] = useState({ isValid: true, message: '' });
   const navigate = useNavigate();
   const { loading, error, execute: register } = useAPI(authService.register);
 
@@ -65,6 +66,22 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData(prev => ({ ...prev, [name]: value }));
+
+    // 비밀번호 일치 여부 확인
+    if (name === 'password' || name === 'confirmPassword') {
+      const password = name === 'password' ? value : userData.password;
+      const confirmPassword = name === 'confirmPassword' ? value : userData.confirmPassword;
+      
+      if (confirmPassword) {
+        if (password === confirmPassword) {
+          setPasswordMatch({ isValid: true, message: '비밀번호가 일치합니다.' });
+        } else {
+          setPasswordMatch({ isValid: false, message: '비밀번호가 일치하지 않습니다.' });
+        }
+      } else {
+        setPasswordMatch({ isValid: true, message: '' });
+      }
+    }
 
     // 이메일 입력 시 도메인 추천
     if (name === 'email') {
@@ -337,7 +354,6 @@ function Register() {
             placeholder="비밀번호"
             value={userData.password}
             onChange={handleChange}
-            minLength="8"
             required
           />
           <input
@@ -346,9 +362,13 @@ function Register() {
             placeholder="비밀번호 확인"
             value={userData.confirmPassword}
             onChange={handleChange}
-            minLength="8"
             required
           />
+          {userData.confirmPassword && (
+            <div className={`validation-message ${passwordMatch.isValid ? 'valid' : 'invalid'}`}>
+              {passwordMatch.message}
+            </div>
+          )}
           <input
             type="date"
             name="birthDate"
