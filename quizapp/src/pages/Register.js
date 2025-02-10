@@ -278,25 +278,18 @@ function Register() {
             required
           />
           <div className="input-group">
-            <div className="input-wrapper">
-              <input
-                type="text"
-                name="nickname"
-                placeholder="닉네임 (한글 3-8자 / 영어 3-15자 / 혼합 3-15자)"
-                value={userData.nickname}
-                onChange={handleChange}
-                maxLength="15"
-                required
-                className={`${isNicknameAvailable ? 'verified' : ''} ${
-                  userData.nickname && !nicknameValidation.isValid ? 'invalid' : ''
-                }`}
-              />
-              {userData.nickname && (
-                <div className={`validation-message ${nicknameValidation.isValid ? 'valid' : 'invalid'}`}>
-                  {nicknameValidation.message}
-                </div>
-              )}
-            </div>
+            <input
+              type="text"
+              name="nickname"
+              placeholder="닉네임 (한글 3-8자 / 영어 3-15자 / 혼합 3-15자)"
+              value={userData.nickname}
+              onChange={handleChange}
+              maxLength="15"
+              required
+              className={`${isNicknameAvailable ? 'verified' : ''} ${
+                userData.nickname && !nicknameValidation.isValid ? 'invalid' : ''
+              }`}
+            />
             <button
               type="button"
               onClick={handleNicknameCheck}
@@ -306,6 +299,11 @@ function Register() {
               {isNicknameAvailable ? '✓ 사용가능' : '중복확인'}
             </button>
           </div>
+          {userData.nickname && (
+            <div className={`validation-message ${nicknameValidation.isValid ? 'valid' : 'invalid'}`}>
+              {nicknameValidation.message}
+            </div>
+          )}
           <button 
             type="submit" 
             className="auth-submit" 

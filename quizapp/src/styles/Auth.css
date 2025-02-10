@@ -55,15 +55,14 @@
 }
 
 .input-wrapper {
-  flex: 1;
+width: 100%;
   position: relative;
 }
 
 .validation-message {
-  position: absolute;
-  left: 0;
-  bottom: -20px;
   font-size: 12px;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
   transition: all 0.2s ease;
 }
 
