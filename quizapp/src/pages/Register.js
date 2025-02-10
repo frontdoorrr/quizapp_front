@@ -43,14 +43,79 @@ function Register() {
     }
   };
 
+  const validateNickname = (nickname) => {
+    // 공백 체크
+    if (nickname.includes(' ')) {
+      return {
+        isValid: false,
+        message: '닉네임에 띄어쓰기를 사용할 수 없습니다.'
+      };
+    }
+
+    const koreanRegex = /^[가-힣]+$/;
+    const englishRegex = /^[a-zA-Z0-9]+$/;
+    const mixedRegex = /^[a-zA-Z0-9가-힣]+$/;
+
+    // 전체 길이 체크
+    if (nickname.length < 3) {
+      return {
+        isValid: false,
+        message: '닉네임은 최소 3자 이상이어야 합니다.'
+      };
+    }
+
+    if (koreanRegex.test(nickname)) {
+      // 한글 닉네임: 3-8자
+      return {
+        isValid: nickname.length >= 3 && nickname.length <= 8,
+        message: '한글 닉네임은 3-8자여야 합니다.'
+      };
+    } else if (englishRegex.test(nickname)) {
+      // 영어 닉네임: 3-15자
+      return {
+        isValid: nickname.length >= 3 && nickname.length <= 15,
+        message: '영어 닉네임은 3-15자여야 합니다.'
+      };
+    } else if (mixedRegex.test(nickname)) {
+      // 한글+영어 혼합
+      const koreanCount = (nickname.match(/[가-힣]/g) || []).length;
+      const nonKoreanCount = nickname.length - koreanCount;
+      
+      if (koreanCount > 8) {
+        return {
+          isValid: false,
+          message: '한글은 최대 8자까지 사용 가능합니다.'
+        };
+      }
+      
+      if (nonKoreanCount > 7) {
+        return {
+          isValid: false,
+          message: '영어/숫자는 최대 7자까지 사용 가능합니다.'
+        };
+      }
+
+      return {
+        isValid: nickname.length >= 3 && nickname.length <= 15,
+        message: '닉네임은 3-15자여야 합니다.'
+      };
+    } else {
+      return {
+        isValid: false,
+        message: '닉네임은 한글, 영어, 숫자만 사용 가능합니다.'
+      };
+    }
+  };
+
   const handleNicknameCheck = async () => {
     if (!userData.nickname) {
       alert('닉네임을 입력해주세요.');
       return;
     }
 
-    if (userData.nickname.length < 2 || userData.nickname.length > 10) {
-      alert('닉네임은 2-10자 사이여야 합니다.');
+    const validation = validateNickname(userData.nickname);
+    if (!validation.isValid) {
+      alert(validation.message);
       return;
     }
 
@@ -204,11 +269,10 @@ function Register() {
             <input
               type="text"
               name="nickname"
-              placeholder="닉네임 (2-10자)"
+              placeholder="닉네임 (한글 3-8자 / 영어 3-15자 / 혼합 3-15자)"
               value={userData.nickname}
               onChange={handleChange}
-              minLength="2"
-              maxLength="10"
+              maxLength="15"
               required
               className={isNicknameAvailable ? 'verified' : ''}
             />
