@@ -24,7 +24,7 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData(prev => ({ ...prev, [name]: value }));
-    
+
     // 닉네임 입력 시 실시간 유효성 검사
     if (name === 'nickname') {
       setIsNicknameAvailable(false); // 닉네임이 변경되면 중복확인 초기화
@@ -92,14 +92,14 @@ function Register() {
       // 한글+영어 혼합
       const koreanCount = (nickname.match(/[가-힣]/g) || []).length;
       const nonKoreanCount = nickname.length - koreanCount;
-      
+
       if (koreanCount > 8) {
         return {
           isValid: false,
           message: '한글은 최대 8자까지 사용 가능합니다.'
         };
       }
-      
+
       if (nonKoreanCount > 7) {
         return {
           isValid: false,
@@ -150,13 +150,13 @@ function Register() {
     const today = new Date();
     const minDate = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
     const maxDate = new Date(today.getFullYear() - 14, today.getMonth(), today.getDate());
-    
+
     return birthDate >= minDate && birthDate <= maxDate;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!isEmailVerified) {
       alert('이메일 인증이 필요합니다.');
       return;
@@ -189,7 +189,7 @@ function Register() {
         birthDate: new Date(userData.birthDate).toISOString().split('T')[0]
       };
       delete formData.confirmPassword;
-      
+
       await register(formData);
       alert('회원가입이 완료되었습니다.');
       navigate('/login');
@@ -304,9 +304,9 @@ function Register() {
               {nicknameValidation.message}
             </div>
           )}
-          <button 
-            type="submit" 
-            className="auth-submit" 
+          <button
+            type="submit"
+            className="auth-submit"
             disabled={loading || !isEmailVerified || !isNicknameAvailable}
           >
             {loading ? '가입 중...' : '가입하기'}
