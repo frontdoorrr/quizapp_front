@@ -18,12 +18,44 @@ function Register() {
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [nicknameValidation, setNicknameValidation] = useState({ isValid: false, message: '' });
+  const [emailSuggestions, setEmailSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
   const { loading, error, execute: register } = useAPI(authService.register);
+
+  const commonEmailDomains = [
+    'gmail.com',
+    'naver.com',
+    'daum.net',
+    'hanmail.net',
+    'nate.com',
+    'kakao.com'
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData(prev => ({ ...prev, [name]: value }));
+
+    // 이메일 입력 시 도메인 추천
+    if (name === 'email') {
+      const [localPart, domain] = value.split('@');
+      if (value.includes('@')) {
+        if (domain) {
+          // 도메인이 입력되었을 때 필터링된 추천 목록 표시
+          const filteredDomains = commonEmailDomains.filter(d => 
+            d.toLowerCase().startsWith(domain.toLowerCase())
+          );
+          setEmailSuggestions(filteredDomains);
+          setShowSuggestions(filteredDomains.length > 0);
+        } else {
+          // @ 입력 후 도메인이 없을 때 전체 목록 표시
+          setEmailSuggestions(commonEmailDomains);
+          setShowSuggestions(true);
+        }
+      } else {
+        setShowSuggestions(false);
+      }
+    }
 
     // 닉네임 입력 시 실시간 유효성 검사
     if (name === 'nickname') {
@@ -35,6 +67,13 @@ function Register() {
         setNicknameValidation({ isValid: false, message: '' });
       }
     }
+  };
+
+  const handleSuggestionClick = (domain) => {
+    const [localPart] = userData.email.split('@');
+    const newEmail = `${localPart}@${domain}`;
+    setUserData(prev => ({ ...prev, email: newEmail }));
+    setShowSuggestions(false);
   };
 
   const handleEmailVerification = async () => {
@@ -224,15 +263,30 @@ function Register() {
             required
           />
           <div className="input-group">
-            <input
-              type="email"
-              name="email"
-              placeholder="이메일"
-              value={userData.email}
-              onChange={handleChange}
-              required
-              className={isEmailVerified ? 'verified' : ''}
-            />
+            <div className="input-wrapper">
+              <input
+                type="email"
+                name="email"
+                placeholder="이메일"
+                value={userData.email}
+                onChange={handleChange}
+                required
+                className={isEmailVerified ? 'verified' : ''}
+              />
+              {showSuggestions && (
+                <div className="email-suggestions">
+                  {emailSuggestions.map((domain, index) => (
+                    <div
+                      key={index}
+                      className="suggestion-item"
+                      onClick={() => handleSuggestionClick(domain)}
+                    >
+                      {domain}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
             <button
               type="button"
               onClick={handleEmailVerification}
