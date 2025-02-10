@@ -79,6 +79,10 @@
   transition: background-color 0.2s ease;
 }
 
+.suggestion-item.selected {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 .suggestion-item:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }

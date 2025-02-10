@@ -20,6 +20,7 @@ function Register() {
   const [nicknameValidation, setNicknameValidation] = useState({ isValid: false, message: '' });
   const [emailSuggestions, setEmailSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const navigate = useNavigate();
   const { loading, error, execute: register } = useAPI(authService.register);
 
@@ -32,12 +33,42 @@ function Register() {
     'kakao.com'
   ];
 
+  const handleKeyDown = (e) => {
+    if (!showSuggestions) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex(prev => 
+          prev < emailSuggestions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex(prev => prev > 0 ? prev - 1 : prev);
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (selectedIndex >= 0) {
+          handleSuggestionClick(emailSuggestions[selectedIndex]);
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        setSelectedIndex(-1);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData(prev => ({ ...prev, [name]: value }));
 
     // 이메일 입력 시 도메인 추천
     if (name === 'email') {
+      setSelectedIndex(-1); // 입력 시 선택 초기화
       const [localPart, domain] = value.split('@');
 
       // 입력값이 있을 때만 처리
@@ -273,6 +304,7 @@ function Register() {
                 placeholder="이메일"
                 value={userData.email}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
                 required
                 className={isEmailVerified ? 'verified' : ''}
               />
@@ -281,7 +313,7 @@ function Register() {
                   {emailSuggestions.map((suggestion, index) => (
                     <div
                       key={index}
-                      className="suggestion-item"
+                      className={`suggestion-item ${index === selectedIndex ? 'selected' : ''}`}
                       onClick={() => handleSuggestionClick(suggestion)}
                     >
                       {suggestion}
