@@ -120,9 +120,9 @@ export const authService = {
     }
   },
 
-  sendVerificationEmail: async () => {
+  sendVerificationEmail: async (email) => {
     try {
-      const response = await api.post(API_ENDPOINTS.SEND_VERIFICATION_EMAIL);
+      const response = await api.post(API_ENDPOINTS.SEND_VERIFICATION_EMAIL, { email });
       return response.data;
     } catch (error) {
       if (error.response?.status === 400) {

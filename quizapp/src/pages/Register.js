@@ -137,7 +137,7 @@ function Register() {
       // 이메일 중복 체크
       await authService.verifyEmail(userData.email);
       // 인증 메일 발송
-      await authService.sendVerificationEmail();
+      await authService.sendVerificationEmail(userData.email);
       setIsEmailSent(true);
       alert('인증 메일이 발송되었습니다. 이메일을 확인해주세요.');
     } catch (error) {
