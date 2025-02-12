@@ -31,6 +31,7 @@ export const API_ENDPOINTS = {
   CHECK_NICKNAME: '/user/check-nickname',
   VERIFY_EMAIL: '/user/check-email',
   SEND_VERIFICATION_EMAIL: '/user/send-verification-email',
+  VERIFY_EMAIL_TOKEN: '/user/verify-token',
 
   // Quiz
   SUBMIT_ANSWER: '/answer', // 정답 제출 엔드포인트 추가

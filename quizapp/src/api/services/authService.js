@@ -42,15 +42,15 @@ export const authService = {
       };
 
       const response = await api.post(API_ENDPOINTS.REGISTER, registerData);
-      
+
       if (response.data?.message) {
         console.log('Registration success:', response.data.message);
       }
-      
+
       return response.data;
     } catch (error) {
       console.error('Registration error:', error.response?.data || error);
-      
+
       // 에러 메시지 한글화
       if (error.response?.status === 400) {
         if (error.response.data?.detail?.includes('email')) {
@@ -63,7 +63,7 @@ export const authService = {
           throw new Error('이미 등록된 휴대폰 번호입니다.');
         }
       }
-      
+
       throw error;
     }
   },
@@ -127,6 +127,21 @@ export const authService = {
     } catch (error) {
       if (error.response?.status === 400) {
         throw new Error('이미 인증된 이메일입니다.');
+      }
+      throw error;
+    }
+  },
+
+  verifyToken: async (token, email) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.VERIFY_EMAIL_TOKEN, { 
+        token,
+        email
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 400) {
+        throw new Error('유효하지 않은 인증 토큰입니다.');
       }
       throw error;
     }

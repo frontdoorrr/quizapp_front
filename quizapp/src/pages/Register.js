@@ -22,6 +22,7 @@ function Register() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [passwordMatch, setPasswordMatch] = useState({ isValid: true, message: '' });
+  const [verificationToken, setVerificationToken] = useState('');
   const navigate = useNavigate();
   const { loading, error, execute: register } = useAPI(authService.register);
 
@@ -40,7 +41,7 @@ function Register() {
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        setSelectedIndex(prev => 
+        setSelectedIndex(prev =>
           prev < emailSuggestions.length - 1 ? prev + 1 : prev
         );
         break;
@@ -71,7 +72,7 @@ function Register() {
     if (name === 'password' || name === 'confirmPassword') {
       const password = name === 'password' ? value : userData.password;
       const confirmPassword = name === 'confirmPassword' ? value : userData.confirmPassword;
-      
+
       if (confirmPassword) {
         if (password === confirmPassword) {
           setPasswordMatch({ isValid: true, message: '비밀번호가 일치합니다.' });
@@ -142,6 +143,21 @@ function Register() {
       alert('인증 메일이 발송되었습니다. 이메일을 확인해주세요.');
     } catch (error) {
       alert(error.message || '이메일 인증에 실패했습니다.');
+    }
+  };
+
+  const handleTokenVerification = async () => {
+    if (!verificationToken) {
+      alert('인증 토큰을 입력해주세요.');
+      return;
+    }
+
+    try {
+      await authService.verifyToken(verificationToken, userData.email);
+      setIsEmailVerified(true);
+      alert('인증이 완료되었습니다.');
+    } catch (error) {
+      alert(error.message || '인증 토큰이 올바르지 않습니다.');
     }
   };
 
@@ -348,6 +364,24 @@ function Register() {
               {isEmailVerified ? '✓ 인증완료' : isEmailSent ? '인증 대기중' : '이메일 인증'}
             </button>
           </div>
+
+          {isEmailSent && !isEmailVerified && (
+            <div className="input-group token-group">
+              <input
+                type="text"
+                placeholder="인증 토큰을 입력하세요"
+                value={verificationToken}
+                onChange={(e) => setVerificationToken(e.target.value)}
+                required
+              />
+              <button 
+                type="button" 
+                onClick={handleTokenVerification}
+              >
+                인증하기
+              </button>
+            </div>
+          )}
           <input
             type="password"
             name="password"
