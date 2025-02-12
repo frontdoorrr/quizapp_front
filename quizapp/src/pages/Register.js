@@ -374,8 +374,8 @@ function Register() {
                 onChange={(e) => setVerificationToken(e.target.value)}
                 required
               />
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={handleTokenVerification}
               >
                 인증하기

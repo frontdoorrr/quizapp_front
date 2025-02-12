@@ -2,11 +2,13 @@
   max-width: 400px;
   width: calc(85% - 20px);
   margin: 2rem auto;
-  padding: 2rem 10px;
+  padding: 0rem 10px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  /* overflow: hidden; */
+
+
 }
 
 .auth-title {
@@ -24,6 +26,7 @@
 
 .auth-form input {
   padding: 0.8rem;
+  /* height: 15px; */
   border: none;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.1);
@@ -50,7 +53,7 @@
 }
 
 .input-group input {
-  flex: 1;
+  flex: 0.7;
   margin: 0;
 }
 
@@ -129,16 +132,18 @@
 
 .validation-message {
   font-size: 0.8rem;
-  margin-top: -8px;
-  margin-bottom: 8px;
+  margin-top: 0px;
+  margin-bottom: 2px;
   padding-left: 4px;
 }
 
 .validation-message.valid {
+  height: 10;
   color: #4CAF50;
 }
 
 .validation-message.invalid {
+    height: 10px;
   color: #f44336;
 }
 
