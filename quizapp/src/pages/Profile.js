@@ -4,6 +4,7 @@ import '../styles/Profile.css';
 
 function Profile() {
   const [profile, setProfile] = useState(null);
+  const [coinCount, setCoinCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -12,6 +13,21 @@ function Profile() {
   useEffect(() => {
     fetchProfile();
   }, []);
+
+  useEffect(() => {
+    if (profile?.id) {
+      fetchCoinWallet();
+    }
+  }, [profile]);
+
+  const fetchCoinWallet = async () => {
+    try {
+      const response = await userService.getCoinWallet(profile.id);
+      setCoinCount(response.coins?.length || 0);
+    } catch (err) {
+      console.error('Fetch coin wallet error:', err);
+    }
+  };
 
   const fetchProfile = async () => {
     try {
@@ -136,8 +152,7 @@ function Profile() {
           </div>
           <div className="profile-field">
             <label>코인:</label>
-            {/*TODO: coin 불러오는 함수 추가 */}
-            <span>{profile.coin || 0}</span>
+            <span>{coinCount}</span>
           </div>
           <div className="profile-field">
             <label>랭킹:</label>
