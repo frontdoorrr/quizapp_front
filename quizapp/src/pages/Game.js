@@ -179,18 +179,20 @@ function Game() {
         const gameData = await getCurrentGame();
         setGame(gameData);
 
-        // 남은 기회 조회
-        try {
-          const chances = await getRemainingChances(gameData.id);
-          console.log('Received chances:', chances);
-          setRemainingChances(chances);  
-        } catch (error) {
-          console.error('Failed to fetch remaining chances:', error);
-        }
-
         // 이전 답변 확인
         const answerData = await getAnswerByGame(gameData.id);
         setPreviousAnswer(answerData);
+
+        // 정답을 맞추지 않은 경우에만 남은 기회 조회
+        if (!answerData?.is_correct) {
+          try {
+            const chances = await getRemainingChances(gameData.id);
+            console.log('Received chances:', chances);
+            setRemainingChances(chances);
+          } catch (error) {
+            console.error('Failed to fetch remaining chances:', error);
+          }
+        }
 
         // 이미 맞춘 문제면 입력 비활성화
         if (answerData && answerData.is_correct) {
@@ -264,9 +266,11 @@ function Game() {
         <>
           <VideoPlayer videoUrl={game.question_link} />
           <AnswerSection>
-            <div className="remaining-chances">
-              남은 기회: {remainingChances}회
-            </div>
+            {!previousAnswer?.is_correct && (
+              <div className="remaining-chances">
+                남은 기회: {remainingChances}회
+              </div>
+            )}
             <AnswerForm onSubmit={handleSubmit}>
               <AnswerInput
                 type="text"
