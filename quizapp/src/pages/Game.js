@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import VideoPlayer from '../components/game/VideoPlayer';
 import '../styles/Game.css';
-import { getCurrentGame, submitAnswer, getAnswerByGame } from '../api/services/gameService';
+import { getCurrentGame, submitAnswer, getAnswerByGame, getRemainingChances } from '../api/services/gameService';
 
 const AnswerSection = styled.div`
   display: flex;
@@ -169,6 +169,7 @@ function Game() {
   const [previousAnswer, setPreviousAnswer] = useState(null);
   const [error, setError] = useState(null);
   const [isNoActiveGame, setIsNoActiveGame] = useState(false);
+  const [remainingChances, setRemainingChances] = useState(0);
 
   useEffect(() => {
     const fetchGameAndAnswer = async () => {
@@ -177,6 +178,15 @@ function Game() {
         setError(null);
         const gameData = await getCurrentGame();
         setGame(gameData);
+
+        // 남은 기회 조회
+        try {
+          const chances = await getRemainingChances(gameData.id);
+          console.log('Received chances:', chances);
+          setRemainingChances(chances.remaining_chances || chances.count || 0);
+        } catch (error) {
+          console.error('Failed to fetch remaining chances:', error);
+        }
 
         // 이전 답변 확인
         const answerData = await getAnswerByGame(gameData.id);
@@ -246,6 +256,9 @@ function Game() {
         <>
           <VideoPlayer videoUrl={game.question_link} />
           <AnswerSection>
+            <div className="remaining-chances">
+              남은 기회: {remainingChances}회
+            </div>
             <AnswerForm onSubmit={handleSubmit}>
               <AnswerInput
                 type="text"

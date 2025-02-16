@@ -78,3 +78,16 @@ export const submitAnswer = async (gameId, answer) => {
     throw new Error('오류가 발생했습니다. 다시 시도해주세요.');
   }
 };
+
+export const getRemainingChances = async (gameId) => {
+  try {
+    console.log('Requesting remaining chances for game:', gameId);
+    const response = await api.get(`${API_ENDPOINTS.GET_REMAINING_CHANCES}/${gameId}/user/unused`);
+    console.log('Remaining chances response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching remaining chances:', error);
+    console.error('Error response:', error.response);
+    throw new Error('남은 기회를 조회하는데 실패했습니다.');
+  }
+};
