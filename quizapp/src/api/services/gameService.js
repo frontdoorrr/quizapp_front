@@ -84,7 +84,7 @@ export const getRemainingChances = async (gameId) => {
     console.log('Requesting remaining chances for game:', gameId);
     const response = await api.get(`${API_ENDPOINTS.GET_REMAINING_CHANCES}/${gameId}/user/unused`);
     console.log('Remaining chances response:', response.data);
-    return response.data;
+    return response.data.length;  // 응답 리스트의 길이를 반환
   } catch (error) {
     console.error('Error fetching remaining chances:', error);
     console.error('Error response:', error.response);

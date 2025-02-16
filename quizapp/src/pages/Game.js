@@ -183,7 +183,7 @@ function Game() {
         try {
           const chances = await getRemainingChances(gameData.id);
           console.log('Received chances:', chances);
-          setRemainingChances(chances.remaining_chances || chances.count || 0);
+          setRemainingChances(chances);  
         } catch (error) {
           console.error('Failed to fetch remaining chances:', error);
         }
