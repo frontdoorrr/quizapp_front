@@ -135,6 +135,11 @@ function Profile() {
             <span>{profile.total_score || 0}</span>
           </div>
           <div className="profile-field">
+            <label>코인:</label>
+            {/*TODO: coin 불러오는 함수 추가 */}
+            <span>{profile.coin || 0}</span>
+          </div>
+          <div className="profile-field">
             <label>랭킹:</label>
             <span>{profile.rank || '-'}</span>
           </div>
