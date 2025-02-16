@@ -231,6 +231,9 @@ function Game() {
           message: '틀렸습니다. 다시 시도해주세요.',
           isCorrect: false
         });
+        // 오답인 경우에도 남은 기회 업데이트
+        const updatedChances = await getRemainingChances(game.id);
+        setRemainingChances(updatedChances);
         setIsSubmitting(false);
       }
     } catch (error) {
@@ -238,8 +241,13 @@ function Game() {
         type: 'error',
         message: error.message || '오류가 발생했습니다. 다시 시도해주세요.'
       });
-      console.error('Error submitting answer:', error);
-    } finally {
+      // 에러 발생시에도 남은 기회 업데이트
+      try {
+        const updatedChances = await getRemainingChances(game.id);
+        setRemainingChances(updatedChances);
+      } catch (e) {
+        console.error('Failed to update remaining chances:', e);
+      }
       setIsSubmitting(false);
     }
   };
