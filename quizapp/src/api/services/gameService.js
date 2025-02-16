@@ -71,6 +71,9 @@ export const submitAnswer = async (gameId, answer) => {
     if (error.detail === "Insufficient coins to submit answer") {
       throw new Error('코인이 부족합니다.');
     }
+    if (error.detail === "You have already submitted an answer for this game") {
+      throw new Error("이번 게임을 위한 정답 기회가 남아있지 않습니다.")
+    }
 
     throw new Error('오류가 발생했습니다. 다시 시도해주세요.');
   }
