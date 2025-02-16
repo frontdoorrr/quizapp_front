@@ -158,6 +158,14 @@ const NextButton = styled.button`
   }
 `;
 
+const Timer = styled.div`
+  font-family: 'MaruBuri', serif;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #ffffff;
+`;
+
 function Game() {
   const navigate = useNavigate();
   const [game, setGame] = useState(null);
@@ -170,6 +178,7 @@ function Game() {
   const [error, setError] = useState(null);
   const [isNoActiveGame, setIsNoActiveGame] = useState(false);
   const [remainingChances, setRemainingChances] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
     const fetchGameAndAnswer = async () => {
@@ -213,6 +222,32 @@ function Game() {
 
     fetchGameAndAnswer();
   }, []);
+
+  useEffect(() => {
+    if (game?.closed_at) {
+      const calculateTimeLeft = () => {
+        const now = new Date().getTime();
+        const closedTime = new Date(game.closed_at).getTime();
+        const difference = closedTime - now;
+
+        if (difference <= 0) {
+          setTimeLeft(null);
+          return;
+        }
+
+        const hours = Math.floor(difference / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        setTimeLeft({ hours, minutes, seconds });
+      };
+
+      calculateTimeLeft();
+      const timer = setInterval(calculateTimeLeft, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [game]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -264,6 +299,12 @@ function Game() {
         <div className="no-game-message">다음 게임을 기다려주세요</div>
       ) : game ? (
         <>
+          {game && timeLeft && (
+            <Timer>
+              남은 시간: {timeLeft.hours > 0 ? `${timeLeft.hours}시간 ` : ''}
+              {timeLeft.minutes}분 {timeLeft.seconds}초
+            </Timer>
+          )}
           <VideoPlayer videoUrl={game.question_link} />
           <AnswerSection>
             {!previousAnswer?.is_correct && (

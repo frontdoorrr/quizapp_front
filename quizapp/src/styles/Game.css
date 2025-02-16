@@ -4,15 +4,10 @@
   min-height: 100vh;
   width: calc(100% - 20px);
   padding: 2rem 10px;
-  padding-top: 200px; /* Navbar 아래로 내리기 위한 상단 여백 추가 */
+  padding-top: 50px; /* Navbar 아래로 내리기 위한 상단 여백 추가 */
   max-width: 800px;
   margin: 0 auto;
   line-height: 2.6;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   overflow-y: auto;
   animation: fadeInUp 0.6s ease-out forwards;
 }
