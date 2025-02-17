@@ -144,7 +144,12 @@ function Register() {
       setIsEmailSent(true);
 
       // 이메일 중복 체크
-      await authService.verifyEmail(userData.email);
+      const response = await authService.verifyEmail(userData.email);
+      if (response.exists) {
+        setIsEmailSent(false);
+        alert('이미 존재하는 이메일입니다.');
+        return;
+      }
       
       // 인증 메일 발송
       await authService.sendVerificationEmail(userData.email);

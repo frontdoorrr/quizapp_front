@@ -113,7 +113,7 @@ export const authService = {
   verifyEmail: async (email) => {
     try {
       const response = await api.get(`${API_ENDPOINTS.VERIFY_EMAIL}/${encodeURIComponent(email)}`);
-      return !response.data.exists; // exists가 false면 사용 가능
+      return response.data; // 원래 응답 그대로 반환
     } catch (error) {
       console.error('Email check error:', error);
       throw error;
