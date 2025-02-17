@@ -158,11 +158,11 @@ function Profile() {
             <label>랭킹:</label>
             <span>{profile.rank || '-'}</span>
           </div>
-          {/* <div className="profile-buttons">
+          <div className="profile-buttons">
             <button onClick={handleEdit}>
               프로필 수정
             </button>
-          </div> */}
+          </div>
         </div>
       )}
     </div>
