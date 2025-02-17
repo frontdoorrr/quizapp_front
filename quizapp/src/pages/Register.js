@@ -134,14 +134,25 @@ function Register() {
       return;
     }
 
+    // 이미 이메일이 전송된 상태라면 함수 실행 중지
+    if (isEmailSent) {
+      return;
+    }
+
     try {
+      // 버튼 비활성화
+      setIsEmailSent(true);
+
       // 이메일 중복 체크
       await authService.verifyEmail(userData.email);
+      
       // 인증 메일 발송
       await authService.sendVerificationEmail(userData.email);
-      setIsEmailSent(true);
+      
       alert('인증 메일이 발송되었습니다. 이메일을 확인해주세요.');
     } catch (error) {
+      // 에러 발생 시에만 상태 초기화
+      setIsEmailSent(false);
       alert(error.message || '이메일 인증에 실패했습니다.');
     }
   };
@@ -153,11 +164,12 @@ function Register() {
     }
 
     try {
-      await authService.verifyToken(verificationToken, userData.email);
+      await authService.verifyToken(userData.email, verificationToken);
       setIsEmailVerified(true);
-      alert('인증이 완료되었습니다.');
+      setIsEmailSent(false); // 인증 완료 시 이메일 전송 상태 초기화
+      alert('이메일이 인증되었습니다.');
     } catch (error) {
-      alert(error.message || '인증 토큰이 올바르지 않습니다.');
+      alert(error.message || '인증에 실패했습니다.');
     }
   };
 
@@ -358,8 +370,9 @@ function Register() {
             <button
               type="button"
               onClick={handleEmailVerification}
-              disabled={!userData.email || isEmailVerified}
-              className="verify-button"
+              disabled={!userData.email || isEmailVerified || isEmailSent}
+              style={{ pointerEvents: isEmailSent ? 'none' : 'auto' }}
+              className={`verify-button ${isEmailSent ? 'disabled' : ''}`}
             >
               {isEmailVerified ? '✓ 인증완료' : isEmailSent ? '인증 대기중' : '이메일 인증'}
             </button>
