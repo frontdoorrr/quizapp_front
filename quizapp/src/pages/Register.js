@@ -277,8 +277,45 @@ function Register() {
     return birthDate >= minDate && birthDate <= maxDate;
   };
 
+  const validatePassword = (password) => {
+    if (!password) {
+      return { isValid: false, message: '비밀번호를 입력해주세요.' };
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      return { isValid: false, message: '비밀번호는 최소 1개의 대문자를 포함해야 합니다.' };
+    }
+
+    if (!/[a-z]/.test(password)) {
+      return { isValid: false, message: '비밀번호는 최소 1개의 소문자를 포함해야 합니다.' };
+    }
+
+    if (!/[0-9]/.test(password)) {
+      return { isValid: false, message: '비밀번호는 최소 1개의 숫자를 포함해야 합니다.' };
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      return { isValid: false, message: '비밀번호는 최소 1개의 특수문자를 포함해야 합니다.' };
+    }
+
+    return { isValid: true, message: '' };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 비밀번호 검증
+    const passwordValidation = validatePassword(userData.password);
+    if (!passwordValidation.isValid) {
+      alert(passwordValidation.message);
+      return;
+    }
+
+    // 비밀번호 일치 여부 확인
+    if (userData.password !== userData.confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
 
     if (!isEmailVerified) {
       alert('이메일 인증이 필요합니다.');
@@ -287,11 +324,6 @@ function Register() {
 
     if (!isNicknameAvailable) {
       alert('닉네임 중복 확인이 필요합니다.');
-      return;
-    }
-
-    if (userData.password !== userData.confirmPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
       return;
     }
 
