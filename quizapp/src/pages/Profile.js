@@ -100,7 +100,7 @@ function Profile() {
         alert(nicknameValidation.message);
         return;
       }
-      
+
       // 닉네임 중복 확인 여부 체크
       if (!isNicknameAvailable) {
         alert('닉네임 중복 확인을 해주세요.');
@@ -208,24 +208,14 @@ function Profile() {
       {isEditing ? (
         <form onSubmit={handleSave} className="profile-form">
           <div className="profile-field">
-            <label>이메일:</label>
+            <label style={{ width: '80px' }}>이메일:</label>
             <input
               type="email"
               name="email"
               value={editedProfile.email}
               disabled
-            />
-          </div>
-          <div className="input-group" style={{ fontFamily: 'var(--font-primary)' }}>
-            <input
-              type="text"
-              name="nickname"
-              value={editedProfile.nickname}
-              onChange={handleChange}
-              placeholder="닉네임 (한글 3-8자/영어 3-15자)"
-              maxLength="15"
-              required
               style={{
+                flex: 1,
                 padding: '0.8rem',
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 color: '#ffffff',
@@ -234,28 +224,52 @@ function Profile() {
                 fontFamily: 'var(--font-primary)',
                 fontSize: '1rem'
               }}
-              className={`${isNicknameAvailable ? 'verified' : ''} ${
-                editedProfile.nickname && !nicknameValidation.isValid ? 'invalid' : ''
-              }`}
             />
-            <button
-              type="button"
-              onClick={handleNicknameCheck}
-              disabled={!editedProfile.nickname || !nicknameValidation.isValid || isNicknameAvailable}
-              style={{
-                padding: '10px 15px',
-                backgroundColor: '#d8c27c',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                fontFamily: 'var(--font-primary)',
-                fontSize: '1rem'
-              }}
-            >
-              {isNicknameAvailable ? '✓ 사용가능' : '중복확인'}
-            </button>
+          </div>
+          <div className="profile-field">
+            <label style={{ width: '80px' }}>닉네임:</label>
+            <div className="input-group" style={{ flex: 1, gap: '8px' }}>
+              <input
+                type="text"
+                name="nickname"
+                value={editedProfile.nickname}
+                onChange={handleChange}
+                placeholder="닉네임 (한글 3-8자/영어 3-15자)"
+                maxLength="15"
+                required
+                style={{
+                  flex: 1,
+                  padding: '0.8rem',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontFamily: 'var(--font-primary)',
+                  fontSize: '1rem'
+                }}
+                className={`${isNicknameAvailable ? 'verified' : ''} ${
+                  editedProfile.nickname && !nicknameValidation.isValid ? 'invalid' : ''
+                }`}
+              />
+              <button
+                type="button"
+                onClick={handleNicknameCheck}
+                disabled={!editedProfile.nickname || !nicknameValidation.isValid || isNicknameAvailable}
+                style={{
+                  padding: '10px 15px',
+                  backgroundColor: '#d8c27c',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  fontFamily: 'var(--font-primary)',
+                  fontSize: '1rem'
+                }}
+              >
+                {isNicknameAvailable ? '✓ 사용가능' : '중복확인'}
+              </button>
+            </div>
           </div>
           {editedProfile.nickname && (
             <div
