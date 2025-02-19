@@ -56,29 +56,31 @@
   font-weight: 500;
 }
 
-.profile-field span {
-  color: var(--color-text-primary);
-  flex: 1;
-}
-
 .profile-field input {
   flex: 1;
   padding: 0.5rem;
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-input);
   color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+.profile-field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 .profile-field input:disabled {
   background-color: var(--color-bg-secondary);
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .profile-buttons {
   display: flex;
   gap: 1rem;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 2rem;
 }
 
@@ -86,33 +88,42 @@
   padding: 0.5rem 1.5rem;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .profile-buttons button[type="submit"] {
   background-color: var(--color-primary);
-  color: var(--color-text-dark);
-}
-
-.profile-buttons button[type="submit"]:hover {
-  background-color: var(--color-primary-light);
+  color: white;
 }
 
 .profile-buttons button[type="button"] {
-  background-color: transparent;
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   color: var(--color-text-primary);
 }
 
-.profile-buttons button[type="button"]:hover {
+.profile-buttons button:hover {
   background-color: var(--color-bg-hover);
 }
 
 .profile-container.error {
   color: #ff6b6b;
   text-align: center;
+}
+
+.validation-message {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.validation-message.invalid {
+  color: #f44336;
+}
+
+.validation-message.valid {
+  color: #4CAF50;
 }
 
 @media (max-width: 768px) {
