@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { userService } from '../api';
+import { userService, authService } from '../api';
 import '../styles/Profile.css';
 import '../styles/Auth.css';
 
@@ -11,7 +11,7 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState(null);
   const [nicknameValidation, setNicknameValidation] = useState({ isValid: true, message: '' });
-  const [isNicknameAvailable, setIsNicknameAvailable] = useState(true);
+  const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
 
   const koreanRegex = /^[가-힣]+$/;
   const englishRegex = /^[a-zA-Z0-9]+$/;
@@ -75,11 +75,12 @@ function Profile() {
     }
 
     try {
-      const response = await userService.checkNickname(editedProfile.nickname);
-      setIsNicknameAvailable(!response.exists);
-      if (response.exists) {
+      const exists = await authService.checkNickname(editedProfile.nickname);
+      if (exists) {
+        setIsNicknameAvailable(false);
         alert('이미 사용 중인 닉네임입니다.');
       } else {
+        setIsNicknameAvailable(true);
         alert('사용 가능한 닉네임입니다.');
       }
     } catch (error) {
@@ -88,18 +89,23 @@ function Profile() {
     }
   };
 
-  const handleSave = async () => {
-    // 닉네임이 변경되었고, 중복 확인이 되지 않았다면
-    if (editedProfile.nickname !== profile.nickname && !isNicknameAvailable) {
-      alert('닉네임 중복 확인이 필요합니다.');
-      return;
-    }
+  const handleSave = async (e) => {
+    e.preventDefault();
+    if (!editedProfile) return;
 
-    // 닉네임 유효성 검사
-    const nicknameValidation = validateNickname(editedProfile.nickname);
-    if (!nicknameValidation.isValid) {
-      alert(nicknameValidation.message);
-      return;
+    // 닉네임이 변경되었는지 확인
+    if (editedProfile.nickname !== profile.nickname) {
+      // 닉네임 유효성 검사
+      if (!nicknameValidation.isValid) {
+        alert(nicknameValidation.message);
+        return;
+      }
+      
+      // 닉네임 중복 확인 여부 체크
+      if (!isNicknameAvailable) {
+        alert('닉네임 중복 확인을 해주세요.');
+        return;
+      }
     }
 
     try {
@@ -174,10 +180,14 @@ function Profile() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditedProfile(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setEditedProfile(prev => ({ ...prev, [name]: value }));
+
+    if (name === 'nickname') {
+      // 닉네임이 변경되면 중복 확인 상태 초기화
+      setIsNicknameAvailable(false);
+      const validation = validateNickname(value);
+      setNicknameValidation(validation);
+    }
   };
 
   if (loading && !profile) {
@@ -215,7 +225,7 @@ function Profile() {
               placeholder="닉네임 (한글 3-8자/영어 3-15자)"
               maxLength="15"
               required
-              style={{ 
+              style={{
                 padding: '0.8rem',
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 color: '#ffffff',
@@ -248,7 +258,7 @@ function Profile() {
             </button>
           </div>
           {editedProfile.nickname && (
-            <div 
+            <div
               className={`validation-message ${nicknameValidation.isValid ? 'valid' : 'invalid'}`}
               style={{ fontFamily: 'var(--font-primary)' }}
             >
@@ -256,8 +266,8 @@ function Profile() {
             </div>
           )}
           <div className="profile-buttons" style={{ fontFamily: 'var(--font-primary)' }}>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={loading}
               style={{
                 backgroundColor: '#d8c27c',
@@ -268,8 +278,8 @@ function Profile() {
             >
               {loading ? '저장 중...' : '저장'}
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={handleCancel}
               style={{
                 fontFamily: 'var(--font-primary)',
