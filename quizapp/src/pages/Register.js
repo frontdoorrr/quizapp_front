@@ -150,10 +150,10 @@ function Register() {
         alert('이미 존재하는 이메일입니다.');
         return;
       }
-      
+
       // 인증 메일 발송
       await authService.sendVerificationEmail(userData.email);
-      
+
       alert('인증 메일이 발송되었습니다. 이메일을 확인해주세요.');
     } catch (error) {
       // 에러 발생 시에만 상태 초기화
@@ -169,7 +169,7 @@ function Register() {
     }
 
     try {
-      await authService.verifyToken(userData.email, verificationToken);
+      await authService.verifyToken(verificationToken, userData.email);
       setIsEmailVerified(true);
       setIsEmailSent(false); // 인증 완료 시 이메일 전송 상태 초기화
       alert('이메일이 인증되었습니다.');
@@ -180,6 +180,7 @@ function Register() {
 
   const validateNickname = (nickname) => {
     // 공백 체크
+
     if (nickname.includes(' ')) {
       return {
         isValid: false,
