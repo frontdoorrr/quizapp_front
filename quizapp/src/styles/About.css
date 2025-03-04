@@ -108,7 +108,7 @@
 
   .content-box {
     padding: 1.5rem;
-    max-width: 300px;
+    max-width: 80%;
   }
 
   .content-box h3 {
@@ -139,6 +139,6 @@
   }
 
   .content-box {
-    max-width: 100%;
+    max-width: 80%;
   }
 }
