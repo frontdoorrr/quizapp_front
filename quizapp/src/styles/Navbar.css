@@ -1,6 +1,5 @@
 .navbar {
-  background-color: var(--color-bg-primary);
-  backdrop-filter: blur(8px);
+  background-color: var(--bg-color);
   position: fixed;
   top: calc(var(--auth-buttons-height) + 0.5rem);
   left: 0;
@@ -13,9 +12,11 @@
   align-items: center;
   isolation: isolate;
   width: 100%;
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); */
 }
 
 .nav-container {
+  background-color: var(--bg-color);
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -28,6 +29,7 @@
 }
 
 .nav-links {
+  background-color: var(--bg-color);
   display: flex;
   gap: 2rem;
   margin-left: 0;
@@ -44,6 +46,7 @@
   font-family: "CGF Locust Resistance";
   position: relative;
   white-space: nowrap;
+  background-color: var(--bg-color);
 }
 
 .nav-links a::after {
@@ -101,6 +104,7 @@
   .nav-links a {
     font-size: 1rem;
     padding: 0.5rem 0.8rem;
+    background-color: var(--bg-color);
   }
 }
 
@@ -112,6 +116,7 @@
   .nav-links a {
     font-size: 0.95rem;
     padding: 0.5rem 0.6rem;
+    background-color: var(--bg-color);
   }
 }
 
@@ -123,17 +128,20 @@
   .nav-links a {
     font-size: 0.9rem;
     padding: 0.5rem 0.5rem;
+    background-color: var(--bg-color);
   }
 }
 
 @media (max-width: 768px) {
   .nav-links {
     gap: 0.8rem;
+    background-color: var(--bg-color);
   }
 
   .nav-links a {
     font-size: 0.85rem;
     padding: 0.4rem 0.4rem;
+    background-color: var(--bg-color);
   }
 }
 
@@ -145,6 +153,7 @@
   .nav-links a {
     font-size: 0.8rem;
     padding: 0.4rem 0.3rem;
+    background-color: var(--bg-color);
   }
 }
 
@@ -156,6 +165,7 @@
   .nav-links a {
     font-size: 0.75rem;
     padding: 0.3rem 0.2rem;
+    background-color: var(--bg-color);
   }
 }
 
@@ -171,6 +181,7 @@
   .nav-links a {
     font-size: 0.7rem;
     padding: 0.3rem 0.1rem;
+    background-color: var(--bg-color);
   }
 
   .nav-links a::after {
@@ -186,5 +197,6 @@
   .nav-links a {
     font-size: 0.65rem;
     padding: 0.2rem 0.1rem;
+    background-color: var(--bg-color);
   }
 }
