@@ -215,7 +215,7 @@ function Game() {
           setIsNoActiveGame(true);
           setGame(null);
         } else {
-          setError('게임을 불러오는데 실패했습니다.');
+          setError('현재 활성화된 게임이 없습니다.  오픈을 기다려주세요.');
         }
       }
     };
