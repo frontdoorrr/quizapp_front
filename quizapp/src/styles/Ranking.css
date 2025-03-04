@@ -14,7 +14,7 @@
 
 .ranking-content {
   max-width: 800px;
-  width: 90%;
+  width: 85%;
   margin: 0 auto;
   padding: 2rem;
 }
@@ -111,6 +111,7 @@
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .ranking-item:hover {
@@ -178,6 +179,9 @@
   text-align: center;
   font-size: 1.2rem;
   padding: 0 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .score {
@@ -185,6 +189,9 @@
   font-weight: bold;
   color: #ffd700;
   text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Top 3 점수 색상 */
@@ -250,7 +257,7 @@
 
   .ranking-content {
     width: 85%;
-    padding: 1rem;
+    padding: 0.8rem;
   }
 
   .ranking-container {
