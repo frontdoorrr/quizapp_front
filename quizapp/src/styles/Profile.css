@@ -54,6 +54,7 @@
   width: 100px;
   color: var(--color-text-secondary);
   font-weight: 500;
+  font-size: 1rem;
 }
 
 .profile-field input {
@@ -128,14 +129,76 @@
 
 @media (max-width: 768px) {
   .profile-container {
-    width: calc(85% - 20px);
+    width: calc(95% - 20px);
     padding: 1.5rem 10px;
+  }
+  
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .profile-field label {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  .profile-field input {
+    width: 100%;
+  }
+  
+  .profile-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .profile-buttons button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .profile-container {
-    width: calc(85% - 20px);
+    width: calc(95% - 20px);
     padding: 1rem 10px;
+  }
+  
+  .profile-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profile-info h2, .quiz-history h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-field {
+    margin-bottom: 1rem;
+  }
+  
+  .profile-field label {
+    font-size: 0.85rem;
+  }
+  
+  .profile-field input {
+    padding: 0.4rem;
+    font-size: 0.85rem;
+  }
+  
+  .profile-buttons {
+    margin-top: 1.5rem;
+  }
+  
+  .profile-buttons button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
   }
 }
