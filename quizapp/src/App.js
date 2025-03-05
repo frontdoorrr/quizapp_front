@@ -10,7 +10,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ScrollText from "./components/common/ScrollText";
 import EmailSubscribe from "./components/common/EmailSubscribe";
-import AuthButtons from "./components/auth/AuthButtons";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Main from './pages/Main';
 import Game from './pages/Game';
@@ -20,7 +19,6 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <AuthButtons />
         <Navbar />
         <div className="content">
           <Routes>
