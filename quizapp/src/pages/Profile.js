@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { userService, authService } from '../api';
 import '../styles/Profile.css';
 import '../styles/Auth.css';
@@ -12,6 +13,7 @@ function Profile() {
   const [editedProfile, setEditedProfile] = useState(null);
   const [nicknameValidation, setNicknameValidation] = useState({ isValid: true, message: '' });
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
+  const navigate = useNavigate();
 
   const koreanRegex = /^[가-힣]+$/;
   const englishRegex = /^[a-zA-Z0-9]+$/;
@@ -178,6 +180,11 @@ function Profile() {
     setEditedProfile(profile);
   };
 
+  const handleLogout = () => {
+    authService.logout();
+    navigate('/');
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedProfile(prev => ({ ...prev, [name]: value }));
@@ -330,6 +337,9 @@ function Profile() {
           <div className="profile-buttons">
             <button onClick={handleEdit}>
               프로필 수정
+            </button>
+            <button onClick={handleLogout} className="logout-button">
+              로그아웃
             </button>
           </div>
         </div>

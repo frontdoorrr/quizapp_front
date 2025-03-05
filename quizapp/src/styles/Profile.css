@@ -109,6 +109,15 @@
   background-color: var(--color-bg-hover);
 }
 
+.logout-button {
+  background-color: #ff6b6b !important;
+  color: white !important;
+}
+
+.logout-button:hover {
+  background-color: #e05555 !important;
+}
+
 .profile-container.error {
   color: #ff6b6b;
   text-align: center;
