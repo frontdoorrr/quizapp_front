@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { authService } from '../api/services/authService';
 import '../styles/Auth.css';
 
@@ -58,6 +58,9 @@ function Login() {
             LOGIN
           </button>
           {error && <p className="auth-error">{error}</p>}
+          <div className="auth-links">
+            <Link to="/register" className="register-link">계정이 없으신가요? 회원가입</Link>
+          </div>
         </form>
       </div>
     </div>
