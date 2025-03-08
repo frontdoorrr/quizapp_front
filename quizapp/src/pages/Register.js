@@ -370,6 +370,7 @@ function Register() {
     <div className="page-container">
       <div className="auth-container">
         <h1 className="auth-title">회원가입</h1>
+        <h5>※ 닉네임은 수정이 어려울 수 있으니 신중하게 선택해주세요. </h5>
         <form className="auth-form" onSubmit={handleSubmit}>
           <input
             type="text"
