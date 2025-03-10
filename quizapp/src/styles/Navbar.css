@@ -89,9 +89,7 @@
 
 /* 반응형 디자인 */
 @media (max-width: 1000px) {
-  .navbar {
-    top: 2.2rem;
-  }
+
 
   .nav-container {
     padding: 0 1rem;
