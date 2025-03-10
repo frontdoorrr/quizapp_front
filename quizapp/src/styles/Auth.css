@@ -234,6 +234,10 @@ n
   transition: color 0.3s;
 }
 
+.register-link:visited {
+  color: #d8c27c; /* 방문 후에도 같은 색상 유지 */
+}
+
 .register-link:hover {
   color: #ffffff;
   text-decoration: underline;
