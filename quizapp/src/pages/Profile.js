@@ -13,11 +13,29 @@ function Profile() {
   const [editedProfile, setEditedProfile] = useState(null);
   const [nicknameValidation, setNicknameValidation] = useState({ isValid: true, message: '' });
   const [isNicknameAvailable, setIsNicknameAvailable] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const koreanRegex = /^[가-힣]+$/;
   const englishRegex = /^[a-zA-Z0-9]+$/;
   const mixedRegex = /^[a-zA-Z0-9가-힣]+$/;
+
+  // 비밀번호 유효성 검사 규칙
+  const passwordRules = [
+    { regex: /.{8,}/, message: '비밀번호는 최소 8자 이상이어야 합니다.' },
+    { regex: /[A-Z]/, message: '비밀번호는 최소 1개의 대문자를 포함해야 합니다.' },
+    { regex: /[a-z]/, message: '비밀번호는 최소 1개의 소문자를 포함해야 합니다.' },
+    { regex: /[0-9]/, message: '비밀번호는 최소 1개의 숫자를 포함해야 합니다.' },
+    { regex: /[!@#$%^&*(),.?":{}|<>]/, message: '비밀번호는 최소 1개의 특수문자를 포함해야 합니다.' }
+  ];
 
   const validateNickname = (nickname) => {
     if (!nickname) {
@@ -197,6 +215,87 @@ function Profile() {
     }
   };
 
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData(prev => ({ ...prev, [name]: value }));
+    setPasswordError('');
+  };
+
+  const handlePasswordModalOpen = () => {
+    setShowPasswordModal(true);
+    setPasswordData({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
+    setPasswordError('');
+    setPasswordSuccess('');
+  };
+
+  const handlePasswordModalClose = () => {
+    setShowPasswordModal(false);
+  };
+
+  // 비밀번호 유효성 검사
+  const validatePassword = (password) => {
+    for (const rule of passwordRules) {
+      if (!rule.regex.test(password)) {
+        return { isValid: false, message: rule.message };
+      }
+    }
+    return { isValid: true, message: '' };
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    
+    // 비밀번호 유효성 검사
+    if (!passwordData.currentPassword) {
+      setPasswordError('현재 비밀번호를 입력해주세요.');
+      return;
+    }
+    
+    if (!passwordData.newPassword) {
+      setPasswordError('새 비밀번호를 입력해주세요.');
+      return;
+    }
+    
+    // 비밀번호 규칙 검사
+    const passwordValidation = validatePassword(passwordData.newPassword);
+    if (!passwordValidation.isValid) {
+      setPasswordError(passwordValidation.message);
+      return;
+    }
+    
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError('새 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    
+    try {
+      setIsSubmitting(true);
+      await authService.changePassword(
+        passwordData.currentPassword,
+        passwordData.newPassword,
+        passwordData.confirmPassword
+      );
+      
+      setPasswordSuccess('비밀번호가 성공적으로 변경되었습니다.');
+      
+      // 3초 후 모달 닫기
+      setTimeout(() => {
+        setShowPasswordModal(false);
+        setPasswordSuccess('');
+      }, 3000);
+      
+    } catch (err) {
+      console.error('Password change error:', err);
+      setPasswordError(err.message || '비밀번호 변경에 실패했습니다.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (loading && !profile) {
     return <div className="profile-container">Loading...</div>;
   }
@@ -338,9 +437,82 @@ function Profile() {
             <button onClick={handleEdit}>
               프로필 수정
             </button>
+            <button onClick={handlePasswordModalOpen} >
+              비밀번호 변경
+            </button>
             <button onClick={handleLogout} className="logout-button">
               로그아웃
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* 비밀번호 변경 모달 */}
+      {showPasswordModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>비밀번호 변경</h2>
+            <form onSubmit={handlePasswordSubmit}>
+              <div className="form-group">
+                <label htmlFor="currentPassword">현재 비밀번호</label>
+                <input
+                  type="password"
+                  id="currentPassword"
+                  name="currentPassword"
+                  value={passwordData.currentPassword}
+                  onChange={handlePasswordChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="newPassword">새 비밀번호</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  name="newPassword"
+                  value={passwordData.newPassword}
+                  onChange={handlePasswordChange}
+                  required
+                  minLength="8"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">새 비밀번호 확인</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={passwordData.confirmPassword}
+                  onChange={handlePasswordChange}
+                  required
+                />
+              </div>
+              
+              {/* 비밀번호 규칙 안내 */}
+              <div className="password-rules">
+                <p>비밀번호 규칙:</p>
+                <ul>
+                  {passwordRules.map((rule, index) => (
+                    <li key={index} className={
+                      passwordData.newPassword && rule.regex.test(passwordData.newPassword) 
+                        ? 'valid-rule' 
+                        : ''
+                    }>
+                      {rule.message}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {passwordError && <p className="error-message">{passwordError}</p>}
+              {passwordSuccess && <p className="success-message">{passwordSuccess}</p>}
+              <div className="modal-buttons">
+                <button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? '변경 중...' : '변경하기'}
+                </button>
+                <button type="button" onClick={handlePasswordModalClose}>취소</button>
+              </div>
+            </form>
           </div>
         </div>
       )}

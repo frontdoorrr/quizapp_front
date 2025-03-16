@@ -118,6 +118,15 @@
   background-color: #e05555 !important;
 }
 
+.password-button {
+  background-color: #4a90e2 !important;
+  color: white !important;
+}
+
+.password-button:hover {
+  background-color: #3a7bc8 !important;
+}
+
 .profile-container.error {
   color: #ff6b6b;
   text-align: center;
@@ -134,6 +143,160 @@
 
 .validation-message.valid {
   color: #4CAF50;
+}
+
+/* 모달 스타일 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--color-bg-secondary);
+  border-radius: 8px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h2 {
+  color: #d8c27c;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-primary);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #d8c27c;
+}
+
+.error-message {
+  color: #f44336;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-primary);
+}
+
+.success-message {
+  color: #4CAF50;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-primary);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.modal-buttons button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: #d8c27c;
+  color: white;
+}
+
+.modal-buttons button[type="button"] {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}
+
+/* 비밀번호 규칙 스타일 */
+.password-rules {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.password-rules p {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+.password-rules ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.password-rules li {
+  margin-bottom: 0.3rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.password-rules li.valid-rule {
+  color: #4CAF50;
+  transform: translateX(5px);
+}
+
+.password-rules li.valid-rule::before {
+  content: "✓ ";
 }
 
 @media (max-width: 768px) {

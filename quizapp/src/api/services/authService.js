@@ -100,6 +100,42 @@ export const authService = {
     return null;
   },
 
+  changePassword: async (currentPassword, newPassword, confirmPassword) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.CHANGE_PASSWORD, {
+        current_password: currentPassword,
+        new_password: newPassword,
+        new_password2: confirmPassword
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Password change error:', error.response?.data || error);
+      
+      // 백엔드 validation 에러 처리
+      if (error.response?.data?.detail && Array.isArray(error.response.data.detail)) {
+        // 첫 번째 validation 에러 메시지 추출
+        const validationError = error.response.data.detail[0];
+        if (validationError.ctx?.error) {
+          throw new Error(validationError.ctx.error);
+        } else if (validationError.msg) {
+          // msg에서 "Value error, " 부분 제거
+          const errorMsg = validationError.msg.replace('Value error, ', '');
+          throw new Error(errorMsg);
+        }
+      }
+      
+      // 기본 에러 처리
+      if (error.response?.status === 400) {
+        if (error.response.data?.message) {
+          throw new Error(error.response.data.message);
+        }
+        throw new Error('현재 비밀번호가 일치하지 않습니다.');
+      }
+      
+      throw error;
+    }
+  },
+
   checkNickname: async (nickname) => {
     try {
       const response = await api.get(`${API_ENDPOINTS.CHECK_NICKNAME}/${nickname}`);

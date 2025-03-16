@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
   LOGIN: '/user/login',
   REGISTER: '/user/register',
   LOGOUT: '/auth/logout',
+  CHANGE_PASSWORD: '/user/change-password',
 
   // User
   GET_PROFILE: '/user/me',
