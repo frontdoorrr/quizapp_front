@@ -58,7 +58,27 @@ export const rankingService = {
       console.log('Requesting game rankings:', url);
       
       const response = await api.get(url);
-      return response.data;
+      console.log('Raw game rankings response:', response);
+      
+      // 응답 데이터 형식 확인 및 로깅
+      const responseData = response.data;
+      console.log('Game rankings response data type:', typeof responseData);
+      console.log('Is response data an array?', Array.isArray(responseData));
+      
+      if (responseData && Array.isArray(responseData)) {
+        // 각 항목에 user 객체가 있는지 확인
+        responseData.forEach((item, index) => {
+          console.log(`Item ${index}:`, item);
+          if (item.user) {
+            console.log(`Item ${index} user:`, item.user);
+            console.log(`Item ${index} nickname:`, item.user.nickname);
+          } else {
+            console.log(`Item ${index} has no user object`);
+          }
+        });
+      }
+      
+      return responseData;
     } catch (error) {
       console.error('Get game rankings error:', error.response || error);
       throw error;

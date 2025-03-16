@@ -4,16 +4,16 @@ import { rankingService } from '../../api/services/rankingService';
 
 // 임시 데이터 (로딩 중이거나 오류 발생 시 대체 표시용)
 const mockGameRankings = [
-  { id: 1, username: "SPEED MASTER", score: 2500 },
-  { id: 2, username: "QUICK MIND", score: 2350 },
-  { id: 3, username: "FAST THINKER", score: 2200 },
-  { id: 4, username: "QUIZ SOLVER", score: 2100 },
-  { id: 5, username: "GAME PLAYER", score: 2000 },
-  { id: 6, username: "QUICK SOLVER", score: 1900 },
-  { id: 7, username: "GAME MASTER", score: 1850 },
-  { id: 8, username: "SPEED RUNNER", score: 1800 },
-  { id: 9, username: "QUIZ ACE", score: 1750 },
-  { id: 10, username: "GAME PRO", score: 1700 },
+  { id: 1, username: "랭킹 1위", score: 2500 },
+  { id: 2, username: "랭킹 2위", score: 2350 },
+  { id: 3, username: "랭킹 3위", score: 2200 },
+  { id: 4, username: "랭킹 4위", score: 2100 },
+  { id: 5, username: "랭킹 5위", score: 2000 },
+  { id: 6, username: "랭킹 6위", score: 1900 },
+  { id: 7, username: "랭킹 7위", score: 1850 },
+  { id: 8, username: "랭킹 8위", score: 1800 },
+  { id: 9, username: "랭킹 9위", score: 1750 },
+  { id: 10, username: "랭킹 10위", score: 1700 },
 ];
 
 function GameRanking() {
@@ -65,40 +65,46 @@ function GameRanking() {
       console.log('Fetched game rankings response:', response);
 
       // 응답이 배열인지 확인
-      let rankingsArray = Array.isArray(response) ? response : 
-                         (response.users ? response.users : Object.values(response));
+      if (!response || !Array.isArray(response)) {
+        console.error('Invalid response format. Expected array:', response);
+        setRankings([]);
+        setLoading(false);
+        return;
+      }
       
       // 응답 데이터 형식에 맞게 가공
-      // API 응답 예시:
-      // {
-      //   "id": "01JNNNC7FYJYM6AJQ1PDS9STN5",
-      //   "game_id": "01JNJXS08YVV10NHH6NG4HFKAX",
-      //   "user_id": "01JNGG6B1WVQVR4X5VDFKFXQF8",
-      //   "answer": "string",
-      //   "is_correct": true,
-      //   "solved_at": "2025-03-08T01:31:54.369053",
-      //   "created_at": "2025-03-06T12:02:40.752733",
-      //   "updated_at": "2025-03-08T01:31:54.369053",
-      //   "point": 0,
-      //   "user": {
-      //     "id": "01JNGG6B1WVQVR4X5VDFKFXQF8",
-      //     "name": "",
-      //     "nickname": "heyheyhey"
-      //   }
-      // }
-      const processedRankings = rankingsArray.map(item => ({
-        id: item.id,
-        username: item.user?.nickname || item.user?.name || 'who',
-        score: item.point || 0,
-        // 원본 데이터도 유지
-        originalData: item
-      }));
+      const processedRankings = response.map((item, index) => {
+        console.log(`Processing item ${index}:`, item);
+        
+        // user 객체 확인
+        if (!item.user) {
+          console.error(`Item ${index} has no user object:`, item);
+          return {
+            id: item.id || `temp-${index}`,
+            username: '사용자 정보 없음',
+            score: item.point || 0,
+            originalData: item
+          };
+        }
+        
+        // nickname 확인
+        const nickname = item.user.nickname;
+        console.log(`Item ${index} nickname:`, nickname);
+        
+        return {
+          id: item.id || `temp-${index}`,
+          username: nickname || '이름 없음',
+          score: item.point || 0,
+          originalData: item
+        };
+      });
 
-      console.log('Processed game rankings:', processedRankings);
+      console.log('Final processed rankings:', processedRankings);
       setRankings(processedRankings);
     } catch (err) {
       console.error('Fetch game rankings error:', err);
       setError(err.message || '게임 랭킹을 불러오는데 실패했습니다.');
+      setRankings([]);
     } finally {
       setLoading(false);
     }
@@ -115,7 +121,7 @@ function GameRanking() {
       ) : error ? (
         <div className="error">{error}</div>
       ) : (
-        <RankingTable rankings={rankings.length > 0 ? rankings : mockGameRankings} type="game" />
+        <RankingTable rankings={rankings} type="game" />
       )}
     </div>
   );

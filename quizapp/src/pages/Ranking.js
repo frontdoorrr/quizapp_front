@@ -182,13 +182,30 @@ function Ranking() {
       const scoreField = activeTab === 'game' ? (user.score !== undefined ? 'score' : 'point') : 'point';
       const scoreValue = user[scoreField] || 0;
 
+      // user 객체 확인 (게임 랭킹의 경우 user 객체 내에 nickname이 있을 수 있음)
+      let displayName = '이름 없음';
+      
+      if (user.user && user.user.nickname) {
+        // 게임 랭킹 API 응답 형식 (user 객체 내에 nickname이 있는 경우)
+        displayName = user.user.nickname;
+      } else if (user.nickname) {
+        // 일반적인 경우 (user 객체 자체에 nickname이 있는 경우)
+        displayName = user.nickname;
+      } else if (user.email) {
+        // 이메일이 있는 경우
+        displayName = user.email;
+      } else if (user.username) {
+        // username이 있는 경우
+        displayName = user.username;
+      }
+
       return (
         <div key={user.id || index} className={`ranking-item ${rank <= 3 ? `top-${rank}` : ''}`}>
           <div className="rank">
             {rank}
             {crown && <span className={`crown rank-${rank}`}>{crown}</span>}
           </div>
-          <div className="username">{user.nickname || user.email || user.username || 'who' }</div>
+          <div className="username">{displayName}</div>
           <div className="score">{scoreValue}</div>
         </div>
       );
