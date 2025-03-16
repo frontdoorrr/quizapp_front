@@ -188,7 +188,7 @@ function Ranking() {
             {rank}
             {crown && <span className={`crown rank-${rank}`}>{crown}</span>}
           </div>
-          <div className="username">{user.nickname || user.email || user.username || 'STRING'}</div>
+          <div className="username">{user.nickname || user.email || user.username || 'who' }</div>
           <div className="score">{scoreValue}</div>
         </div>
       );
