@@ -110,3 +110,78 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+/* Markdown 스타일링 */
+.terms-content h1, 
+.terms-content h2, 
+.terms-content h3 {
+  color: #fff;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.terms-content h1 {
+  font-size: 1.8rem;
+  border-bottom: 1px solid #d8c27c;
+  padding-bottom: 0.5rem;
+}
+
+.terms-content h2 {
+  font-size: 1.5rem;
+  color: #d8c27c;
+}
+
+.terms-content h3 {
+  font-size: 1.3rem;
+}
+
+.terms-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.terms-content ul, 
+.terms-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.terms-content li {
+  margin-bottom: 0.5rem;
+}
+
+.terms-content strong {
+  color: #d8c27c;
+  font-weight: bold;
+}
+
+.terms-content blockquote {
+  border-left: 3px solid #d8c27c;
+  padding-left: 1rem;
+  margin-left: 1rem;
+  font-style: italic;
+  color: #aaa;
+}
+
+.terms-content code {
+  background-color: #333;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.terms-content a {
+  color: #d8c27c;
+  text-decoration: underline;
+}
+
+.terms-content a:hover {
+  text-decoration: none;
+}
+
+/* 로딩 상태 스타일 */
+.terms-content .loading {
+  text-align: center;
+  padding: 2rem;
+  color: #aaa;
+}

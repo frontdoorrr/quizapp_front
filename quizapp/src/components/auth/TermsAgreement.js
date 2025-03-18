@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import '../../styles/TermsAgreement.css';
+import { loadAllTerms } from '../../utils/termsLoader';
 
 function TermsAgreement({ onComplete }) {
   const [agreements, setAgreements] = useState({
@@ -10,6 +12,29 @@ function TermsAgreement({ onComplete }) {
   });
   
   const [activeAccordion, setActiveAccordion] = useState(null);
+  const [termsContent, setTermsContent] = useState({
+    termsOfService: '로딩 중...',
+    privacyPolicy: '로딩 중...',
+    dataCollection: '로딩 중...'
+  });
+  const [loading, setLoading] = useState(true);
+
+  // 약관 내용 로드
+  useEffect(() => {
+    const fetchTerms = async () => {
+      try {
+        setLoading(true);
+        const terms = await loadAllTerms();
+        setTermsContent(terms);
+      } catch (error) {
+        console.error('약관 로딩 오류:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTerms();
+  }, []);
 
   // 전체 동의 처리
   const handleAllAgreement = (e) => {
@@ -93,20 +118,11 @@ function TermsAgreement({ onComplete }) {
         
         {activeAccordion === 'termsOfService' && (
           <div className="terms-content">
-            <p>이용약관 내용이 여기에 표시됩니다...</p>
-            <p>
-              본 약관은 [회사명]이 제공하는 서비스의 이용과 관련하여 회사와 회원 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
-              회원은 본 약관을 읽고 동의함으로써 서비스를 이용할 수 있습니다.
-            </p>
-            <p>
-              1. 서비스 이용 계약의 성립<br />
-              2. 서비스 이용 및 변경<br />
-              3. 회원의 의무<br />
-              4. 서비스 제공 및 중단<br />
-              5. 지적재산권<br />
-              6. 손해배상<br />
-              7. 기타
-            </p>
+            {loading ? (
+              <p>약관 내용을 불러오는 중...</p>
+            ) : (
+              <ReactMarkdown>{termsContent.termsOfService}</ReactMarkdown>
+            )}
           </div>
         )}
       </div>
@@ -133,17 +149,11 @@ function TermsAgreement({ onComplete }) {
         
         {activeAccordion === 'privacyPolicy' && (
           <div className="terms-content">
-            <p>개인정보 처리방침 내용이 여기에 표시됩니다...</p>
-            <p>
-              [회사명]은 이용자의 개인정보를 중요시하며, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」, 「개인정보 보호법」 등 관련 법령을 준수하고 있습니다.
-            </p>
-            <p>
-              1. 수집하는 개인정보 항목 및 수집방법<br />
-              2. 개인정보의 수집 및 이용목적<br />
-              3. 개인정보의 보유 및 이용기간<br />
-              4. 개인정보의 파기절차 및 방법<br />
-              5. 개인정보 보호책임자 및 연락처
-            </p>
+            {loading ? (
+              <p>약관 내용을 불러오는 중...</p>
+            ) : (
+              <ReactMarkdown>{termsContent.privacyPolicy}</ReactMarkdown>
+            )}
           </div>
         )}
       </div>
@@ -170,15 +180,11 @@ function TermsAgreement({ onComplete }) {
         
         {activeAccordion === 'dataCollection' && (
           <div className="terms-content">
-            <p>개인정보 수집 및 이용 동의 내용이 여기에 표시됩니다...</p>
-            <p>
-              [회사명]은 서비스 제공을 위해 다음과 같은 개인정보를 수집하고 있습니다.
-            </p>
-            <p>
-              1. 수집항목: 이름, 이메일 주소, 비밀번호, 생년월일, 휴대폰 번호, 닉네임<br />
-              2. 이용목적: 회원 식별, 서비스 제공, 공지사항 전달<br />
-              3. 보유기간: 회원 탈퇴 시까지
-            </p>
+            {loading ? (
+              <p>약관 내용을 불러오는 중...</p>
+            ) : (
+              <ReactMarkdown>{termsContent.dataCollection}</ReactMarkdown>
+            )}
           </div>
         )}
       </div>
