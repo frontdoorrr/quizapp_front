@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../api';
 import { useAPI } from '../hooks/useAPI';
 import '../styles/Auth.css';
+import TermsAgreement from '../components/auth/TermsAgreement';
 
 function Register() {
+  const [step, setStep] = useState(1); // 1: 약관 동의, 2: 회원 정보 입력
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -366,150 +368,159 @@ function Register() {
     setUserData(prev => ({ ...prev, phoneNumber: formatted }));
   };
 
+  // 약관 동의 완료 처리 함수
+  const handleTermsAgreed = () => {
+    setStep(2);
+  };
+
   return (
     <div className="page-container">
-      <div className="auth-container">
-        <h1 className="auth-title">회원가입</h1>
-        <h5>※ 닉네임은 수정이 어려울 수 있으니 신중하게 선택해주세요. </h5>
-        <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다. </h5>
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="이름"
-            value={userData.name}
-            onChange={handleChange}
-            required
-          />
-          <div className="input-group">
-            <div className="input-wrapper">
-              <input
-                type="email"
-                name="email"
-                placeholder="이메일"
-                value={userData.email}
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-                required
-                className={isEmailVerified ? 'verified' : ''}
-              />
-              {showSuggestions && (
-                <div className="email-suggestions">
-                  {emailSuggestions.map((suggestion, index) => (
-                    <div
-                      key={index}
-                      className={`suggestion-item ${index === selectedIndex ? 'selected' : ''}`}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                    >
-                      {suggestion}
-                    </div>
-                  ))}
-                </div>
-              )}
+      {step === 1 ? (
+        <TermsAgreement onComplete={handleTermsAgreed} />
+      ) : (
+        <div className="auth-container">
+          <h1 className="auth-title">회원가입</h1>
+          <h5>※ 닉네임은 수정이 어려울 수 있으니 신중하게 선택해주세요. </h5>
+          <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다. </h5>
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="이름"
+              value={userData.name}
+              onChange={handleChange}
+              required
+            />
+            <div className="input-group">
+              <div className="input-wrapper">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="이메일"
+                  value={userData.email}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyDown}
+                  required
+                  className={isEmailVerified ? 'verified' : ''}
+                />
+                {showSuggestions && (
+                  <div className="email-suggestions">
+                    {emailSuggestions.map((suggestion, index) => (
+                      <div
+                        key={index}
+                        className={`suggestion-item ${index === selectedIndex ? 'selected' : ''}`}
+                        onClick={() => handleSuggestionClick(suggestion)}
+                      >
+                        {suggestion}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={handleEmailVerification}
+                disabled={!userData.email || isEmailVerified || isEmailSent}
+                style={{ pointerEvents: isEmailSent ? 'none' : 'auto' }}
+                className={`verify-button ${isEmailSent ? 'disabled' : ''}`}
+              >
+                {isEmailVerified ? '✓ 인증완료' : isEmailSent ? '인증 대기중' : '이메일 인증'}
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={handleEmailVerification}
-              disabled={!userData.email || isEmailVerified || isEmailSent}
-              style={{ pointerEvents: isEmailSent ? 'none' : 'auto' }}
-              className={`verify-button ${isEmailSent ? 'disabled' : ''}`}
-            >
-              {isEmailVerified ? '✓ 인증완료' : isEmailSent ? '인증 대기중' : '이메일 인증'}
-            </button>
-          </div>
 
-          {isEmailSent && !isEmailVerified && (
-            <div className="input-group token-group">
+            {isEmailSent && !isEmailVerified && (
+              <div className="input-group token-group">
+                <input
+                  type="text"
+                  placeholder="인증 토큰을 입력하세요"
+                  value={verificationToken}
+                  onChange={(e) => setVerificationToken(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={handleTokenVerification}
+                >
+                  인증하기
+                </button>
+              </div>
+            )}
+            <input
+              type="password"
+              name="password"
+              placeholder="비밀번호"
+              value={userData.password}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="비밀번호 확인"
+              value={userData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+            {userData.confirmPassword && (
+              <div className={`validation-message ${passwordMatch.isValid ? 'valid' : 'invalid'}`}>
+                {passwordMatch.message}
+              </div>
+            )}
+            <input
+              type="date"
+              name="birthDate"
+              placeholder="생년월일"
+              value={userData.birthDate}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="tel"
+              name="phoneNumber"
+              placeholder="휴대폰 번호 (예: 010-1234-5678)"
+              value={userData.phoneNumber}
+              onChange={handlePhoneChange}
+              pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
+              required
+            />
+            <div className="input-group">
               <input
                 type="text"
-                placeholder="인증 토큰을 입력하세요"
-                value={verificationToken}
-                onChange={(e) => setVerificationToken(e.target.value)}
+                name="nickname"
+                placeholder="닉네임 (한글 3-8자/영어 3-15자)"
+                value={userData.nickname}
+                onChange={handleChange}
+                maxLength="15"
                 required
+                className={`${isNicknameAvailable ? 'verified' : ''} ${
+                  userData.nickname && !nicknameValidation.isValid ? 'invalid' : ''
+                }`}
               />
               <button
                 type="button"
-                onClick={handleTokenVerification}
+                onClick={handleNicknameCheck}
+                disabled={!userData.nickname || !nicknameValidation.isValid || isNicknameAvailable}
+                className="verify-button"
               >
-                인증하기
+                {isNicknameAvailable ? '✓ 사용가능' : '중복확인'}
               </button>
             </div>
-          )}
-          <input
-            type="password"
-            name="password"
-            placeholder="비밀번호"
-            value={userData.password}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="비밀번호 확인"
-            value={userData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-          {userData.confirmPassword && (
-            <div className={`validation-message ${passwordMatch.isValid ? 'valid' : 'invalid'}`}>
-              {passwordMatch.message}
-            </div>
-          )}
-          <input
-            type="date"
-            name="birthDate"
-            placeholder="생년월일"
-            value={userData.birthDate}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="tel"
-            name="phoneNumber"
-            placeholder="휴대폰 번호 (예: 010-1234-5678)"
-            value={userData.phoneNumber}
-            onChange={handlePhoneChange}
-            pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
-            required
-          />
-          <div className="input-group">
-            <input
-              type="text"
-              name="nickname"
-              placeholder="닉네임 (한글 3-8자/영어 3-15자)"
-              value={userData.nickname}
-              onChange={handleChange}
-              maxLength="15"
-              required
-              className={`${isNicknameAvailable ? 'verified' : ''} ${
-                userData.nickname && !nicknameValidation.isValid ? 'invalid' : ''
-              }`}
-            />
+            {userData.nickname && (
+              <div className={`validation-message ${nicknameValidation.isValid ? 'valid' : 'invalid'}`}>
+                {nicknameValidation.message}
+              </div>
+            )}
             <button
-              type="button"
-              onClick={handleNicknameCheck}
-              disabled={!userData.nickname || !nicknameValidation.isValid || isNicknameAvailable}
-              className="verify-button"
+              type="submit"
+              className="auth-submit"
+              disabled={loading || !isEmailVerified || !isNicknameAvailable}
             >
-              {isNicknameAvailable ? '✓ 사용가능' : '중복확인'}
+              {loading ? '가입 중...' : '가입하기'}
             </button>
-          </div>
-          {userData.nickname && (
-            <div className={`validation-message ${nicknameValidation.isValid ? 'valid' : 'invalid'}`}>
-              {nicknameValidation.message}
-            </div>
-          )}
-          <button
-            type="submit"
-            className="auth-submit"
-            disabled={loading || !isEmailVerified || !isNicknameAvailable}
-          >
-            {loading ? '가입 중...' : '가입하기'}
-          </button>
-          {error && <div className="auth-error">{error.message}</div>}
-        </form>
-      </div>
+            {error && <div className="auth-error">{error.message}</div>}
+          </form>
+        </div>
+      )}
     </div>
   );
 }
