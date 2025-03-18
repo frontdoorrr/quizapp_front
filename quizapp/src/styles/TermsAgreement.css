@@ -75,6 +75,18 @@
   white-space: nowrap;
 }
 
+.view-terms-btn.viewed {
+  background-color: rgba(216, 194, 124, 0.2);
+  border: 1px solid #d8c27c;
+  position: relative;
+}
+
+.view-terms-btn.viewed::after {
+  content: "✓";
+  margin-left: 5px;
+  font-weight: bold;
+}
+
 .view-terms-btn:hover {
   background-color: #d8c27c;
   color: #1c1616;
@@ -113,6 +125,20 @@
 .next-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.terms-validation-message {
+  color: #d8c27c;
+  font-size: 0.9em;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.terms-notice {
+  color: #d8c27c;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 /* Markdown 스타일링 */

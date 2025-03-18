@@ -11,6 +11,12 @@ function TermsAgreement({ onComplete }) {
     dataCollection: false
   });
   
+  const [viewedTerms, setViewedTerms] = useState({
+    termsOfService: false,
+    privacyPolicy: false,
+    dataCollection: false
+  });
+  
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [termsContent, setTermsContent] = useState({
     termsOfService: '로딩 중...',
@@ -70,16 +76,31 @@ function TermsAgreement({ onComplete }) {
 
   // 아코디언 토글
   const toggleAccordion = (section) => {
+    // 내용 보기 버튼을 클릭하면 해당 약관을 읽은 것으로 표시
+    if (activeAccordion !== section) {
+      setViewedTerms({
+        ...viewedTerms,
+        [section]: true
+      });
+    }
+    
     setActiveAccordion(activeAccordion === section ? null : section);
   };
 
   // 필수 약관에 모두 동의했는지 확인
   const allRequiredAgreed = agreements.termsOfService && agreements.privacyPolicy && agreements.dataCollection;
+  
+  // 모든 약관을 열어서 확인했는지 확인
+  const allTermsViewed = viewedTerms.termsOfService && viewedTerms.privacyPolicy && viewedTerms.dataCollection;
+  
+  // 모든 약관에 동의하고 모든 약관을 확인했는지 확인
+  const canProceed = allRequiredAgreed && allTermsViewed;
 
   return (
     <div className="terms-agreement-container">
       <h2>약관 동의</h2>
       <p className="terms-intro">서비스 이용을 위해 다음 약관에 동의해 주세요.</p>
+      <p className="terms-notice">모든 약관에 동의하고 내용을 확인해야 다음 단계로 진행할 수 있습니다.</p>
       
       {/* 전체 동의 체크박스 */}
       <div className="all-agreement-section">
@@ -109,7 +130,7 @@ function TermsAgreement({ onComplete }) {
             <span>이용약관 동의 <span className="required">(필수)</span></span>
           </label>
           <button 
-            className="view-terms-btn" 
+            className={`view-terms-btn ${viewedTerms.termsOfService ? 'viewed' : ''}`}
             onClick={() => toggleAccordion('termsOfService')}
           >
             {activeAccordion === 'termsOfService' ? '내용 접기' : '내용 보기'}
@@ -140,7 +161,7 @@ function TermsAgreement({ onComplete }) {
             <span>개인정보 처리방침 동의 <span className="required">(필수)</span></span>
           </label>
           <button 
-            className="view-terms-btn" 
+            className={`view-terms-btn ${viewedTerms.privacyPolicy ? 'viewed' : ''}`}
             onClick={() => toggleAccordion('privacyPolicy')}
           >
             {activeAccordion === 'privacyPolicy' ? '내용 접기' : '내용 보기'}
@@ -171,7 +192,7 @@ function TermsAgreement({ onComplete }) {
             <span>개인정보 수집 및 이용 동의 <span className="required">(필수)</span></span>
           </label>
           <button 
-            className="view-terms-btn" 
+            className={`view-terms-btn ${viewedTerms.dataCollection ? 'viewed' : ''}`}
             onClick={() => toggleAccordion('dataCollection')}
           >
             {activeAccordion === 'dataCollection' ? '내용 접기' : '내용 보기'}
@@ -192,11 +213,18 @@ function TermsAgreement({ onComplete }) {
       <div className="terms-actions">
         <button 
           className="next-btn" 
-          disabled={!allRequiredAgreed} 
+          disabled={!canProceed} 
           onClick={onComplete}
         >
           다음
         </button>
+        {!canProceed && (
+          <p className="terms-validation-message">
+            {!allRequiredAgreed && !allTermsViewed && '모든 약관에 동의하고 내용을 확인해주세요.'}
+            {!allRequiredAgreed && allTermsViewed && '모든 약관에 동의해주세요.'}
+            {allRequiredAgreed && !allTermsViewed && '모든 약관 내용을 확인해주세요.'}
+          </p>
+        )}
       </div>
     </div>
   );
