@@ -76,18 +76,22 @@
 }
 
 .view-terms-btn:hover {
-  background-color: #fff;
+  background-color: #d8c27c;
+  color: #1c1616;
+  transition: all 0.3s ease;
 }
 
 .terms-content {
   margin-top: 10px;
   padding: 15px;
   background-color:#1c1616;
+  border: 1px solid #333;
   border-radius: 4px;
-  max-height: 350px;
+  max-height: 400px;
   overflow-y: auto;
   font-size: 0.9em;
   line-height: 1.5;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .terms-actions {
