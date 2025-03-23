@@ -182,4 +182,70 @@ export const authService = {
       throw error;
     }
   },
+
+  requestPasswordReset: async (email) => {
+    try {
+      const response = await api.post(`${API_ENDPOINTS.PASSWORD_RESET}/request`, { email });
+      return response.data;
+    } catch (error) {
+      console.error('Password reset request error:', error.response?.data || error);
+      if (error.response?.status === 404) {
+        throw new Error('등록되지 않은 이메일입니다.');
+      }
+      throw error;
+    }
+  },
+
+  verifyPasswordResetToken: async (token, email) => {
+    try {
+      const response = await api.post(`${API_ENDPOINTS.PASSWORD_RESET}/verify`, { 
+        token,
+        email 
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Password reset token verification error:', error.response?.data || error);
+      if (error.response?.status === 400) {
+        throw new Error('유효하지 않은 토큰입니다.');
+      }
+      throw error;
+    }
+  },
+
+  resetPassword: async (email, token, newPassword, confirmPassword) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.PASSWORD_RESET, {
+        email,
+        token,
+        new_password: newPassword,
+        new_password2: confirmPassword
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Password reset error:', error.response?.data || error);
+      
+      // 백엔드 validation 에러 처리
+      if (error.response?.data?.detail && Array.isArray(error.response.data.detail)) {
+        // 첫 번째 validation 에러 메시지 추출
+        const validationError = error.response.data.detail[0];
+        if (validationError.ctx?.error) {
+          throw new Error(validationError.ctx.error);
+        } else if (validationError.msg) {
+          // msg에서 "Value error, " 부분 제거
+          const errorMsg = validationError.msg.replace('Value error, ', '');
+          throw new Error(errorMsg);
+        }
+      }
+      
+      // 기본 에러 처리
+      if (error.response?.status === 400) {
+        if (error.response.data?.message) {
+          throw new Error(error.response.data.message);
+        }
+        throw new Error('비밀번호 재설정에 실패했습니다.');
+      }
+      
+      throw error;
+    }
+  },
 };

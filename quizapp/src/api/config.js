@@ -24,6 +24,9 @@ export const API_ENDPOINTS = {
   REGISTER: '/user/register',
   LOGOUT: '/auth/logout',
   CHANGE_PASSWORD: '/user/change-password',
+  PASSWORD_RESET: '/password-reset',
+  PASSWORD_RESET_REQUEST: '/password-reset/request',
+  PASSWORD_RESET_VERIFY: '/password-reset/verify',
 
   // User
   GET_PROFILE: '/user/me',
@@ -41,7 +44,7 @@ export const API_ENDPOINTS = {
   GET_REMAINING_CHANCES: '/answer/game',  // 실제 요청시 /game/{game_id}/user로 완성됨
 
   // Quiz
-  
+
 
   // Ranking
   GET_RANKINGS: '/user',

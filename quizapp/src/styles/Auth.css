@@ -222,16 +222,18 @@ input.verified {
 }
 
 .auth-links {
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 20px;
 }
-n
+
 .register-link {
   color: #d8c27c;
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s;
+  margin-right: 15px;
 }
 
 .register-link:visited {

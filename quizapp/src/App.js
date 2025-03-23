@@ -14,6 +14,8 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Main from './pages/Main';
 import Game from './pages/Game';
 import CorrectAnswer from './pages/CorrectAnswer';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
             <Route path="/login" element={<Login  />} />
             <Route path="/register" element={<Register  />} />
             <Route path="/main" element={<Main />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </div>
         <Footer />
