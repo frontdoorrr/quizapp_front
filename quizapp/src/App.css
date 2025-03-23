@@ -66,9 +66,11 @@ body {
 
 .content {
   flex: 1;
-  padding-top: calc(var(--navbar-height) + var(--auth-buttons-height));  /* Navbar와 Auth 버튼 높이만큼 패딩 */
+  overflow-y: auto;
   position: relative;
-  z-index: 1;  /* Navbar보다 낮은 z-index */
+  height: calc(100vh - var(--nav-height));
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* 스크롤바 스타일링 */

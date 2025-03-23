@@ -28,4 +28,11 @@ export const userService = {
       throw error;
     }
   },
+
+  getCoinWallet: async (userId) => {
+    const response = await api.get(
+      API_ENDPOINTS.GET_COIN_WALLET.replace('{user_id}', userId)
+    );
+    return response.data;
+  },
 };

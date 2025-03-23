@@ -1,11 +1,14 @@
 .auth-container {
   max-width: 400px;
   width: calc(85% - 20px);
-  margin: 4rem auto;
-  padding: 2rem 10px;
+  margin: 2rem auto;
+  padding: 0rem 10px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* overflow: hidden; */
+
+
 }
 
 .auth-title {
@@ -23,6 +26,7 @@
 
 .auth-form input {
   padding: 0.8rem;
+  /* height: 15px; */
   border: none;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.1);
@@ -40,16 +44,171 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.auth-submit {
+.input-group {
+  position: relative;
   width: 100%;
-  padding: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-group input {
+  flex: 0.7;
+  margin: 0;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.input-group input {
+  flex: 1;
+}
+
+.input-group button {
+  padding: 10px 15px;
   background-color: #d8c27c;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.input-group button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.input-group button:hover:not(:disabled) {
+  background-color: #c4af6e;
+}
+
+.input-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.email-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 4px;
+  margin-top: 4px;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.suggestion-item {
+  padding: 0px 12px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.suggestion-item.selected {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.suggestion-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.suggestion-item:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.suggestion-item:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.validation-message {
+  font-size: 0.8rem;
+  margin-top: 0px;
+  margin-bottom: 2px;
+  padding-left: 4px;
+}
+
+.validation-message.valid {
+  height: 10;
+  color: #4CAF50;
+}
+
+.validation-message.invalid {
+    height: 10px;
+  color: #f44336;
+}
+
+input.invalid {
+  border-color: #f44336;
+}
+
+.verify-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.verify-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.verify-button:disabled:hover {
+  background-color: #cccccc;
+}
+
+.checking {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.available {
+  color: #4CAF50;
+  font-size: 0.9em;
+}
+
+.taken {
+  color: #f44336;
+  font-size: 0.9em;
+}
+
+input.verified {
+  border-color: #4CAF50;
+}
+
+.token-group {
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.token-group input {
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+.auth-submit {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #d8c27c;
+  color: #ffffff;
+  font-family: var(--font-primary);
   font-size: 1rem;
-  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .auth-submit:hover {
@@ -60,7 +219,30 @@
   color: #ff6b6b;
   text-align: center;
   margin-top: 1rem;
+}
+
+.auth-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 20px;
+}
+
+.register-link {
+  color: #d8c27c;
+  text-decoration: none;
   font-size: 0.9rem;
+  transition: color 0.3s;
+  margin-right: 15px;
+}
+
+.register-link:visited {
+  color: #d8c27c; /* 방문 후에도 같은 색상 유지 */
+}
+
+.register-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {

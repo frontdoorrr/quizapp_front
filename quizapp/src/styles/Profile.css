@@ -54,11 +54,7 @@
   width: 100px;
   color: var(--color-text-secondary);
   font-weight: 500;
-}
-
-.profile-field span {
-  color: var(--color-text-primary);
-  flex: 1;
+  font-size: 1rem;
 }
 
 .profile-field input {
@@ -66,19 +62,26 @@
   padding: 0.5rem;
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-input);
   color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+.profile-field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 .profile-field input:disabled {
   background-color: var(--color-bg-secondary);
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .profile-buttons {
   display: flex;
   gap: 1rem;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 2rem;
 }
 
@@ -86,28 +89,42 @@
   padding: 0.5rem 1.5rem;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .profile-buttons button[type="submit"] {
   background-color: var(--color-primary);
-  color: var(--color-text-dark);
-}
-
-.profile-buttons button[type="submit"]:hover {
-  background-color: var(--color-primary-light);
+  color: white;
 }
 
 .profile-buttons button[type="button"] {
-  background-color: transparent;
+  background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   color: var(--color-text-primary);
 }
 
-.profile-buttons button[type="button"]:hover {
+.profile-buttons button:hover {
   background-color: var(--color-bg-hover);
+}
+
+.logout-button {
+  background-color: #ff6b6b !important;
+  color: white !important;
+}
+
+.logout-button:hover {
+  background-color: #e05555 !important;
+}
+
+.password-button {
+  background-color: #4a90e2 !important;
+  color: white !important;
+}
+
+.password-button:hover {
+  background-color: #3a7bc8 !important;
 }
 
 .profile-container.error {
@@ -115,16 +132,245 @@
   text-align: center;
 }
 
+.validation-message {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.validation-message.invalid {
+  color: #f44336;
+}
+
+.validation-message.valid {
+  color: #4CAF50;
+}
+
+/* 모달 스타일 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--color-bg-secondary);
+  border-radius: 8px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h2 {
+  color: #d8c27c;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-primary);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #d8c27c;
+}
+
+.error-message {
+  color: #f44336;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-primary);
+}
+
+.success-message {
+  color: #4CAF50;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-primary);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.modal-buttons button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: #d8c27c;
+  color: white;
+}
+
+.modal-buttons button[type="button"] {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}
+
+/* 비밀번호 규칙 스타일 */
+.password-rules {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.password-rules p {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+.password-rules ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.password-rules li {
+  margin-bottom: 0.3rem;
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.password-rules li.valid-rule {
+  color: #4CAF50;
+  transform: translateX(5px);
+}
+
+.password-rules li.valid-rule::before {
+  content: "✓ ";
+}
+
 @media (max-width: 768px) {
   .profile-container {
-    width: calc(85% - 20px);
+    width: calc(95% - 20px);
     padding: 1.5rem 10px;
+  }
+  
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .profile-field label {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  .profile-field input {
+    width: 100%;
+  }
+  
+  .profile-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .profile-buttons button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .profile-container {
-    width: calc(85% - 20px);
+    width: calc(95% - 20px);
     padding: 1rem 10px;
+  }
+  
+  .profile-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profile-info h2, .quiz-history h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-field {
+    margin-bottom: 1rem;
+  }
+  
+  .profile-field label {
+    font-size: 0.85rem;
+  }
+  
+  .profile-field input {
+    padding: 0.4rem;
+    font-size: 0.85rem;
+  }
+  
+  .profile-buttons {
+    margin-top: 1.5rem;
+  }
+  
+  .profile-buttons button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
   }
 }

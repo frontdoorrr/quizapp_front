@@ -31,9 +31,39 @@ export const authService = {
 
   register: async (userData) => {
     try {
-      const response = await api.post(API_ENDPOINTS.REGISTER, userData);
+      // 백엔드 모델과 일치하는 데이터 구조
+      const registerData = {
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+        birth: userData.birthDate,    // birth_date -> birth
+        phone: userData.phoneNumber,  // phone_number -> phone
+        nickname: userData.nickname
+      };
+
+      const response = await api.post(API_ENDPOINTS.REGISTER, registerData);
+
+      if (response.data?.message) {
+        console.log('Registration success:', response.data.message);
+      }
+
       return response.data;
     } catch (error) {
+      console.error('Registration error:', error.response?.data || error);
+
+      // 에러 메시지 한글화
+      if (error.response?.status === 400) {
+        if (error.response.data?.detail?.includes('email')) {
+          throw new Error('이미 사용 중인 이메일입니다.');
+        }
+        if (error.response.data?.detail?.includes('nickname')) {
+          throw new Error('이미 사용 중인 닉네임입니다.');
+        }
+        if (error.response.data?.detail?.includes('phone')) {
+          throw new Error('이미 등록된 휴대폰 번호입니다.');
+        }
+      }
+
       throw error;
     }
   },
@@ -68,5 +98,165 @@ export const authService = {
       return localStorage.getItem('token');
     }
     return null;
-  }
+  },
+
+  changePassword: async (currentPassword, newPassword, confirmPassword) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.CHANGE_PASSWORD, {
+        current_password: currentPassword,
+        new_password: newPassword,
+        new_password2: confirmPassword
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Password change error:', error.response?.data || error);
+
+      // 백엔드 validation 에러 처리
+      if (error.response?.data?.detail && Array.isArray(error.response.data.detail)) {
+        // 첫 번째 validation 에러 메시지 추출
+        const validationError = error.response.data.detail[0];
+        if (validationError.ctx?.error) {
+          throw new Error(validationError.ctx.error);
+        } else if (validationError.msg) {
+          // msg에서 "Value error, " 부분 제거
+          const errorMsg = validationError.msg.replace('Value error, ', '');
+          throw new Error(errorMsg);
+        }
+      }
+
+      // 기본 에러 처리
+      if (error.response?.status === 400) {
+        if (error.response.data?.message) {
+          throw new Error(error.response.data.message);
+        }
+        throw new Error('현재 비밀번호가 일치하지 않습니다.');
+      }
+
+      throw error;
+    }
+  },
+
+  checkNickname: async (nickname) => {
+    try {
+      const response = await api.get(`${API_ENDPOINTS.CHECK_NICKNAME}/${nickname}`);
+      return response.data.exists;
+    } catch (error) {
+      console.error('Nickname check error:', error);
+      throw error;
+    }
+  },
+
+  verifyEmail: async (email) => {
+    try {
+      const response = await api.get(`${API_ENDPOINTS.VERIFY_EMAIL}/${encodeURIComponent(email)}`);
+      return response.data; // 원래 응답 그대로 반환
+    } catch (error) {
+      console.error('Email check error:', error);
+      throw error;
+    }
+  },
+
+  sendVerificationEmail: async (email) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.SEND_VERIFICATION_EMAIL, { email });
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 400) {
+        throw new Error('이미 인증된 이메일입니다.');
+      }
+      throw error;
+    }
+  },
+
+  verifyToken: async (token, email) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.VERIFY_EMAIL_TOKEN, {
+        token,
+        email
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 400) {
+        throw new Error('유효하지 않은 인증 토큰입니다.');
+      }
+      throw error;
+    }
+  },
+
+  requestPasswordReset: async (email) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.PASSWORD_RESET_REQUEST, { email });
+      return response.data;
+    } catch (error) {
+      console.error('Password reset request error:', error.response?.data || error);
+      if (error.response?.status === 404) {
+        throw new Error('등록되지 않은 이메일입니다.');
+      }
+      throw error;
+    }
+  },
+
+  verifyPasswordResetToken: async (token, email) => {
+    try {
+      console.log('Verifying token:', { token, email });
+      const response = await api.post(API_ENDPOINTS.PASSWORD_RESET_VERIFY, {
+        token,
+        email
+      });
+      console.log('Token verification response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Password reset token verification error:', error.response?.data || error);
+      if (error.response?.status === 400) {
+        throw new Error('유효하지 않은 토큰입니다.');
+      }
+      throw error;
+    }
+  },
+
+  resetPassword: async (email, token, newPassword, confirmPassword) => {
+    try {
+      console.log('Sending reset password request:', {
+        email,
+        token,
+        new_password: newPassword,
+        new_password2: confirmPassword
+      });
+
+      const response = await api.post(API_ENDPOINTS.PASSWORD_RESET, {
+        email,
+        token,
+        new_password: newPassword,
+        new_password2: confirmPassword
+      });
+
+      console.log('Reset password response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Password reset error:', error.response?.data || error);
+
+      // 백엔드 validation 에러 처리
+      if (error.response?.data?.detail && Array.isArray(error.response.data.detail)) {
+        // 첫 번째 validation 에러 메시지 추출
+        const validationError = error.response.data.detail[0];
+        if (validationError.ctx?.error) {
+          throw new Error(validationError.ctx.error);
+        } else if (validationError.msg) {
+          // msg에서 "Value error, " 부분 제거
+          const errorMsg = validationError.msg.replace('Value error, ', '');
+          throw new Error(errorMsg);
+        }
+      }
+
+      // 기본 에러 처리
+      if (error.response?.status === 400) {
+        if (error.response.data?.message) {
+          throw new Error(error.response.data.message);
+        }
+        throw new Error('비밀번호 재설정에 실패했습니다.');
+      }
+
+      throw error;
+    }
+  },
 };
