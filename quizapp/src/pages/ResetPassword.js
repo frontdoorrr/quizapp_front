@@ -28,7 +28,6 @@ function ResetPassword() {
     if (tokenParam && emailParam) {
       setToken(tokenParam);
       setEmail(emailParam);
-      console.log('URL 파라미터:', { token: tokenParam, email: emailParam });
       verifyToken(tokenParam, emailParam);
     } else {
       setError('유효하지 않은 링크입니다. 비밀번호 재설정을 다시 요청해주세요.');
@@ -41,11 +40,11 @@ function ResetPassword() {
       const decodedToken = decodeURIComponent(token);
       const decodedEmail = decodeURIComponent(email);
 
-      console.log('토큰 검증 요청:', { token: decodedToken, email: decodedEmail });
+
       await authService.verifyPasswordResetToken(decodedToken, decodedEmail);
       setIsTokenValid(true);
     } catch (err) {
-      console.error('토큰 검증 오류:', err);
+
       setError(err.message || '유효하지 않은 토큰입니다. 비밀번호 재설정을 다시 요청해주세요.');
     }
   };
@@ -121,11 +120,6 @@ function ResetPassword() {
       const decodedToken = decodeURIComponent(token);
       const decodedEmail = decodeURIComponent(email);
 
-      console.log('비밀번호 재설정 요청:', {
-        email: decodedEmail,
-        token: decodedToken,
-        password: formData.password
-      });
 
       await authService.resetPassword(
         decodedEmail,
@@ -138,7 +132,6 @@ function ResetPassword() {
         navigate('/login');
       }, 3000);
     } catch (err) {
-      console.error('비밀번호 재설정 오류:', err);
       setError(err.message || '비밀번호 재설정 중 오류가 발생했습니다.');
     } finally {
       setIsSubmitting(false);
