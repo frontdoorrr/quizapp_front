@@ -24,9 +24,9 @@ export const API_ENDPOINTS = {
   REGISTER: '/user/register',
   LOGOUT: '/auth/logout',
   CHANGE_PASSWORD: '/user/change-password',
-  PASSWORD_RESET: '/password-reset',
-  PASSWORD_RESET_REQUEST: '/password-reset/request',
-  PASSWORD_RESET_VERIFY: '/password-reset/verify',
+  PASSWORD_RESET: '/user/password-reset',
+  PASSWORD_RESET_REQUEST: '/user/password-reset/request',
+  PASSWORD_RESET_VERIFY: '/user/password-reset/verify',
 
   // User
   GET_PROFILE: '/user/me',

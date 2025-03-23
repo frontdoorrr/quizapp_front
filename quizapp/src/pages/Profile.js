@@ -248,30 +248,30 @@ function Profile() {
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
-    
+
     // 비밀번호 유효성 검사
     if (!passwordData.currentPassword) {
       setPasswordError('현재 비밀번호를 입력해주세요.');
       return;
     }
-    
+
     if (!passwordData.newPassword) {
       setPasswordError('새 비밀번호를 입력해주세요.');
       return;
     }
-    
+
     // 비밀번호 규칙 검사
     const passwordValidation = validatePassword(passwordData.newPassword);
     if (!passwordValidation.isValid) {
       setPasswordError(passwordValidation.message);
       return;
     }
-    
+
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       setPasswordError('새 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
       return;
     }
-    
+
     try {
       setIsSubmitting(true);
       await authService.changePassword(
@@ -279,15 +279,15 @@ function Profile() {
         passwordData.newPassword,
         passwordData.confirmPassword
       );
-      
+
       setPasswordSuccess('비밀번호가 성공적으로 변경되었습니다.');
-      
+
       // 3초 후 모달 닫기
       setTimeout(() => {
         setShowPasswordModal(false);
         setPasswordSuccess('');
       }, 3000);
-      
+
     } catch (err) {
       console.error('Password change error:', err);
       setPasswordError(err.message || '비밀번호 변경에 실패했습니다.');
@@ -487,15 +487,15 @@ function Profile() {
                   required
                 />
               </div>
-              
+
               {/* 비밀번호 규칙 안내 */}
               <div className="password-rules">
                 <p>비밀번호 규칙:</p>
                 <ul>
                   {passwordRules.map((rule, index) => (
                     <li key={index} className={
-                      passwordData.newPassword && rule.regex.test(passwordData.newPassword) 
-                        ? 'valid-rule' 
+                      passwordData.newPassword && rule.regex.test(passwordData.newPassword)
+                        ? 'valid-rule'
                         : ''
                     }>
                       {rule.message}
@@ -503,7 +503,7 @@ function Profile() {
                   ))}
                 </ul>
               </div>
-              
+
               {passwordError && <p className="error-message">{passwordError}</p>}
               {passwordSuccess && <p className="success-message">{passwordSuccess}</p>}
               <div className="modal-buttons">

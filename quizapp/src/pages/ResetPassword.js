@@ -15,7 +15,7 @@ function ResetPassword() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [passwordMatch, setPasswordMatch] = useState({ isValid: true, message: '' });
-  
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,6 +28,7 @@ function ResetPassword() {
     if (tokenParam && emailParam) {
       setToken(tokenParam);
       setEmail(emailParam);
+      console.log('URL 파라미터:', { token: tokenParam, email: emailParam });
       verifyToken(tokenParam, emailParam);
     } else {
       setError('유효하지 않은 링크입니다. 비밀번호 재설정을 다시 요청해주세요.');
@@ -36,9 +37,15 @@ function ResetPassword() {
 
   const verifyToken = async (token, email) => {
     try {
-      await authService.verifyPasswordResetToken(token, email);
+      // 토큰 검증 요청 전에 URL 디코딩
+      const decodedToken = decodeURIComponent(token);
+      const decodedEmail = decodeURIComponent(email);
+
+      console.log('토큰 검증 요청:', { token: decodedToken, email: decodedEmail });
+      await authService.verifyPasswordResetToken(decodedToken, decodedEmail);
       setIsTokenValid(true);
     } catch (err) {
+      console.error('토큰 검증 오류:', err);
       setError(err.message || '유효하지 않은 토큰입니다. 비밀번호 재설정을 다시 요청해주세요.');
     }
   };
@@ -110,10 +117,20 @@ function ResetPassword() {
     }
 
     try {
+      // URL 디코딩된 값 사용
+      const decodedToken = decodeURIComponent(token);
+      const decodedEmail = decodeURIComponent(email);
+
+      console.log('비밀번호 재설정 요청:', {
+        email: decodedEmail,
+        token: decodedToken,
+        password: formData.password
+      });
+
       await authService.resetPassword(
-        email, 
-        token, 
-        formData.password, 
+        decodedEmail,
+        decodedToken,
+        formData.password,
         formData.confirmPassword
       );
       setMessage('비밀번호가 성공적으로 재설정되었습니다.');
@@ -121,6 +138,7 @@ function ResetPassword() {
         navigate('/login');
       }, 3000);
     } catch (err) {
+      console.error('비밀번호 재설정 오류:', err);
       setError(err.message || '비밀번호 재설정 중 오류가 발생했습니다.');
     } finally {
       setIsSubmitting(false);
@@ -171,14 +189,14 @@ function ResetPassword() {
               {passwordMatch.message}
             </div>
           )}
-          <button 
-            type="submit" 
-            className="auth-submit" 
+          <button
+            type="submit"
+            className="auth-submit"
             disabled={isSubmitting}
           >
             {isSubmitting ? '처리 중...' : '비밀번호 변경'}
           </button>
-          
+
           {message && <div className="auth-success">{message}</div>}
           {error && <div className="auth-error">{error}</div>}
         </form>

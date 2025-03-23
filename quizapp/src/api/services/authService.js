@@ -110,7 +110,7 @@ export const authService = {
       return response.data;
     } catch (error) {
       console.error('Password change error:', error.response?.data || error);
-      
+
       // 백엔드 validation 에러 처리
       if (error.response?.data?.detail && Array.isArray(error.response.data.detail)) {
         // 첫 번째 validation 에러 메시지 추출
@@ -123,7 +123,7 @@ export const authService = {
           throw new Error(errorMsg);
         }
       }
-      
+
       // 기본 에러 처리
       if (error.response?.status === 400) {
         if (error.response.data?.message) {
@@ -131,7 +131,7 @@ export const authService = {
         }
         throw new Error('현재 비밀번호가 일치하지 않습니다.');
       }
-      
+
       throw error;
     }
   },
@@ -170,7 +170,7 @@ export const authService = {
 
   verifyToken: async (token, email) => {
     try {
-      const response = await api.post(API_ENDPOINTS.VERIFY_EMAIL_TOKEN, { 
+      const response = await api.post(API_ENDPOINTS.VERIFY_EMAIL_TOKEN, {
         token,
         email
       });
@@ -185,7 +185,7 @@ export const authService = {
 
   requestPasswordReset: async (email) => {
     try {
-      const response = await api.post(`${API_ENDPOINTS.PASSWORD_RESET}/request`, { email });
+      const response = await api.post(API_ENDPOINTS.PASSWORD_RESET_REQUEST, { email });
       return response.data;
     } catch (error) {
       console.error('Password reset request error:', error.response?.data || error);
@@ -198,10 +198,12 @@ export const authService = {
 
   verifyPasswordResetToken: async (token, email) => {
     try {
-      const response = await api.post(`${API_ENDPOINTS.PASSWORD_RESET}/verify`, { 
+      console.log('Verifying token:', { token, email });
+      const response = await api.post(API_ENDPOINTS.PASSWORD_RESET_VERIFY, {
         token,
-        email 
+        email
       });
+      console.log('Token verification response:', response.data);
       return response.data;
     } catch (error) {
       console.error('Password reset token verification error:', error.response?.data || error);
@@ -214,16 +216,25 @@ export const authService = {
 
   resetPassword: async (email, token, newPassword, confirmPassword) => {
     try {
+      console.log('Sending reset password request:', {
+        email,
+        token,
+        new_password: newPassword,
+        new_password2: confirmPassword
+      });
+
       const response = await api.post(API_ENDPOINTS.PASSWORD_RESET, {
         email,
         token,
         new_password: newPassword,
         new_password2: confirmPassword
       });
+
+      console.log('Reset password response:', response.data);
       return response.data;
     } catch (error) {
       console.error('Password reset error:', error.response?.data || error);
-      
+
       // 백엔드 validation 에러 처리
       if (error.response?.data?.detail && Array.isArray(error.response.data.detail)) {
         // 첫 번째 validation 에러 메시지 추출
@@ -236,7 +247,7 @@ export const authService = {
           throw new Error(errorMsg);
         }
       }
-      
+
       // 기본 에러 처리
       if (error.response?.status === 400) {
         if (error.response.data?.message) {
@@ -244,7 +255,7 @@ export const authService = {
         }
         throw new Error('비밀번호 재설정에 실패했습니다.');
       }
-      
+
       throw error;
     }
   },
