@@ -89,6 +89,62 @@ npm start
 PORT=3001
 ```
 
+## 배포 자동화 (CI/CD)
+
+이 프로젝트는 GitHub Actions를 사용하여 배포 자동화가 구성되어 있습니다.
+
+### 브랜치 전략
+
+1. **main (또는 master)**
+   - 프로덕션 배포 브랜치
+   - 배포할 때만 머지
+   - main 브랜치에 push되면 자동으로 프로덕션 환경에 배포
+
+2. **develop**
+   - 개발 및 QA 브랜치
+   - 모든 기능 브랜치(feature branches)가 머지됨
+   - develop에 push되면 자동으로 스테이징 환경에 배포
+
+3. **feature/* (예: feature/login-page)**
+   - 각 기능 개발을 위한 브랜치
+   - 완료 후 develop 브랜치에 병합
+
+4. **release (선택 사항)**
+   - 주요 릴리스를 위한 브랜치
+   - develop에서 만들어져서 QA 진행 후 main으로 병합
+
+### 배포 프로세스
+
+GitHub Actions 워크플로우(`.github/workflows/deploy.yml`)가 다음과 같이 구성되어 있습니다:
+
+1. **빌드 단계**
+   - 코드 체크아웃
+   - Node.js 설정
+   - 의존성 설치
+   - 테스트 실행
+   - 애플리케이션 빌드 (브랜치에 따라 다른 환경 변수 적용)
+
+2. **스테이징 배포 (develop 브랜치)**
+   - AWS S3 버킷에 배포
+   - CloudFront 캐시 무효화
+
+3. **프로덕션 배포 (main 브랜치)**
+   - 프로덕션 AWS S3 버킷에 배포
+   - 프로덕션 CloudFront 캐시 무효화
+
+### 필요한 GitHub Secrets
+
+워크플로우가 제대로 작동하려면 GitHub 저장소에 다음 Secrets를 설정해야 합니다:
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION`
+- `STAGING_API_URL`
+- `PROD_API_URL`
+- `STAGING_S3_BUCKET`
+- `PRODUCTION_S3_BUCKET`
+- `STAGING_CLOUDFRONT_ID`
+- `PRODUCTION_CLOUDFRONT_ID`
+
 ## 환경 설정
 - 개발 환경: `.env.development`
 - 프로덕션 환경: `.env.production`
