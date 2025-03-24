@@ -434,9 +434,9 @@ function Profile() {
             <span>{profile.rank || '-'}</span>
           </div>
           <div className="profile-buttons">
-            <button onClick={handleEdit}>
+            {/* <button onClick={handleEdit}>
               프로필 수정
-            </button>
+            </button> */}
             <button onClick={handlePasswordModalOpen} >
               비밀번호 변경
             </button>
