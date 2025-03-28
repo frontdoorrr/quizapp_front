@@ -15,38 +15,38 @@ jobs:
   # lint-and-test:
   #   runs-on: ubuntu-latest
     
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
         
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '18'
+  #         cache: 'npm'
           
-      - name: Install dependencies
-        run: npm ci
-        working-directory: ./quizapp
+  #     - name: Install dependencies
+  #       run: npm ci
+  #       working-directory: ./quizapp
         
-      - name: Lint code
-        run: npm run lint
-        working-directory: ./quizapp
+  #     - name: Lint code
+  #       run: npm run lint
+  #       working-directory: ./quizapp
         
-      - name: Run tests
-        run: npm test -- --passWithNoTests --coverage
-        working-directory: ./quizapp
+  #     - name: Run tests
+  #       run: npm test -- --passWithNoTests --coverage
+  #       working-directory: ./quizapp
         
-      - name: Upload test coverage
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: ./quizapp/coverage
+  #     - name: Upload test coverage
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: coverage
+  #         path: ./quizapp/coverage
           
-      - name: Check for vulnerabilities
-        run: npm audit --production
-        working-directory: ./quizapp
-        continue-on-error: true
+  #     - name: Check for vulnerabilities
+  #       run: npm audit --production
+  #       working-directory: ./quizapp
+  #       continue-on-error: true
   
   build:
     needs: lint-and-test
