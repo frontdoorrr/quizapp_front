@@ -19,6 +19,7 @@
   --bg-color: #1c1616;
   --min-width: 432px;
   --min-height: 847px;
+  --word-break: keep-all;
 }
 
 body {
@@ -32,6 +33,7 @@ body {
   min-width: var(--min-width);
   min-height: var(--min-height);
   overflow-x: auto;
+  word-break: var(--word-break);
 }
 
 #root {
@@ -73,6 +75,7 @@ body {
   overflow-x: hidden;
   animation: fadeIn 0.8s ease-out forwards;
   box-sizing: border-box;
+  word-break: var(--word-break);
 }
 
 /* 공통 페이지 제목 스타일 */
@@ -83,6 +86,7 @@ body {
   text-align: center;
   padding-top: 2rem;
   width: 100%;
+  word-break: var(--word-break);
 }
 
 /* 공통 컨텐츠 컨테이너 스타일 */
@@ -93,6 +97,7 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  word-break: var(--word-break);
 }
 
 .ranking-container,
