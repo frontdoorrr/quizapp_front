@@ -380,8 +380,6 @@ function Register() {
       ) : (
         <div className="auth-container">
           <h1 className="auth-title">회원가입</h1>
-          <h5>※ 닉네임은 수정이 어려울 수 있으니 신중하게 선택해주세요. </h5>
-          <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다. </h5>
           <form className="auth-form" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -445,6 +443,7 @@ function Register() {
                 </button>
               </div>
             )}
+            <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다. </h5>
             <input
               type="password"
               name="password"
@@ -483,6 +482,7 @@ function Register() {
               pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}"
               required
             />
+            <h5>※ 닉네임은 수정이 어려울 수 있으니 신중하게 선택해주세요. </h5>
             <div className="input-group">
               <input
                 type="text"

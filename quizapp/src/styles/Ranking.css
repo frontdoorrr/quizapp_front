@@ -292,7 +292,8 @@
 
 @media (max-width: 480px) {
   .page-container {
-    padding: 0.8rem;
+    padding: 0.2rem;
+    width: 90%;
   }
 
   .page-title {

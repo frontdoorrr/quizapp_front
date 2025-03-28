@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  quizapp_front:
+    build:
+      context: ./quizapp
+      dockerfile: Dockerfile
+    image: quizapp_front
+    container_name: quizapp_front
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./quizapp:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
