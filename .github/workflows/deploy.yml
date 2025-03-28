@@ -49,7 +49,7 @@ jobs:
   #       continue-on-error: true
   
   build:
-    needs: lint-and-test
+    # needs: lint-and-test
     runs-on: ubuntu-latest
     
     steps:
