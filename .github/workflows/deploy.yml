@@ -93,30 +93,30 @@ jobs:
   # 스테이징 환경 배포 작업
   # develop 또는 dev-github-actions 브랜치에서만 실행됩니다.
   # 테스트 및 QA 목적의 환경에 배포합니다.
-  # deploy-staging:
-  #   needs: build
-  #   if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev-github-actions'
-  #   runs-on: ubuntu-latest
+  deploy-staging:
+    needs: build
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev-github-actions'
+    runs-on: ubuntu-latest
     
-  #   steps:
-  #     # 빌드 아티팩트를 다운로드합니다.
-  #     - name: Download build artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: build
-  #         path: ./build
+    steps:
+      # 빌드 아티팩트를 다운로드합니다.
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ./build
       
-  #     # AWS 자격 증명을 설정합니다.
-  #     - name: Configure AWS credentials
-  #       uses: aws-actions/configure-aws-credentials@v2
-  #       with:
-  #         aws-access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_STAGING }}
-  #         aws-secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY_STAGING }}
-  #         aws-region: ${{ secrets.AWS_S3_BUCKET_REGION }}
+      # AWS 자격 증명을 설정합니다.
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_STAGING }}
+          aws-secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY_STAGING }}
+          aws-region: ${{ secrets.AWS_S3_BUCKET_REGION }}
       
-  #     # 스테이징 S3 버킷에 빌드 결과물을 업로드합니다.
-  #     - name: Deploy to S3 (Staging)
-  #       run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_NAME_STAGING }} --delete
+      # 스테이징 S3 버킷에 빌드 결과물을 업로드합니다.
+      - name: Deploy to S3 (Staging)
+        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_NAME_STAGING }} --delete
       
   #     # # 스테이징 CloudFront 캐시를 무효화하여 최신 변경사항이 즉시 반영되도록 합니다.
   #     # - name: Invalidate CloudFront cache (Staging)
