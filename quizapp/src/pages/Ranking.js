@@ -154,15 +154,6 @@ function Ranking() {
     }
   };
 
-  const getCrownColor = (rank) => {
-    switch(rank) {
-      case 1: return '👑'; // 금관
-      case 2: return '👑'; // 은관
-      case 3: return '👑';  // 동관
-      default: return null;
-    }
-  };
-
   const renderRankings = () => {
     if (!Array.isArray(rankings)) {
       console.error('Rankings is not an array:', rankings);
@@ -175,7 +166,6 @@ function Ranking() {
 
     return rankings.map((user, index) => {
       const rank = index + 1;
-      const crown = getCrownColor(rank);
       
       // 게임 랭킹과 전체 랭킹에 따라 표시할 점수 필드 결정
       // 게임 랭킹은 score 또는 point 필드 사용 (API 응답에 따라 다를 수 있음)
@@ -203,7 +193,6 @@ function Ranking() {
         <div key={user.id || index} className={`ranking-item ${rank <= 3 ? `top-${rank}` : ''}`}>
           <div className="rank">
             {rank}
-            {crown && <span className={`crown rank-${rank}`}>{crown}</span>}
           </div>
           <div className="username">{displayName}</div>
           <div className="score">{scoreValue}</div>
