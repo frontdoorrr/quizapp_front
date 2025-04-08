@@ -196,6 +196,7 @@ jobs:
           echo ${{ secrets.AWS_S3_BUCKET_NAME }}
           echo ${{ secrets.AWS_S3_BUCKET_NAME }}
           echo ${{ secrets.AWS_S3_BUCKET_NAME }}
+          echo ${{ variables.REACT_APP_COMPANY_EMAIL }}
 
       # # 프로덕션 CloudFront 캐시를 무효화하여 최신 변경사항이 즉시 반영되도록 합니다.
       # - name: Invalidate CloudFront cache (Production)
