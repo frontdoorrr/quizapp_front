@@ -88,6 +88,7 @@ jobs:
           echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
           # 필요한 다른 프로덕션 환경 변수 추가
           
+          cat ./quizapp/.env
 
       - name: Create staging environment file
         if: github.ref == 'refs/heads/develop' 
