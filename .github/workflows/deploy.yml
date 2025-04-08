@@ -78,24 +78,25 @@ jobs:
         working-directory: ./quizapp
 
       # 환경에 따라 다른 .env 파일 생성
-      - name: Create environment file
+      - name: Create production environment file
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev-github-actions'
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" || ${{ github.ref }} == "refs/heads/dev-github-actions" ]]; then
-            # 프로덕션 환경 변수 설정
-            echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > ./quizapp/.env
-            echo "REACT_APP_ENV=production" >> ./quizapp/.env
-            echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
-            # 필요한 다른 프로덕션 환경 변수 추가
-            echo "${{ secrets.PROD_ENV_FILE }}" >> ./quizapp/.env
-          else
-            echo "${{ github.ref }}"
-            # 스테이징 환경 변수 설정
-            echo "REACT_APP_API_BASE_URL=${{ secrets.STAGING_API_URL }}" > ./quizapp/.env
-            echo "REACT_APP_ENV=staging" >> ./quizapp/.env
-            echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
-            # 필요한 다른 스테이징 환경 변수 추가
-            echo "${{ secrets.STAGING_ENV_FILE }}" >> ./quizapp/.env
-          fi
+          # 프로덕션 환경 변수 설정
+          echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > ./quizapp/.env
+          echo "REACT_APP_ENV=production" >> ./quizapp/.env
+          echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
+          # 필요한 다른 프로덕션 환경 변수 추가
+          
+
+      - name: Create staging environment file
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev-github-actions'
+        run: |
+          # 스테이징 환경 변수 설정
+          echo "REACT_APP_API_BASE_URL=${{ secrets.STAGING_API_URL }}" > ./quizapp/.env
+          echo "REACT_APP_ENV=staging" >> ./quizapp/.env
+          echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
+          # 필요한 다른 스테이징 환경 변수 추가
+          echo "${{ secrets.STAGING_ENV_FILE }}" >> ./quizapp/.env
 
       # CI=false 설정으로 ESLint 경고를 오류로 처리하지 않습니다.
       # 브랜치에 따라 다른 API URL을 사용합니다(main: PROD_API_URL, 그 외: STAGING_API_URL).
