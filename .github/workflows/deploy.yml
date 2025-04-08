@@ -88,6 +88,7 @@ jobs:
             # 필요한 다른 프로덕션 환경 변수 추가
             echo "${{ secrets.PROD_ENV_FILE }}" >> ./quizapp/.env
           else
+            echo "${{ github.ref }}"
             # 스테이징 환경 변수 설정
             echo "REACT_APP_API_BASE_URL=${{ secrets.STAGING_API_URL }}" > ./quizapp/.env
             echo "REACT_APP_ENV=staging" >> ./quizapp/.env
