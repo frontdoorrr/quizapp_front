@@ -83,7 +83,7 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev-github-actions'
         run: |
           # 프로덕션 환경 변수 설정
-          echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > ./quizapp/.env
+          echo "REACT_APP_API_BASE_URL=${{ vars.PROD_API_URL_TEST }}" > ./quizapp/.env
           echo "REACT_APP_ENV=production" >> ./quizapp/.env
           echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
           # 필요한 다른 프로덕션 환경 변수 추가
@@ -94,7 +94,7 @@ jobs:
         if: github.ref == 'refs/heads/develop' 
         run: |
           # 스테이징 환경 변수 설정
-          echo "REACT_APP_API_BASE_URL=${{ vars.PROD_API_URL_TEST }}" > ./quizapp/.env
+          echo "REACT_APP_API_BASE_URL=${{ secrets.STAGING_API_URL }}" > ./quizapp/.env
           echo "REACT_APP_ENV=staging" >> ./quizapp/.env
           echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
           # 필요한 다른 스테이징 환경 변수 추가
