@@ -105,7 +105,7 @@ jobs:
         working-directory: ./quizapp
         env:
           CI: false
-          REACT_APP_API_BASE_URL: ${{ github.ref == 'refs/heads/main' && secrets.PROD_API_URL || secrets.STAGING_API_URL }}
+          # REACT_APP_API_BASE_URL: ${{ github.ref == 'refs/heads/main' && secrets.PROD_API_URL || secrets.STAGING_API_URL }}
           REACT_APP_VERSION: ${{ github.sha }}
 
       # 빌드 결과물을 GitHub Actions 아티팩트로 저장합니다.
