@@ -298,7 +298,7 @@ function Register() {
     }
 
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      return { isValid: false, message: '비밀번호는 최소 1개의 특수문자를 포함해야 합니당.' };
+      return { isValid: false, message: '비밀번호는 최소 1개의 특수문자를 포함해야 합니다.' };
     }
 
     return { isValid: true, message: '' };
@@ -443,7 +443,7 @@ function Register() {
                 </button>
               </div>
             )}
-            <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다. </h5>
+            <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다ㅌㅌㅌ. </h5>
             <input
               type="password"
               name="password"
