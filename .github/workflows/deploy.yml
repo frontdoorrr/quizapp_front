@@ -80,7 +80,7 @@ jobs:
       # 환경에 따라 다른 .env 파일 생성
       - name: Create environment file
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.ref }}" == "refs/heads/dev-github-actions" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/main" || ${{ github.ref }} == "refs/heads/dev-github-actions" ]]; then
             # 프로덕션 환경 변수 설정
             echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > ./quizapp/.env
             echo "REACT_APP_ENV=production" >> ./quizapp/.env
