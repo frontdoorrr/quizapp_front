@@ -89,7 +89,7 @@ jobs:
           # 필요한 다른 프로덕션 환경 변수 추가
           
           cat ./quizapp/.env
-          cat ./quizapp/.env
+          
 
       - name: Create staging environment file
         if: github.ref == 'refs/heads/develop' 
@@ -100,7 +100,7 @@ jobs:
           echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
           # 필요한 다른 스테이징 환경 변수 추가
           echo "${{ secrets.STAGING_ENV_FILE }}" >> ./quizapp/.env
-
+ 
       # CI=false 설정으로 ESLint 경고를 오류로 처리하지 않습니다.
       # 브랜치에 따라 다른 API URL을 사용합니다(main: PROD_API_URL, 그 외: STAGING_API_URL).
       - name: Build application
