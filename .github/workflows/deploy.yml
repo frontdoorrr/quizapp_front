@@ -89,7 +89,7 @@ jobs:
             echo "${{ secrets.PROD_ENV_FILE }}" >> ./quizapp/.env
             echo .quizapp/.env
             echo .quizapp/.env
-            echo .quizapp/.env
+            
             echo .quizapp/.env
           else
             # 스테이징 환경 변수 설정
