@@ -89,7 +89,7 @@ jobs:
           
 
       - name: Create staging environment file
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev-github-actions'
+        if: github.ref == 'refs/heads/develop' 
         run: |
           # 스테이징 환경 변수 설정
           echo "REACT_APP_API_BASE_URL=${{ secrets.STAGING_API_URL }}" > ./quizapp/.env
