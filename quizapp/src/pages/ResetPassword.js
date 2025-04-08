@@ -88,7 +88,7 @@ function ResetPassword() {
     }
 
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      return { isValid: false, message: '비밀번호는 최소 1개의 특수문자를 포함해야 합니다.' };
+      return { isValid: false, message: '비밀번호는 최소 1개의 특수문자를 포함해야 합니당.' };
     }
 
     return { isValid: true, message: '' };
