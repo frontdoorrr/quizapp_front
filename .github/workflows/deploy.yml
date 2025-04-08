@@ -188,8 +188,9 @@ jobs:
       # 프로덕션 S3 버킷에 빌드 결과물을 업로드합니다.
       - name: Deploy to S3 (Production)
         run: |
-        aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
-        echo "Deployed to S3 bucket"
+        # 프로덕션 환경 변수 설정
+          aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
+          echo "Deployed to S3 bucket
 
       # # 프로덕션 CloudFront 캐시를 무효화하여 최신 변경사항이 즉시 반영되도록 합니다.
       # - name: Invalidate CloudFront cache (Production)
