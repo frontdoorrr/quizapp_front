@@ -52,7 +52,9 @@ function Ranking() {
         return gameData.id;
       } else {
         console.error('No game ID found in the response');
-        setError('현재 진행중인 게임을 찾을 수 없습니다.');
+        const customError = new Error('현재 진행중인 게임을 찾을 수 없습니다.');
+        customError.code = 'NO_CURRENT_GAME';  // 커스텀 코드 추가
+        handleFetchError(customError);
         return null;
       }
     } catch (err) {
@@ -149,6 +151,13 @@ function Ranking() {
       // 토큰이 만료되었거나 유효하지 않은 경우
       localStorage.removeItem('token');
       navigate('/login', { state: { from: '/ranking' } });
+    } else if (err.code === 'NO_CURRENT_GAME') {
+      // 현재 진행 중인 게임이 없는 경우 특별 처리
+      setError(err.message);
+      // 게임 탭을 선택한 상태에서 게임이 없는 경우 전체 랭킹으로 전환
+      if (activeTab === 'game') {
+        setActiveTab('total');
+      }
     } else {
       setError(err.message || '랭킹을 불러오는데 실패했습니다.');
     }
