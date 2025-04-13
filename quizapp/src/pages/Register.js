@@ -443,7 +443,7 @@ function Register() {
                 </button>
               </div>
             )}
-            <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다ㅌㅌㅌ. </h5>
+            <h5>※ 비밀번호는 대문자, 소문자, 숫자, 특수문자가 포함되어야 합니다. </h5>
             <input
               type="password"
               name="password"
