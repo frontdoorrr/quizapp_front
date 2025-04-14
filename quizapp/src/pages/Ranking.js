@@ -159,7 +159,7 @@ function Ranking() {
         setActiveTab('total');
       }
     } else {
-      setError(err.message || '랭킹을 불러오는데 실패했습니다.');
+      setError(err.message || '다음 게임 오픈까지 기다려주세요.');
     }
   };
 

@@ -48,7 +48,7 @@
   width: calc(100% - 20px);
   height: auto;
   margin-bottom: 2rem;
-  padding: 0 10px;
+  padding: 0 0;
 }
 
 @media (max-width: 768px) {
