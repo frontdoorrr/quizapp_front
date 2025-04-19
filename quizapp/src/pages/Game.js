@@ -180,6 +180,8 @@ function Game() {
   const [isNoActiveGame, setIsNoActiveGame] = useState(false);
   const [remainingChances, setRemainingChances] = useState(0);
   const [timeLeft, setTimeLeft] = useState(null);
+  const [isGameEnded, setIsGameEnded] = useState(false);
+  const [isGracePeriod, setIsGracePeriod] = useState(false);
 
   useEffect(() => {
     const fetchGameAndAnswer = async () => {
@@ -230,8 +232,17 @@ function Game() {
         const now = new Date().getTime();
         const closedTime = new Date(game.closed_at).getTime();
         const difference = closedTime - now;
+        
+        // 게임이 종료되었는지 확인
+        const gameEnded = difference <= 0;
+        setIsGameEnded(gameEnded);
+        
+        // 게임 종료 후 5분(300,000ms) 이내인지 확인
+        const gracePeriodEnd = closedTime + (5 * 60 * 1000);
+        const isInGracePeriod = now > closedTime && now < gracePeriodEnd;
+        setIsGracePeriod(isInGracePeriod);
 
-        if (difference <= 0) {
+        if (gameEnded) {
           setTimeLeft(null);
           return;
         }
@@ -252,7 +263,7 @@ function Game() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!answer.trim() || !game || (previousAnswer && previousAnswer.is_correct)) return;
+    if (!answer.trim() || !game || (previousAnswer && previousAnswer.is_correct) || isGameEnded) return;
 
     setIsSubmitting(true);
     setFeedback({ message: '', isCorrect: null });
@@ -290,7 +301,7 @@ function Game() {
     }
   };
 
-  const isAnswerDisabled = isSubmitting || (previousAnswer && previousAnswer.is_correct) || isNoActiveGame;
+  const isAnswerDisabled = isSubmitting || (previousAnswer && previousAnswer.is_correct) || isNoActiveGame || isGameEnded;
 
   return (
     <div className="game-container">
@@ -304,6 +315,11 @@ function Game() {
             <Timer>
               {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
             </Timer>
+          )}
+          {isGracePeriod && (
+            <FeedbackMessage isCorrect={false}>
+              정답 제출 시간이 지났습니다. 다음 게임을 기다려주세요.
+            </FeedbackMessage>
           )}
           <VideoPlayer videoUrl={game.question_link} />
           <AnswerSection>
