@@ -159,11 +159,12 @@ const NextButton = styled.button`
 `;
 
 const Timer = styled.div`
-  font-family: 'MaruBuri', serif;
-  font-size: 1.2rem;
+  font-family: 'CGF Locust Resistance', serif;
+  font-size: 1.8rem;
+  font-weight: bold;
   margin-bottom: 15px;
   text-align: center;
-  color: #ffffff;
+  color: #ff0000;
 `;
 
 function Game() {
@@ -301,8 +302,7 @@ function Game() {
         <>
           {game && timeLeft && (
             <Timer>
-              남은 시간: {timeLeft.hours > 0 ? `${timeLeft.hours}시간 ` : ''}
-              {timeLeft.minutes}분 {timeLeft.seconds}초
+              {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
             </Timer>
           )}
           <VideoPlayer videoUrl={game.question_link} />
