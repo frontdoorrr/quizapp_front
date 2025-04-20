@@ -86,11 +86,11 @@ jobs:
           echo "REACT_APP_API_BASE_URL=${{ vars.PROD_API_URL_TEST }}" > ./quizapp/.env
           echo "REACT_APP_ENV=production" >> ./quizapp/.env
           echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
-          echo "REACT_APP_COMPANY_EMAIL=${{ vars.COMPANY_EMAIL }}" >> ./quizapp/.env
-          echo "REACT_APP_COMPANY_NAME=${{ vars.COMPANY_NAME }}" >> ./quizapp/.env
-          echo "REACT_APP_INSTAGRAM_HANDLE=${{ vars.INSTAGRAM_HANDLE }}" >> ./quizapp/.env
-          echo "REACT_APP_KAKAOTALK_PLUSFRIEND_ID=${{ vars.KAKAOTALK_PLUSFRIEND_ID }}" >> ./quizapp/.env
-          echo "REACT_APP_YOUTUBE_HANDLE=${{ vars.YOUTUBE_HANDLE }}" >> ./quizapp/.env
+          echo "REACT_APP_COMPANY_EMAIL=${{ vars.REACT_APP_COMPANY_EMAIL }}" >> ./quizapp/.env
+          echo "REACT_APP_COMPANY_NAME=${{ vars.REACT_APP_COMPANY_NAME }}" >> ./quizapp/.env
+          echo "REACT_APP_INSTAGRAM_HANDLE=${{ vars.REACT_APP_INSTAGRAM_HANDLE }}" >> ./quizapp/.env
+          echo "REACT_APP_KAKAOTALK_PLUSFRIEND_ID=${{ vars.REACT_APP_KAKAOTALK_PLUSFRIEND_ID }}" >> ./quizapp/.env
+          echo "REACT_APP_YOUTUBE_HANDLE=${{ vars.REACT_APP_YOUTUBE_HANDLE }}" >> ./quizapp/.env
           # 필요한 다른 프로덕션 환경 변수 추가
           
           cat ./quizapp/.env
@@ -103,11 +103,11 @@ jobs:
           echo "REACT_APP_API_BASE_URL=${{ secrets.STAGING_API_URL }}" > ./quizapp/.env
           echo "REACT_APP_ENV=staging" >> ./quizapp/.env
           echo "REACT_APP_VERSION=${{ github.sha }}" >> ./quizapp/.env
-          echo "REACT_APP_COMPANY_EMAIL=${{ vars.COMPANY_EMAIL }}" >> ./quizapp/.env
-          echo "REACT_APP_COMPANY_NAME=${{ vars.COMPANY_NAME }}" >> ./quizapp/.env
-          echo "REACT_APP_INSTAGRAM_HANDLE=${{ vars.INSTAGRAM_HANDLE }}" >> ./quizapp/.env
-          echo "REACT_APP_KAKAOTALK_PLUSFRIEND_ID=${{ vars.KAKAOTALK_PLUSFRIEND_ID }}" >> ./quizapp/.env
-          echo "REACT_APP_YOUTUBE_HANDLE=${{ vars.YOUTUBE_HANDLE }}" >> ./quizapp/.env
+          echo "REACT_APP_COMPANY_EMAIL=${{ vars.REACT_APP_COMPANY_EMAIL }}" >> ./quizapp/.env
+          echo "REACT_APP_COMPANY_NAME=${{ vars.REACT_APP_COMPANY_NAME }}" >> ./quizapp/.env
+          echo "REACT_APP_INSTAGRAM_HANDLE=${{ vars.REACT_APP_INSTAGRAM_HANDLE }}" >> ./quizapp/.env
+          echo "REACT_APP_KAKAOTALK_PLUSFRIEND_ID=${{ vars.REACT_APP_KAKAOTALK_PLUSFRIEND_ID }}" >> ./quizapp/.env
+          echo "REACT_APP_YOUTUBE_HANDLE=${{ vars.REACT_APP_YOUTUBE_HANDLE }}" >> ./quizapp/.env
           # 필요한 다른 스테이징 환경 변수 추가
           echo "${{ secrets.STAGING_ENV_FILE }}" >> ./quizapp/.env
  
