@@ -6,13 +6,13 @@ name: Deploy Application
 on:
   push:
     branches:
-      - dev-github-actions
-      # - main
-      # - develop
+      # - dev-github-actions
+      - main
+      - develop
   # pull_request:
   #   branches:
-  #     - develop
-  #     - main
+      - develop
+      - main
 
 # 워크플로우 전체에 적용될 권한 설정
 permissions:
