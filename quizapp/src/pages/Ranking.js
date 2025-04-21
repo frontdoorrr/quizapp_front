@@ -70,7 +70,9 @@ function Ranking() {
       setLoading(true);
       const params = {
         order_by: 'point',
-        order: 'desc'
+        order: 'desc',
+        limit: 5,
+        offset: 0
       };
 
       const response = await rankingService.getTotalRankings(params);
