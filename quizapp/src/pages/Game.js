@@ -182,6 +182,7 @@ function Game() {
   const [timeLeft, setTimeLeft] = useState(null);
   const [isGameEnded, setIsGameEnded] = useState(false);
   const [isGracePeriod, setIsGracePeriod] = useState(false);
+  const [isAfterGracePeriod, setIsAfterGracePeriod] = useState(false);
 
   useEffect(() => {
     const fetchGameAndAnswer = async () => {
@@ -241,6 +242,10 @@ function Game() {
         const gracePeriodEnd = closedTime + (5 * 60 * 1000);
         const isInGracePeriod = now > closedTime && now < gracePeriodEnd;
         setIsGracePeriod(isInGracePeriod);
+        
+        // 게임 종료 후 5분 이후인지 확인
+        const isAfterGrace = now >= gracePeriodEnd;
+        setIsAfterGracePeriod(isAfterGrace);
 
         if (gameEnded) {
           setTimeLeft(null);
@@ -321,34 +326,42 @@ function Game() {
               정답 제출 시간이 지났습니다. 다음 게임을 기다려주세요.
             </FeedbackMessage>
           )}
-          <VideoPlayer videoUrl={game.question_link} />
-          <AnswerSection>
-            {!previousAnswer?.is_correct && (
-              <div className="remaining-chances">
-                남은 기회: {remainingChances}회
-              </div>
-            )}
-            <AnswerForm onSubmit={handleSubmit}>
-              <AnswerInput
-                type="text"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-                placeholder="Enter your answer"
-                disabled={isAnswerDisabled}
-              />
-              <SubmitButton
-                type="submit"
-                disabled={isAnswerDisabled || !answer.trim()}
-              >
-                {isSubmitting ? '제출 중...' : 'Submit'}
-              </SubmitButton>
-            </AnswerForm>
-            {feedback.message && (
-              <FeedbackMessage isCorrect={feedback.isCorrect}>
-                {feedback.message}
-              </FeedbackMessage>
-            )}
-          </AnswerSection>
+          {isAfterGracePeriod ? (
+            <div className="no-game-message" style={{ marginTop: '30px', marginBottom: '30px' }}>
+              다음 게임을 기다려주세요.
+            </div>
+          ) : (
+            <>
+              <VideoPlayer videoUrl={game.question_link} />
+              <AnswerSection>
+                {!previousAnswer?.is_correct && (
+                  <div className="remaining-chances">
+                    남은 기회: {remainingChances}회
+                  </div>
+                )}
+                <AnswerForm onSubmit={handleSubmit}>
+                  <AnswerInput
+                    type="text"
+                    value={answer}
+                    onChange={(e) => setAnswer(e.target.value)}
+                    placeholder="Enter your answer"
+                    disabled={isAnswerDisabled}
+                  />
+                  <SubmitButton
+                    type="submit"
+                    disabled={isAnswerDisabled || !answer.trim()}
+                  >
+                    {isSubmitting ? '제출 중...' : 'Submit'}
+                  </SubmitButton>
+                </AnswerForm>
+                {feedback.message && (
+                  <FeedbackMessage isCorrect={feedback.isCorrect}>
+                    {feedback.message}
+                  </FeedbackMessage>
+                )}
+              </AnswerSection>
+            </>
+          )}
         </>
       ) : null}
       {showCorrectScreen && (
