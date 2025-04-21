@@ -52,7 +52,9 @@ function Ranking() {
         return gameData.id;
       } else {
         console.error('No game ID found in the response');
-        setError('현재 진행중인 게임을 찾을 수 없습니다.');
+        const customError = new Error('현재 진행중인 게임을 찾을 수 없습니다.');
+        customError.code = 'NO_CURRENT_GAME';  // 커스텀 코드 추가
+        handleFetchError(customError);
         return null;
       }
     } catch (err) {
@@ -68,7 +70,9 @@ function Ranking() {
       setLoading(true);
       const params = {
         order_by: 'point',
-        order: 'desc'
+        order: 'desc',
+        limit: 5,
+        offset: 0
       };
 
       const response = await rankingService.getTotalRankings(params);
@@ -149,17 +153,15 @@ function Ranking() {
       // 토큰이 만료되었거나 유효하지 않은 경우
       localStorage.removeItem('token');
       navigate('/login', { state: { from: '/ranking' } });
+    } else if (err.code === 'NO_CURRENT_GAME') {
+      // 현재 진행 중인 게임이 없는 경우 특별 처리
+      setError(err.message);
+      // 게임 탭을 선택한 상태에서 게임이 없는 경우 전체 랭킹으로 전환
+      if (activeTab === 'game') {
+        setActiveTab('total');
+      }
     } else {
-      setError(err.message || '랭킹을 불러오는데 실패했습니다.');
-    }
-  };
-
-  const getCrownColor = (rank) => {
-    switch(rank) {
-      case 1: return '👑'; // 금관
-      case 2: return '👑'; // 은관
-      case 3: return '👑';  // 동관
-      default: return null;
+      setError(err.message || '다음 게임 오픈까지 기다려주세요.');
     }
   };
 
@@ -175,7 +177,6 @@ function Ranking() {
 
     return rankings.map((user, index) => {
       const rank = index + 1;
-      const crown = getCrownColor(rank);
       
       // 게임 랭킹과 전체 랭킹에 따라 표시할 점수 필드 결정
       // 게임 랭킹은 score 또는 point 필드 사용 (API 응답에 따라 다를 수 있음)
@@ -203,7 +204,6 @@ function Ranking() {
         <div key={user.id || index} className={`ranking-item ${rank <= 3 ? `top-${rank}` : ''}`}>
           <div className="rank">
             {rank}
-            {crown && <span className={`crown rank-${rank}`}>{crown}</span>}
           </div>
           <div className="username">{displayName}</div>
           <div className="score">{scoreValue}</div>

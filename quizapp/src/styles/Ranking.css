@@ -104,7 +104,7 @@
 
 .ranking-item {
   display: grid;
-  grid-template-columns: 100px 1fr 100px;
+  grid-template-columns: 100px 1fr 120px;
   align-items: center;
   padding: 1rem 2rem;
   margin-bottom: 1rem;
@@ -133,10 +133,8 @@
 }
 
 .rank {
-  font-size: 1.5rem;
   font-weight: bold;
-  min-width: 40px;
-  text-align: left;
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   position: relative;
@@ -185,9 +183,8 @@
 }
 
 .score {
-  font-size: 1.2rem;
   font-weight: bold;
-  color: #ffd700;
+  color: #d8c27c;
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
@@ -234,17 +231,6 @@
   color: #868e96;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 768px) {
   .page-container {
     padding: 1rem;
@@ -265,10 +251,10 @@
     padding: 1rem;
   }
 
+  .ranking-header,
   .ranking-item {
-    padding: 1rem;
-    grid-template-columns: 80px 1fr 80px;
-    gap: 0.5rem;
+    grid-template-columns: 80px 1fr 100px;
+    padding: 0.8rem;
   }
 
   .rank {
@@ -282,10 +268,6 @@
   }
 
   .score {
-    font-size: 1rem;
-  }
-
-  .crown {
     font-size: 1rem;
   }
 }
