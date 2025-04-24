@@ -14,11 +14,11 @@ function ScrollText({ children }) {
       <div ref={ref} className={`scroll-text ${inView ? "visible" : "hidden"}`}>
         <img src={noneMainLogo} alt="GENIUS GAME" className="main-logo" />
         <p className="signup-text" style={{textAlign: 'center', wordBreak: 'keep-all', marginTop: '15px'}}>
-          첫 <span style={{color: '#d8c27c'}}>게임</span>의 도전자가 되어보세요.
+          제 <span style={{color: '#d8c27c'}}>0게임</span> 결과가 업데이트되었습니다.
         </p>
-        <p className="signup-text" style={{textAlign: 'center', wordBreak: 'keep-all'}}>
-          정해진 규칙에 따라 <span style={{color: '#d8c27c'}}>회원가입</span>이 종료됩니다.
-        </p>
+        {/* <p className="signup-text" style={{textAlign: 'center', wordBreak: 'keep-all'}}>
+          참여해주셔서 <span style={{color: '#d8c27c'}}>감사</span>합니다.
+        </p> */}
       </div>
       {children}
     </div>
