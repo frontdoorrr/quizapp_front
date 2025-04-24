@@ -167,6 +167,19 @@ const Timer = styled.div`
   color: #ff0000;
 `;
 
+const GameDescription = styled.div`
+  font-family: 'MaruBuri', serif;
+  font-size: 1rem;
+  margin-top: 15px;
+  text-align: center;
+  color: #ffffff;
+  word-break: keep-all;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 10px;
+  line-height: 1.5;
+`;
+
 function Game() {
   const navigate = useNavigate();
   const [game, setGame] = useState(null);
@@ -321,7 +334,7 @@ function Game() {
               {String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}
             </Timer>
           )}
-          {isGracePeriod && (
+          {isGracePeriod && !previousAnswer?.is_correct && (
             <FeedbackMessage isCorrect={false}>
               정답 제출 시간이 지났습니다. 다음 게임을 기다려주세요.
             </FeedbackMessage>
@@ -358,6 +371,11 @@ function Game() {
                   <FeedbackMessage isCorrect={feedback.isCorrect}>
                     {feedback.message}
                   </FeedbackMessage>
+                )}
+                {game.description && !isGameEnded && (
+                  <GameDescription>
+                    {game.description}
+                  </GameDescription>
                 )}
               </AnswerSection>
             </>
