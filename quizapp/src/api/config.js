@@ -47,8 +47,8 @@ export const API_ENDPOINTS = {
 
 
   // Ranking
-  GET_RANKINGS: '/user',
-  GET_TOTAL_RANKINGS: '/user',
+  GET_RANKINGS: '/user/ranked',
+  GET_TOTAL_RANKINGS: '/user/ranked',
   GET_GAME_RANKING: '/answer',
 
   // Contact
