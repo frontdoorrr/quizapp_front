@@ -14,7 +14,7 @@ function ScrollText({ children }) {
       <div ref={ref} className={`scroll-text ${inView ? "visible" : "hidden"}`}>
         <img src={noneMainLogo} alt="GENIUS GAME" className="main-logo" />
         <p className="signup-text" style={{textAlign: 'center', wordBreak: 'keep-all', marginTop: '15px'}}>
-          제 <span style={{color: '#d8c27c'}}>3게임</span> 이 종료되었습니다. 점수를 확인하세요.
+          제 <span style={{color: '#d8c27c'}}>4게임</span> 이 곧 시작됩니다.
         </p>
         {/* <p className="signup-text" style={{textAlign: 'center', wordBreak: 'keep-all'}}>
           참여해주셔서 <span style={{color: '#d8c27c'}}>감사</span>합니다.
