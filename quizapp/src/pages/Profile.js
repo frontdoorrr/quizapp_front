@@ -423,12 +423,12 @@ function Profile() {
           </div>
           <div className="profile-field">
             <label>총 점수:</label>
-            <span>{profile.total_score || 0}</span>
+            <span>{profile.point || 0}</span>
           </div>
-          <div className="profile-field">
+          {/* <div className="profile-field">
             <label>코인:</label>
             <span>{coinCount}</span>
-          </div>
+          </div> */}
           <div className="profile-field">
             <label>랭킹:</label>
             <span>{profile.rank || '-'}</span>
