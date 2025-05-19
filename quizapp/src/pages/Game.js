@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import VideoPlayer from '../components/game/VideoPlayer';
+import ActiveUsersList from '../components/common/ActiveUsersCounter';
 import '../styles/Game.css';
 import { getCurrentGame, submitAnswer, getAnswerByGame, getRemainingChances } from '../api/services/gameService';
 
@@ -389,6 +390,9 @@ function Game() {
           <Points> 포인트는 게임이 모두 종료된 후 지급됩니다. </Points>
         </CorrectAnswerOverlay>
       )}
+      
+      {/* 실시간 접속자 목록 표시 */}
+      <ActiveUsersList />
     </div>
   );
 }
