@@ -21,25 +21,27 @@
 .users-list {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 10px 0 0 0;
   width: 100%;
   word-break: keep-all;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .user-item {
   font-family: 'MaruBuri', serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #fff;
-  padding: 8px 5px;
-  border-bottom: 1px solid rgba(216, 194, 124, 0.3);
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-}
-
-.user-item:last-child {
-  border-bottom: none;
+  background-color: rgba(28, 22, 22, 0.9);
+  border-radius: 10px;
+  border: 1px solid rgba(216, 194, 124, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .user-name {
@@ -60,12 +62,4 @@
   margin: 10px 0;
 }
 
-.users-box {
-  background-color: rgba(28, 22, 22, 0.8);
-  border-radius: 8px;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #d8c27c;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  width: 100%;
-}
+/* users-box 스타일 제거됨 */

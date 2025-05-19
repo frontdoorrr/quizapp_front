@@ -393,7 +393,7 @@ function Game() {
       
       {/* 실시간 접속자 목록 표시 */}
       <div className="centered-container">
-        <ActiveUsersList />
+        <ActiveUsersList key={`active-users-${Date.now()}`} />
       </div>
     </div>
   );
