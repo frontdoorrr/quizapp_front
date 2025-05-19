@@ -1,0 +1,71 @@
+/* ActiveUsersCounter 스타일 */
+.active-users-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: rgba(28, 22, 22, 0.7);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.active-users-title {
+  font-family: 'MaruBuri', serif;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.users-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  word-break: keep-all;
+}
+
+.user-item {
+  font-family: 'MaruBuri', serif;
+  font-size: 0.9rem;
+  color: #fff;
+  padding: 8px 5px;
+  border-bottom: 1px solid rgba(216, 194, 124, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.user-item:last-child {
+  border-bottom: none;
+}
+
+.user-name {
+  color: #d8c27c;
+  font-weight: bold;
+}
+
+.last-activity {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-message {
+  font-family: 'MaruBuri', serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin: 10px 0;
+}
+
+.users-box {
+  background-color: rgba(28, 22, 22, 0.8);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #d8c27c;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
