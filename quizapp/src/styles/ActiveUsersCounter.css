@@ -1,14 +1,50 @@
 /* ActiveUsersCounter 스타일 */
-.active-users-wrapper {
+.stats-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  background-color: transparent;
+}
+
+.stats-box {
+  background-color: rgba(28, 22, 22, 0.8);
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid #d8c27c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  min-width: 300px;
+  max-width: 450px;
+  max-height: 300px; /* 세 명의 사용자 항목 + 제목 + 여백을 고려한 높이 */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px 0;
-  padding: 15px;
-  background-color: rgba(28, 22, 22, 0.7);
-  border-radius: 8px;
+}
+
+.stats-title {
+  font-family: 'MaruBuri', serif;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(216, 194, 124, 0.5);
+  padding-bottom: 10px;
   width: 100%;
-  max-width: 500px;
+}
+
+
+
+/* 현재 접속자 목록 스타일 */
+.active-users-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .active-users-title {
@@ -26,32 +62,51 @@
   word-break: keep-all;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  max-height: 200px; /* 세 명의 사용자 항목을 고려한 높이 */
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-right: 5px; /* 스크롤바 공간 확보 */
 }
 
 .user-item {
-  font-family: 'MaruBuri', serif;
-  font-size: 1rem;
-  color: #fff;
-  padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  background-color: rgba(28, 22, 22, 0.9);
-  border-radius: 10px;
-  border: 1px solid rgba(216, 194, 124, 0.5);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: auto;
+  box-sizing: border-box;
+  word-break: keep-all;
+}
+
+.user-item:hover {
+  transform: translateX(5px);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .user-name {
-  color: #d8c27c;
+  color: #d8c27c; /* 강조색상으로 변경 */
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  word-break: keep-all;
 }
 
 .last-activity {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  max-width: 40%;
 }
 
 .empty-message {
@@ -62,4 +117,92 @@
   margin: 10px 0;
 }
 
-/* users-box 스타일 제거됨 */
+/* 게임 랭킹 스타일 */
+.active-users-ranking-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  width: 100%;
+  word-break: keep-all;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px; /* 세 명의 사용자 항목을 고려한 높이 */
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-right: 5px; /* 스크롤바 공간 확보 */
+}
+
+.active-users-ranking-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: auto;
+  box-sizing: border-box;
+  word-break: keep-all;
+}
+
+.active-users-ranking-item:hover {
+  transform: translateX(5px);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Top 3 스타일 */
+.active-users-ranking-item:nth-child(1) {
+  background-color: rgba(255, 215, 0, 0.2); /* 금색 */
+}
+
+.active-users-ranking-item:nth-child(2) {
+  background-color: rgba(192, 192, 192, 0.2); /* 은색 */
+}
+
+.active-users-ranking-item:nth-child(3) {
+  background-color: rgba(205, 127, 50, 0.2); /* 동색 */
+}
+
+.active-users-ranking-item .rank {
+  font-weight: bold;
+  color: #d8c27c;
+  min-width: 25px;
+  text-align: left;
+  margin-right: 10px;
+}
+
+
+
+.player-name {
+  color: #d8c27c; /* 강조색상으로 변경 */
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 10px;
+  word-break: keep-all;
+}
+
+.player-points {
+  font-size: 0.9rem;
+  color: #fff;
+  background-color: rgba(216, 194, 124, 0.3);
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stats-box {
+    width: 90%;
+    max-width: none;
+  }
+}
