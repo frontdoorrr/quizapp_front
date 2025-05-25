@@ -132,9 +132,11 @@ const ActiveUsersList = ({ apiUrl = process.env.REACT_APP_API_BASE_URL }) => {
             {rankings.map((item, index) => (
               <li className="active-users-ranking-item" key={index}>
                 <span className="rank">{index + 1}</span>
-                <span className="player-name">
-                  {item.user?.nickname || item.nickname || item.name || `사용자 ${item.user_id || item.id}`}
-                </span>
+                <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                  <span className="player-name">
+                    {item.user?.nickname || item.nickname || item.name || `사용자 ${item.user_id || item.id}`}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
