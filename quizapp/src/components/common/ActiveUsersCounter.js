@@ -104,14 +104,14 @@ const ActiveUsersList = ({ apiUrl = process.env.REACT_APP_API_BASE_URL }) => {
     <div className="stats-container">
       {/* 현재 접속자 목록 */}
       <div className="stats-box">
-        <h3 className="stats-title">현재 접속자: {activeUsers.length}명</h3>
+        <h3 className="stats-title">온라인 플레이어 [{activeUsers.length}명]</h3>
         <div className="active-users-wrapper">
           {loading ? (
             <p className="empty-message">로딩 중...</p>
           ) : activeUsers.length > 0 ? (
             <ul className="users-list">
               {activeUsers.map((user) => (
-                <li className="user-item" key={user.id}>
+                <li className="active-users-item" key={user.id}>
                   <span className="user-name">{user.nickname || user.name || `사용자 ${user.id}`}</span>
                 </li>
               ))}
